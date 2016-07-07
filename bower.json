@@ -1,0 +1,24 @@
+{
+  "name": "QuarkSite",
+  "authors": [
+    "fran150 <panchi150@gmail.com>"
+  ],
+  "description": "Quark's main site",
+  "main": "index.html",
+  "keywords": [
+    "quark"
+  ],
+  "license": "MIT",
+  "homepage": "www.quark.com.ar",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "quark": "*"
+  }
+}
