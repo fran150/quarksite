@@ -1,0 +1,53 @@
+{
+	"type": "Collection",
+	"properties": {
+		"bowerId": {
+			"name": "bowerId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "bowerId",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 1
+		},
+		"author": {
+			"name": "author",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "author",
+			"order": 2
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 3
+		},
+		"version": {
+			"name": "version",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "version",
+			"order": 4
+		},
+		"tags": {
+			"name": "tags",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "tags",
+			"order": 5
+		}
+	}
+}

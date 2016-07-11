@@ -4,14 +4,24 @@ define(['quark', 'knockout'], function($$, ko) {
             config: {
                 path: '/'
             },
+            defaults: {
+                navbar: '!pages-navbar',
+            },
             routes: {
                 'main': {
                     hash: '',
                     controller: 'controllers/main',
                     components: {
-                        main: 'test',
-                        main2: 'test',
-                        main3: 'errores'
+                        layout: 'layout-single',
+                        main: 'test'
+                    }
+                },
+                'components/library': {
+                    hash: 'components/library',
+                    controller: 'controllers/library/finder',
+                    components: {
+                        layout: 'layout-single',
+                        main: 'pages-library-finder'
                     }
                 }
             }

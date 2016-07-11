@@ -1,0 +1,27 @@
+<quark-component>
+    <!-- ko foreach: model.results -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>
+                    <a href="#" data-bind="text: name"></a>
+                    <small data-bind="name: author"></small>
+                </h2>
+                <p data-bind="text: description"></p>
+                <p>
+                    <small>
+                        <em>
+                            Latest Version
+                            <span data-bind="text: version"></span>
+                        </em>
+                    </small>
+                </p>
+                <p>
+                    <span class="label label-default">Quark</span>
+                    <span class="label label-default">Components</span>
+                    <span class="label label-default">Quark</span>
+                </p>
+            </div>
+        </div>
+        <hr />
+    <!-- /ko -->
+</quark-component>
