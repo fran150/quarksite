@@ -3,7 +3,12 @@ define(['quark', 'knockout', 'text!./results.html'], function($$, ko, template) 
         var self = this;
 
         $$.parameters({
+            routeName: ko.observable(),
             results: ko.observableArray()
-        }, params, this);        
+        }, params, this);
+
+        $scope.getLink = function(item) {
+            return "#" + $$.routing.hash('main/components/library/module', { bowerId: item.bowerId });
+        }
     }, template);
 });

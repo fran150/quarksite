@@ -2,10 +2,10 @@ define(['quark', 'knockout', 'data/modules'], function($$, ko, DataModules) {
     return function(route, $imports) {
         var self = this;
 
-        var dataModules = new DataModules(ko.observable());
+        this.message = ko.observable();
+        var dataModules = new DataModules(self.message);
 
         this.search = function(search) {
-            debugger;
             dataModules.search(search, function(data) {
                 self.results(data);
             });
@@ -17,6 +17,7 @@ define(['quark', 'knockout', 'data/modules'], function($$, ko, DataModules) {
             switch (name) {
                 case 'main':
                     return {
+                        ajaxMessage: self.message,
                         onSearch: self.search,
                         results: self.results
                     }

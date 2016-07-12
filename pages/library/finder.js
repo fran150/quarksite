@@ -3,6 +3,7 @@ define(['quark', 'knockout', 'text!./finder.html'], function($$, ko, template) {
         var self = this;
 
         $$.parameters({
+            ajaxMessage: ko.observable(),
             onSearch: function(text) {},
             results: ko.observableArray()
         }, params, this);

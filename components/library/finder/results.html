@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>
-                    <a href="#" data-bind="text: name"></a>
+                    <a href="#" data-bind="text: name,
+                                           attr: { href: $parent.getLink($data) } ">
+                    </a>
                     <small data-bind="name: author"></small>
                 </h2>
                 <p data-bind="text: description"></p>

@@ -23,6 +23,14 @@ define(['quark', 'knockout'], function($$, ko) {
                         layout: 'layout-single',
                         main: 'pages-library-finder'
                     }
+                },
+                'components/library/module': {
+                    hash: 'components/library/module/{bowerId}',
+                    controller: 'controllers/library/module',
+                    components: {
+                        layout: 'layout-single',
+                        main: 'test'
+                    }
                 }
             }
         }

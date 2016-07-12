@@ -7,8 +7,6 @@ define(['quark', 'knockout'], function() {
                         html: 'Quark.js'
                     }
                     break;
-                default:
-
             }
         }
     }
