@@ -28,8 +28,7 @@ define(['quark', 'knockout'], function($$, ko) {
                     hash: 'components/library/module/{bowerId}',
                     controller: 'controllers/library/module',
                     components: {
-                        layout: 'layout-single',
-                        main: 'test'
+                        layout: 'layout-sidebar'
                     }
                 }
             }
