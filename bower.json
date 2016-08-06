@@ -19,7 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "quark": "*",
     "qk-bootstrap": "*",
     "font-awesome": "^4.6.3"
   }
