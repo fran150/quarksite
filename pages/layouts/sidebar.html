@@ -4,6 +4,24 @@
             <left>
                 <al-layout-navbar-button params="text: 'Prueba'" virtual="true">
                 </al-layout-navbar-button>
+                <al-layout-navbar-link params="routeName: 'main/components/library/module',
+                                               routeParams: { bowerId: 'qk-bootstrap' }"
+                                               virtual="true">
+                </al-layout-navbar-link>
+                <al-layout-navbar-dropdown params="" virtual="true">
+                    <al-layout-navbar-dropdown-link params="routeName: 'main/components/library/module',
+                                                            routeParams: { bowerId: 'qk-bootstrap' }"
+                                                   virtual="true">
+                    </al-layout-navbar-dropdown-link>
+                    <al-layout-navbar-dropdown-link virtual="true" params="disabled: true">
+                    </al-layout-navbar-dropdown-link>
+                    <al-layout-navbar-dropdown-divider virtual="true" params="">
+                    </al-layout-navbar-dropdown-divider>
+                    <al-layout-navbar-dropdown-header virtual="true" params="">
+                    </al-layout-navbar-dropdown-header>
+                    <al-layout-navbar-dropdown-link virtual="true" params="">
+                    </al-layout-navbar-dropdown-link>
+                </al-layout-navbar-dropdown>
             </left>
         </al-layout-navbar>
         <al-layout-sidebar>
