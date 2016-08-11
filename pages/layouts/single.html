@@ -1,6 +1,22 @@
 <!-- quark-component -->
-<div class="container">
-    <div data-bind="page: 'main'">
-    </div>
-</div>
+<al-layout>
+    <al-layout-navbar>
+        <!-- left -->
+            <al-layout-navbar-link virtual>
+            </al-layout-navbar-link>
+            <al-layout-navbar-link virtual>
+            </al-layout-navbar-link>
+        <!-- /left -->
+        <!-- right -->
+            <al-layout-navbar-link virtual>
+            </al-layout-navbar-link>
+        <!-- /right -->
+    </al-layout-navbar>
+    <al-layout-sidebar>
+    </al-layout-sidebar>
+    <al-layout-container>
+        <div data-bind="page: 'main'">
+        </div>
+    </al-layout-container>
+</al-layout>
 <!-- /quark-component -->
