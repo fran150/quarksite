@@ -1,14 +1,6 @@
 <quark-component>
     <h1>Search for Quark Modules</h1>
 
-    <!-- ko namespace: 'library-finder', alias: 'lf' -->
-        <lf:editor params="onSearch: model.onSearch">
-        </lf:editor>
-
-        <h3 class="text-center" data-bind="text: model.ajaxMessage">
-        </h3>
-
-        <lf:results params="results: model.results">
-        </lf:results>
-    <!-- /ko -->
+    <library-finder>
+    </library-finder>
 </quark-component>

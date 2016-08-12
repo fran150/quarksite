@@ -8,19 +8,27 @@ define(['quark', 'knockout'], function($$, ko) {
                 navbar: '!pages-navbar',
             },
             routes: {
-                'main': {
+                'home': {
                     hash: '',
-                    controller: 'controllers/main',
+                    controller: 'controllers/home',
                     components: {
-                        layout: 'layout-single',
-                        main: 'test'
+                        layout: '!layout-single',
+                        main: 'pages-home'
+                    }
+                },
+                'docs/home': {
+                    hash: 'docs',
+                    controller: 'controllers/docs/home',
+                    components: {
+                        layout: '!layout-single',
+                        main: 'pages-docs-home'
                     }
                 },
                 'components/library': {
                     hash: 'components/library',
                     controller: 'controllers/library/finder',
                     components: {
-                        layout: 'layout-single',
+                        layout: '!layout-single',
                         main: 'pages-library-finder'
                     }
                 },
@@ -29,7 +37,7 @@ define(['quark', 'knockout'], function($$, ko) {
                     controller: 'controllers/library/module',
                     components: {
                         layout: 'layout-sidebar',
-                        main: 'test'
+                        main: 'pages-library-module'
                     }
                 }
             }

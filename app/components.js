@@ -1,20 +1,17 @@
 define(['quark'], function($$) {
     $$.onNamespace('pages')
-        .register('navbar', 'pages/navbar');
-
-    $$.onNamespace('pages-library')
-        .register('finder', 'pages/library/finder');
-
+        .register('home', 'pages/home')
+        .namespace('library')
+            .register('finder', 'pages/library/finder')
+            .register('module', 'pages/library/module')
+        .endNamespace()
+        .namespace('docs')
+            .register("home", 'pages/docs/home');
 
     $$.onNamespace('layout')
         .register('single', 'pages/layouts/single')
         .register('sidebar', 'pages/layouts/sidebar');
 
-
-    $$.onNamespace('library-finder')
-        .register('editor', 'components/library/finder/editor')
-        .register('results', 'components/library/finder/results');
-
-    $$.registerComponent('test', 'components/test');
-    $$.registerComponent('errores', 'components/errores');
+    $$.onNamespace('library')
+        .register('finder', 'components/library/finder')
 });
