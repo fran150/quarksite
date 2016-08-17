@@ -16,8 +16,8 @@
         </div>
     </div>
 
-    <!-- ko if: model.searchMessage() -->
-        <h3 class="text-center" data-bind="text: model.ajaxMessage">
+    <!-- ko if: model.dataSource.message() -->
+        <h3 class="text-center" data-bind="text: model.dataSource.message">
         </h3>
     <!-- /ko -->
 
