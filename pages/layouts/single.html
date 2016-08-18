@@ -1,23 +1,6 @@
 <!-- quark-component -->
     <al-layout params="containerFluid: false">
-        <al-layout-navbar params="brand: 'Quark.js'">
-            <!-- left -->
-                <al-layout-navbar-link virtual params="text: 'Home',
-                                                       iconFont: 'fa fa-home',
-                                                       routeName: 'main/home'">
-                </al-layout-navbar-link>
-                <al-layout-navbar-link virtual params="text: 'Docs',
-                                                       iconFont: 'fa fa-book',
-                                                       routeName: 'main/docs/home'">
-                </al-layout-navbar-link>
-            <!-- /left -->
-            <!-- right -->
-                <al-layout-navbar-link virtual params="text: 'Components Library',
-                                                       iconFont: 'fa fa-cubes',
-                                                       routeName: 'main/components/library'">
-                </al-layout-navbar-link>
-            <!-- /right -->
-        </al-layout-navbar>
+        <al-layout-navbar params="brand: 'Quark.js'" data-bind="show: navbarHtml"></al-layout-navbar>
         <al-layout-container>
             <div data-bind="page: 'main'">
             </div>
