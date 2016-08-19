@@ -1,6 +1,20 @@
 <quark-component>
     <h1>Alchemy</h1>
-    <hr />
-    Alchemy is a web component´s repository for developing web applications.
 
+    <bt-modal data-bind="import: 'modal'">
+        <modal-heading>
+            Heading
+        </modal-heading>
+        <modal-body>
+            <p>Body</p>
+            <button class="btn btn-default" data-bind="click: $container.hide">Ocultar</button>
+            <input type="checkbox" data-bind="checked: $container.backdrop" />
+            <input type="checkbox" data-bind="checked: $container.keyboard" />
+        </modal-body>
+        <modal-footer>
+            Footer
+        </modal-footer>
+    </bt-modal>
+
+    <button class="btn btn-default" data-bind="click: show">Mostrar</button>
 </quark-component>

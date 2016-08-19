@@ -1,6 +1,6 @@
 define(['quark', 'bootstrap',
     'qk-bootstrap/main',
-    'qk-alchemy/main', 
+    'qk-alchemy/main',
     './components',
     './routes'],
     function($$) {
