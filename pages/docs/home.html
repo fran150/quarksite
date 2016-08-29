@@ -1,3 +1,85 @@
 <!-- quark-component -->
-    <h1>Quark Docs Home</h1>
+<span class="docs">
+    <h1>¿Que es Quark.js?</h1>
+    <hr />
+    <p>
+        Quark.js permite desarrollar componentes web y proporciona la estructura
+        para integrarlos entre si generando aplicaciones web. Está basado en
+        <a href="http://blog.stevensanderson.com/2014/06/11/architecting-large-single-page-applications-with-knockout-js">
+            Architecting Large SPA Applications with Knockout.js
+        </a> de Steve Sanderson (el creador de Knockout.js) e integra varias
+        librerías bien conocidas para proporcionar los servicios que brinda al
+        desarrollador. A saber:
+    </p>
+    <ul>
+        <li>
+            <strong>Knockout.js:</strong>
+            Bindings bidireccionales (modelo MVVM) y soporte para componentes web.
+        </li>
+        <li>
+            <strong>JQuery:</strong>
+            Manipulación del DOM, eventos, AJAX y todas las funcionalidades que
+            caracterizan a esta herramienta
+        </li>
+        <li>
+            <strong>Require.js</strong>
+            Modularización del javascript y carga asincronica
+        </li>
+        <li>
+            <strong>Crossroad.js</strong>
+            Ruteo, en base a los valores de la ruta decide que componentes debe cargar
+            y mostrar en la pagina.
+        </li>
+        <li>
+            <strong>Hasher.js</strong>
+            Controla el historico del browser permitiendo que el usuario navegue por el
+            sitio correctamente usando los botones atras y adelante del navegador, incluso
+            siendo un SPA.
+        </li>
+    </ul>
+
+    <h3>¿Porque Quark.js y no otro Framework?</h2>
+    <hr />
+    <p>
+        Cuando comenzamos el desarrollo de <strong>BIP Sucursales</strong> (e incluso antes de esto) ya estaba
+        interesado en comenzar a desarrollar aplicaciones con el Frontend hecho
+        en Javascript y el backend expuesto a través de servicios REST. Esto me llevó a investigar
+        los principales Frameworks de desarrollo con Javascript que había en el momento.
+    </p>
+    <p>
+        <a href="https://angularjs.org/">Angular.js</a> o <a href="http://emberjs.com/">Ember.js</a> eran
+        (y sigue siendo) unos de los principales, y ofrecen una impresionante cantidad de
+        librerías y funcionalidad, pero como todo framework tan abarcativo en pos de esto sacrifican
+        flexibilidad. O sea, no es posible apartarse de los lineamientos que el framework impone.
+    </p>
+    <p>
+        Otro que me llamó particularmente la atención fue <a href="https://www.polymer-project.org">Polymer</a>,
+        desarrollado por el propio Google, ofrece la capacidad de crear componentes web encapsulados basándose
+        en caracteristicas que ellos mismos quieren impulsar para que sean soportadas por los navegadores. En los
+        navegadores que no soportaban dichas caracteristicas, polymer utiliza
+        <a href="https://en.wikipedia.org/wiki/Polyfill"> PolyFills</a>.
+        Si bien era muy interesante, al momento de comenzar con el desarrollo ni siquiera existía la versión 1.0
+        y no detallaban como se debe estructurar una aplicación grande y compleja.
+    </p>
+    <p>
+        Finalmente me topé con
+        <a href="http://blog.stevensanderson.com/2014/06/11/architecting-large-single-page-applications-with-knockout-js">
+            Architecting Large SPA Applications with Knockout.js
+        </a>
+        de Steve Sanderson (el creador de <a href="http://knockoutjs.com/">Knockout.js</a>) donde describía con
+        lujo de detalles la arquitectura de una aplicación SPA, y combinaba todas las librerías mencionadas arriba
+        para proporcionar mucha de las funcionalidades básicas que ofrecen los grandes frameworks de programación.
+    </p>
+    <p>
+        Siendo un conjunto de librerías independientes nos permitía dejar en manos de cada una su area de expertise
+        y concentrarnos en como integrarlas permitiendo modificar esto a gusto. Esto, sumado a que nuestro equipo
+        venia ya varios años trabajando con Knockout en el Frontend, me terminó por decidir
+        a crear un Framework propio basado en esa arquitectura, permitiendonos modificarlo en
+        base a nuestras necesidades y no quedando atados a ninguna estructura salvo la propia.
+    </p>
+
+    <h3>¿Que ofrece Quark.js?</h3>
+    <hr />
+    Componentes Web: Permite crear componentes web reutilizables
+</span>
 <!-- /quark-component -->
