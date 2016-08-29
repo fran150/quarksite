@@ -10,6 +10,7 @@ define(['quark'], function($$) {
 
     $$.onNamespace('layout')
         .register('single', 'pages/layouts/single')
+        .register('docs', 'pages/layouts/docs')
         .register('sidebar', 'pages/layouts/sidebar');
 
     $$.onNamespace('library')

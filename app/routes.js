@@ -20,7 +20,7 @@ define(['quark', 'knockout'], function($$, ko) {
                     hash: 'docs',
                     controller: 'controllers/docs/home',
                     components: {
-                        layout: '!layout-single',
+                        layout: '!layout-docs',
                         main: 'pages-docs-home'
                     }
                 },

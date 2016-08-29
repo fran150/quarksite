@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular-webfont.woff') format('woff');
+    font-weight: lighter;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Open Sans';
+}
+
+.title {
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 80px;
+}
+
+.title small {
+    line-height: 60px;
+    font-size: 25px;
+}
+
+.features {
+    margin-top: 50px;
+    font-size: 18px;
+}
+
+.features .lead {
+    font-size: 25px;
+}
+
+.features .fa {
+    font-size: 60px;
+}
