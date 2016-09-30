@@ -1,17 +1,24 @@
 define(['quark', 'knockout'], function($$, ko) {
     var pages = {
-        'main/single':                     { layout: 'layout-single', navbar: 'al-layout-navbar' },
-        'main/single/home':                { main: 'pages-home' },
-        'main/single/finder':              { main: 'pages-library-finder' },
-        'main/docs':                       { layout: 'layout-docs'},
-        'main/docs/home':                  { main: 'pages-docs-home' },
-        'main/sidebar':                    { layout: 'layout-sidebar' },
-        'main/sidebar/module':             { main: 'pages-library-module' }
+        'main':                            {
+                                             'layout': 'layout-main',
+                                             'navbar-left': 'navbar-main-left',
+                                             'navbar-right': 'navbar-main-right',
+                                             'container': 'container-simple'
+                                           },
+        'main/home':                       { 'main': 'pages-home' },
+        'main/library/finder':             { 'main': 'pages-library-finder'},
+
+        'main/docs':                       {
+                                             'sidebar': 'sidebar-docs',
+                                             'container': 'container-sidebar'
+                                           },
+        'main/docs/home':                  { 'main': 'pages-docs-home' }
     }
 
     var routes = {
-        'main/single/home':                '',
-        'main/single/finder':              'components/library',
+        'main/home':                       '',
+        'main/library/finder':             'component/finder',
         'main/docs/home':                  'docs',
         'main/sidebar/module':             'components/library/{id}'
     }
