@@ -15,4 +15,6 @@ define(['quark'], function($$) {
 
     $$.onNamespace('library')
         .register('finder', 'components/library/finder')
+        .register('test', 'components/library/test')
+        .register('test2', 'components/library/test2')
 });

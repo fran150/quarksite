@@ -1,5 +1,7 @@
 define(['quark', 'knockout', 'text!./finder.html'], function($$, ko, template) {
-    return $$.component(function(params, $scope, $imports) {
+    function LibraryFinderPage(params, $scope, $imports) {
         var self = this;
-    }, template);
+    }
+
+    return $$.component(LibraryFinderPage, template);
 });

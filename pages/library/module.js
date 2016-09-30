@@ -1,5 +1,5 @@
 define(['quark', 'knockout', 'text!./module.html'], function($$, ko, template) {
-    return $$.component(function(params, $scope, $imports) {
+    function LibraryModulePage(params, $scope, $imports) {
         var self = this;
 
         $imports.ready = function() {
@@ -9,5 +9,7 @@ define(['quark', 'knockout', 'text!./module.html'], function($$, ko, template) {
         $scope.show = function() {
             $imports.modal.show();
         }
-    }, template);
+    }
+
+    return $$.component(LibraryModulePage, template);
 });

@@ -16,9 +16,14 @@
         </div>
     </div>
 
-    <!-- ko if: model.dataSource.message() -->
-        <h3 class="text-center" data-bind="text: model.dataSource.message">
-        </h3>
+    <library-test>
+    </library-test>
+
+    <!-- ko if: model.dataSource -->
+        <!-- ko if: model.dataSource.message() -->
+            <h3 class="text-center" data-bind="text: model.dataSource.message">
+            </h3>
+        <!-- /ko -->
     <!-- /ko -->
 
     <!-- ko foreach: model.results -->

@@ -1,8 +1,8 @@
 <!-- quark-component -->
     <al-layout params="containerFluid: false">
-        <al-layout-navbar params="brand: 'Quark.js'" data-bind="innerHtml: navbarHtml"></al-layout-navbar>
+        <div data-bind="outlet: 'navbar'"></div>
         <al-layout-container>
-            <div data-bind="page: 'main'">
+            <div data-bind="outlet: 'main'">
             </div>
         </al-layout-container>
     </al-layout>

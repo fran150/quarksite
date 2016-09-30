@@ -1,5 +1,7 @@
 define(['quark', 'knockout', 'text!./home.html'], function($$, ko, template) {
-    return $$.component(function(params, $scope, $imports) {
+    function HomePage(params, $scope, $imports) {
         var self = this;
-    }, template);
+    }
+
+    return $$.component(HomePage, template);
 });

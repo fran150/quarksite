@@ -1,5 +1,5 @@
 define(['quark', 'knockout', 'text!./finder.html'], function($$, ko, template) {
-    return $$.component(function(params, $scope, $imports) {
+    function LibraryFinder(params, $scope, $imports) {
         var self = this;
 
         $$.parameters({
@@ -24,5 +24,7 @@ define(['quark', 'knockout', 'text!./finder.html'], function($$, ko, template) {
             return $$.routing.link(self.routeName(), { bowerId: item.bowerId });
         }
 
-    }, template);
+    }
+
+    return $$.component(LibraryFinder, template);
 });
