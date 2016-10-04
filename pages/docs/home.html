@@ -3,13 +3,13 @@
     <h1>¿Que es Quark.js?</h1>
     <hr />
     <p>
-        Quark.js permite desarrollar componentes web y proporciona la estructura
-        para integrarlos entre si generando aplicaciones web. Está basado en
+        Quark.js proporciona la estructura para desarrollar componentes web
+        e integrarlos entre si con el objetivo de construir aplicaciones web. Está basado en la presentación
         <a href="http://blog.stevensanderson.com/2014/06/11/architecting-large-single-page-applications-with-knockout-js">
             Architecting Large SPA Applications with Knockout.js
         </a> de Steve Sanderson (el creador de Knockout.js) e integra varias
-        librerías bien conocidas para proporcionar los servicios que brinda al
-        desarrollador. A saber:
+        librerías bien conocidas para que resuelven diversos aspectos del desarrollo
+        de aplicaciones. A saber:
     </p>
     <ul>
         <li>
@@ -19,47 +19,53 @@
         <li>
             <strong>JQuery:</strong>
             Manipulación del DOM, eventos, AJAX y todas las funcionalidades que
-            caracterizan a esta herramienta
+            caracterizan a esta herramienta.
         </li>
         <li>
             <strong>Require.js</strong>
-            Modularización del javascript y carga asincronica
+            Modularización del javascript y carga asincronica.
         </li>
         <li>
             <strong>Crossroad.js</strong>
-            Ruteo, en base a los valores de la ruta decide que componentes debe cargar
-            y mostrar en la pagina.
+            Ruteo (en base la ruta decide que componentes debe cargar
+            y mostrar en la pagina).
         </li>
         <li>
             <strong>Hasher.js</strong>
             Controla el historico del browser permitiendo que el usuario navegue por el
             sitio correctamente usando los botones atras y adelante del navegador, incluso
-            siendo un SPA.
+            siendo una SPA.
         </li>
     </ul>
 
     <h3>¿Porque Quark.js y no otro Framework?</h2>
     <hr />
     <p>
-        Cuando comenzamos el desarrollo de <strong>BIP Sucursales</strong> (e incluso antes de esto) ya estaba
-        interesado en comenzar a desarrollar aplicaciones con el Frontend hecho
+        Incluso antes de comenzar el desarrollo de <strong>BIP Sucursales</strong> ya estaba
+        interesado en desarrollar aplicaciones con el Frontend hecho
         en Javascript y el backend expuesto a través de servicios REST. Esto me llevó a investigar
-        los principales Frameworks de desarrollo con Javascript que había en el momento.
+        los principales Frameworks de desarrollo con Javascript que había en el momento. El mayor de los
+        limitantes era que necesitabamos que lo que se desarrollara fuera compatible con IE 8 que era el
+        navegador homologado para todo el banco en ese momento.
     </p>
     <p>
         <a href="https://angularjs.org/">Angular.js</a> o <a href="http://emberjs.com/">Ember.js</a> eran
-        (y sigue siendo) unos de los principales, y ofrecen una impresionante cantidad de
-        librerías y funcionalidad, pero como todo framework tan abarcativo en pos de esto sacrifican
+        (y siguen siendo) unos de los principales, y ofrecen una impresionante cantidad de
+        librerías y funcionalidad, pero como todo framework tan abarcativo, en pos de esto sacrifican
         flexibilidad. O sea, no es posible apartarse de los lineamientos que el framework impone.
     </p>
     <p>
         Otro que me llamó particularmente la atención fue <a href="https://www.polymer-project.org">Polymer</a>,
         desarrollado por el propio Google, ofrece la capacidad de crear componentes web encapsulados basándose
         en caracteristicas que ellos mismos quieren impulsar para que sean soportadas por los navegadores. En los
-        navegadores que no soportaban dichas caracteristicas, polymer utiliza
+        navegadores que no soportan dichas caracteristicas, polymer utiliza
         <a href="https://en.wikipedia.org/wiki/Polyfill"> PolyFills</a>.
-        Si bien era muy interesante, al momento de comenzar con el desarrollo ni siquiera existía la versión 1.0
+        Si bien es muy interesante y prometedor, al momento de comenzar con el desarrollo ni siquiera existía la versión 1.0
         y no detallaban como se debe estructurar una aplicación grande y compleja.
+    </p>
+    <p>
+        Todas estas librerias <strong class="text-danger">NO</strong> ofrecian la compatibilidad con
+        <strong>IE 8</strong> que necesitabamos.
     </p>
     <p>
         Finalmente me topé con
@@ -68,18 +74,44 @@
         </a>
         de Steve Sanderson (el creador de <a href="http://knockoutjs.com/">Knockout.js</a>) donde describía con
         lujo de detalles la arquitectura de una aplicación SPA, y combinaba todas las librerías mencionadas arriba
-        para proporcionar mucha de las funcionalidades básicas que ofrecen los grandes frameworks de programación.
+        para proporcionar mucha de las funcionalidades básicas que ofrecen los grandes frameworks de Javascript.
     </p>
     <p>
         Siendo un conjunto de librerías independientes nos permitía dejar en manos de cada una su area de expertise
-        y concentrarnos en como integrarlas permitiendo modificar esto a gusto. Esto, sumado a que nuestro equipo
-        venia ya varios años trabajando con Knockout en el Frontend, me terminó por decidir
-        a crear un Framework propio basado en esa arquitectura, permitiendonos modificarlo en
-        base a nuestras necesidades y no quedando atados a ninguna estructura salvo la propia.
+        y concentrarnos en como integrarlas permitiendonos modificar esto a gusto. Sumado a que:
+    </p>
+    <ol>
+        <li>Nuestro equipo ya hace tiempo venia trabajando con Knockout en el Frontend por lo que lo conocian muy bien y a que,</li>
+        <li>solo habia que utilizar una version menor de JQuery y ajustes conocidos en Bootstrap para hacerlo compatible con IE 8</li>
+    </ol>
+    <p>
+        me terminó por decidir a crear un Framework propio basado en esa arquitectura, que nos iba a permitir modificarlo en
+        base a nuestras necesidades no quedando atados a ninguna estructura salvo la propia.
     </p>
 
     <h3>¿Que ofrece Quark.js?</h3>
     <hr />
-    Componentes Web: Permite crear componentes web reutilizables
+    <p>
+        Quark.js basa su filosofia en que toda la aplicación está formada por componentes web que se comunican entre si.
+        Partiendo desde los componentes mas genericos de la aplicación hasta los mas especificos, todo en Quark.js es un componente.
+        Esto hace que la <u>forma de desarrollar un simple botón, hasta una pagina con funciones de CRUD sean similares</u>.
+    </p>
+    <p>
+        Cada componente web de Quark.js está formado por el modelo (que contiene el comportamiento) y la vista (que describe como debe
+        verse dicho componente), ambas cosas están asociadas mediante el patrón
+        <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a>.<br />
+        <u>Esto facilita la manipulación del DOM</u> y permite que <u>los modelos describan las caracteristicas y capacidades del objeto</u>
+        y se defina como la <u>interfaz del componente debe reaccionar a los cambios en dicho modelo</u>.
+    </p>
+    <p>
+        Los componentes pueden agruparse en modulos que <u>facilitan la reutilización</u> y <u>minimizan errores</u> ya que los errores
+        depurados de un componente mejorarán todas las aplicaciones que lo usen. Además, la propia división en componentes <u>facilita
+        el testing</u> ya que los casos de prueba se deben concentrar en probar la funcionalidad del componente en cuestión y nada más.
+    </p>
+    <p>
+        A través de su sistema de ruteo Quark.js permite definir <u>URLs amigables para el usuario</u>, que componentes deben
+        mostrarse en cada pagina, y como deben interactuar entre si. Esto permite agregar o quitar componentes de una pagina o
+        cambiar la forma en que interactuan facilmente lo que a la vez <u>mejora el desarrollo y mantenimiento de la aplicación</u>.
+    </p>
 </span>
 <!-- /quark-component -->

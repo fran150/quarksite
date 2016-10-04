@@ -1,15 +1,17 @@
 <!-- quark-component -->
-    <al-layout-sidebar params="marginTop: 10">
-        <al-layout-sidebar-title>
+    <al-layout-sidebar params="marginTop: 10, minSidebarSize: 250">
+        <al-layout-sidebar-title params="text: 'Manual de Quark.js'">
         </al-layout-sidebar-title>
         <al-layout-sidebar-link params="text: 'Introducción',
                                         iconFont: '',
                                         opened: true">
             <!-- submenu -->
                 <al-layout-sidebar-link params="text: '¿Que es Quark.js?',
+                                                pageName: 'main/docs/home',
                                                 iconFont: ''">
                 </al-layout-sidebar-link>
                 <al-layout-sidebar-link params="text: 'Instalando',
+                                                pageName: 'main/docs/instalando',
                                                 iconFont: ''">
                 </al-layout-sidebar-link>
                 <al-layout-sidebar-link params="text: 'Hola Mundo!',
