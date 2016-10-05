@@ -23,11 +23,17 @@ define(['quark'], function($$) {
         .endNamespace()
         .namespace('docs')
             .register('home', 'pages/docs/home')
-            .register('instalando', 'pages/docs/instalando');
+            .register('installing', 'pages/docs/installing')
+            .namespace('basics')
+                .register('intro', 'pages/docs/basics/intro')
+            .endNamespace();
 
 
     $$.onNamespace('library')
         .register('finder', 'components/library/finder');
+
+    $$.onNamespace('code')
+        .register('highlight', 'components/code/highlight')
 
 
 /*    $$.onNamespace('pages')
