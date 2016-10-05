@@ -26,6 +26,7 @@ define(['quark'], function($$) {
             .register('installing', 'pages/docs/installing')
             .namespace('basics')
                 .register('intro', 'pages/docs/basics/intro')
+                .register('web-modules', 'pages/docs/basics/web-modules')
             .endNamespace();
 
 

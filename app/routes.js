@@ -16,7 +16,8 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/home':                  { 'main': 'pages-docs-home' },
         'main/docs/installing':            { 'main': 'pages-docs-installing' },
 
-        'main/docs/basics-intro':          { 'main': 'pages-docs-basics-intro'}
+        'main/docs/basics-intro':          { 'main': 'pages-docs-basics-intro' },
+        'main/docs/basics-web-modules':    { 'main': 'pages-docs-basics-web-modules' }
     }
 
     var routes = {
@@ -25,6 +26,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/home':                  'docs',
         'main/docs/installing':            'docs/installing',
         'main/docs/basics-intro':          'docs/basics',
+        'main/docs/basics-web-modules':    'docs/basics/webmodules',
         'main/sidebar/module':             'components/library/{id}'
     }
 
