@@ -27,6 +27,11 @@ define(['quark'], function($$) {
             .namespace('basics')
                 .register('intro', 'pages/docs/basics/intro')
                 .register('web-modules', 'pages/docs/basics/web-modules')
+                .register('web-components', 'pages/docs/basics/web-components')
+                .register('bindings', 'pages/docs/basics/bindings')
+                .register('pages', 'pages/docs/basics/pages')
+                .register('controllers', 'pages/docs/basics/controllers')
+                .register('routes', 'pages/docs/basics/routes')
             .endNamespace();
 
 
@@ -34,30 +39,5 @@ define(['quark'], function($$) {
         .register('finder', 'components/library/finder');
 
     $$.onNamespace('code')
-        .register('highlight', 'components/code/highlight')
-
-
-/*    $$.onNamespace('pages')
-        .register('home', 'pages/home')
-        .namespace('library')
-            .register('finder', 'pages/library/finder')
-            .register('module', 'pages/library/module')
-        .endNamespace()
-        .namespace('docs')
-            .register("home", 'pages/docs/home');
-
-    $$.onNamespace('navbar')
-        .namespace('main')
-            .register('left', 'pages/navbar/main-left')
-            .register('right', 'pages/navbar/main-right');
-
-    $$.onNamespace('layout')
-        .register('single', 'pages/layouts/single')
-        .register('docs', 'pages/layouts/docs')
-        .register('sidebar', 'pages/layouts/sidebar');
-
-    $$.onNamespace('library')
-        .register('finder', 'components/library/finder')
-        .register('test', 'components/library/test')
-        .register('test2', 'components/library/test2')*/
+        .register('highlight', 'components/code/highlight');
 });

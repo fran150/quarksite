@@ -1,0 +1,36 @@
+<!-- quark-component -->
+    <span class="docs">
+        <h1>Componentes Web</h1>
+        <hr />
+        <p>
+            Los componentes web permiten la creación de elementos que pueden utilizarse en una pagina web
+            para crear la interfaz de usuario o proveer de una funcionalidad especifica. Cada componente se asocia a un tag HTML,
+            permitiendo agregar nuevos elementos personalizados a los que ofrecen los navegadores por defecto.
+        </p>
+        <p>
+            Estos componentes se utilizan de forma similar a como se usan los componentes HTML estandar, permitiendo
+            su reutilización tantas veces como sea necesario.
+        </p>
+        <p>
+            En <em>Quark.js</em> un componente es básicamente un <a data-bind="href: 'main/docs/basics-web-modules'">modulo web</a>
+            que contiene el código que describe la funcionalidad de dicho componente y una vista con lo que se debe mostrar al
+            usuario en el navegador. Ambas elementos se relacionan con el patrón
+            <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a>
+        </p>
+        <p>
+            Para definir un componente, se debe crear un modulo web que devuelva el resultado de la ejecución de la funcion
+            <code>component</code>. Esta funcion recibe dos parametros, el modelo del componente que es una clase javascript
+            que contiene la funcionalidad de dicho componente y un string con el HTML que define como se mostrará dicho
+            componente en pantalla:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function ComponentExample(params, $scope, $imports) {
+        var self = this;
+    }
+
+    return $$.component(ComponentExample, '&lt;h1&gt;Component Example&lt;/h1&gt;');
+});
+            </code-highlight>
+        </p>
+    </span>
+<!-- /quark-component -->

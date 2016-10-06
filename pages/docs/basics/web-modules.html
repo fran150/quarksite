@@ -47,10 +47,12 @@ define(['quark', './modulos/Modulo'], function($$, modulo) {
     return OtroModulo;
 });
             </code-highlight>
-            En este ejemplo, se asigna a la variable <code>mod</code> un objeto de tipo <code>ModuloDePrueba</code>
+            En este ejemplo, se define otro modulo que tiene dos dependencias, <em>Quark.js</em> y el modulo anterior. <em>Require.js</em>
+            cargará dichos modulos y una vez cargados invocará a la funcion pasando como parametros las dependencias cargadas.
+            Dentro de la funcion se asigna a la variable <code>mod</code> un objeto de tipo <code>ModuloDePrueba</code>
         </p>
         <p>
-            Utilizando la funcion require:
+            Otra forma de uso es directamente dentro del código, utilizando la funcion <code>require</code>:
             <code-highlight>
 .
 .
@@ -60,12 +62,12 @@ require(['quark', './modulos/Modulo'], function($$, Modulo) {
 .
 .
             </code-highlight>
-            Esta funcion cargará <em>Quark.js</em> y <code>ModuloDePrueba</code> y una vez cargados invocará la
-            funcion pasando las dependencias como parametros. En esta funcion se crea un objeto de tipo <code>ModuloDePrueba</code> y
-            lo asigna en la variable <code>mod</code>, obteniendo el mismo resultado que en el punto anterior.
+            El funcionamiento es similar al anterior; cargará <em>Quark.js</em> y <code>ModuloDePrueba</code> e invocará a la
+            función pasando las dependencias como parametros. Dentro de la funcion se crea un objeto de tipo <code>ModuloDePrueba</code>
+            y lo asigna en la variable <code>mod</code>, obteniendo el mismo resultado que en el punto anterior.
         </p>
         <p>
-            Como dependencias se puede especificar el path al archivo que contiene el modulo omitiendo la extensión js, o
+            Como dependencia se puede especificar el path al archivo que contiene el modulo omitiendo la extensión js, o
             un alias. Los alias deben definirse en la configuración de require indicando a que path del servidor apuntan,
             ya sea un archivo especifico o una carpeta. Si quieres saber mas sobre esto consulta la sección
             <a href="#">Configuración de Quark.js</a>
