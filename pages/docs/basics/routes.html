@@ -3,7 +3,43 @@
         <h1>Rutas</h1>
         <hr />
         <p>
-            Ruta
+            Las rutas permiten asociar un hash de la URL y la <a data-bind="href: 'main/docs/basics-pages'">página</a>
+            de <em>Quark.js</em> que se desea mostrar cuando se dirija el navegador a dicha URL. Para el sistema
+            de ruteo, <em>Quark.js</em> utiliza
+            <a href="https://millermedeiros.github.io/crossroads.js">Crossroads.js</a> y
+            <a href="https://github.com/millermedeiros/hasher">Hasher</a>.
         </p>
+        <p>
+            Mediante las rutas el programador puede definir la url que utilizará el usuario para acceder a una pagina especifica
+            y que valor setear para los parametros de dicha pagina. De esta forma, mediante la URL se podrá controlar el estado
+            de la aplicación. Gracias a <em>Hasher.js</em> el navegador almacena en su historial las diferentes rutas que fue
+            visitando por lo que el usuario podrá navegar por las distintas rutas incluso utilizando los botones adelante y
+            atrás del navegador.
+        </p>
+        <p>
+            En la <a href="https://millermedeiros.github.io/crossroads.js/#crossroads-add_route">documentación</a> de
+            <em>Crossroads.js</em> se indica la estructura que pueden tener las rutas y como definir variables en las mismas.
+            Si el nombre de la variable de la ruta coincide con un parametro de la pagina asociada, se actualiza el observable
+            de la pagina con el valor especificado en la url para dicha variable.
+        </p>
+        <p>
+            Por ejemplo, si la url base de tu sitio es <var>http://example.com</var> y defines las rutas asi:
+            <code-highlight>
+var routes = {
+    'main/home':                'home',
+    'main/components/edit':     'edit/{id}'
+}
+            </code-highlight>
+        </p>
+        <p>
+            Ingresando a la URL <var>http://example.com#home</var> va a cargar la pagina <code>main/home</code>, cambiando la URL a
+            <var>http://example.com#edit/5</var> cargará la pagina <code>main/components/edit</code> y si tiene un parametro <code>id</code>
+            le asignará el valor 5. Luego si la url cambia a por ejemplo a http://example.com#edit/7 no se cargará de nuevo la pagina,
+            ya que el hash coincide con el de la ruta actual; sólo se actualizará el valor del parametro <code>id</code> a 7.
+        </p>
+        <nav-next-prev params="previousText: 'Páginas', previousPage: 'main/docs/basics-pages',
+                               nextText: 'Controladores', nextPage: 'main/docs/basics-controllers'">
+
+        </nav-next-prev>
     </span>
 <!-- /quark-component -->

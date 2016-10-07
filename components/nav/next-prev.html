@@ -1,0 +1,21 @@
+<quark-component>
+    <hr />
+    <ul class="pager">
+        <!-- ko if: model.previousPage -->
+            <li class="previous">
+                <a data-bind="href: model.previousPage, vars: model.previousParams">
+                    <span aria-hidden="true">&larr;</span>
+                    <span data-bind="text: model.previousText"></span>
+                </a>
+            </li>
+        <!-- /ko -->
+        <!-- ko if: model.nextPage -->
+            <li class="next">
+                <a data-bind="href: model.nextPage, vars: model.nextParams">
+                    <span data-bind="text: model.nextText"></span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        <!-- /ko -->
+    </ul>
+</quark-component>

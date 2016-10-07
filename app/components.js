@@ -28,6 +28,7 @@ define(['quark'], function($$) {
                 .register('intro', 'pages/docs/basics/intro')
                 .register('web-modules', 'pages/docs/basics/web-modules')
                 .register('web-components', 'pages/docs/basics/web-components')
+                .register('observables', 'pages/docs/basics/observables')
                 .register('bindings', 'pages/docs/basics/bindings')
                 .register('pages', 'pages/docs/basics/pages')
                 .register('controllers', 'pages/docs/basics/controllers')
@@ -40,4 +41,7 @@ define(['quark'], function($$) {
 
     $$.onNamespace('code')
         .register('highlight', 'components/code/highlight');
+
+    $$.onNamespace('nav')
+        .register('next-prev', 'components/nav/next-prev');
 });

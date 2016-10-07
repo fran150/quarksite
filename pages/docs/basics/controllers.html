@@ -3,7 +3,22 @@
         <h1>Controladores</h1>
         <hr />
         <p>
-            Controladores
+            Los controladores permiten enlazar y coordinar todos los componentes que se hayan definido en los segmentos de la
+            pagina cargada en el navegador.
         </p>
+        <p>
+            Un controlador es básicamente un modulo web que devuelve la clase que representa al controlador. Cada segmento
+            de la ruta tiene un controlador asociado y los mismos se organizan con la misma jerarquia que la ruta.
+            Desde cada controlador se puede pasar parametros o acceder al modelo de los componentes definidos en el
+            segmento asociado.
+        </p>
+        <p>
+            Los componentes siguen la misma lógica que los componentes cuando se navega entre las <a data-bind="href: 'main/docs/basics-pages'">paginas</a>.
+            Solo los controladores de los segmentos que difieren entre la pagina anterior y la nueva son modificados al cambiar
+            de página.
+        </p>
+        <nav-next-prev params="previousText: 'Rutas', previousPage: 'main/docs/basics-routes'">
+
+        </nav-next-prev>
     </span>
 <!-- /quark-component -->

@@ -3,8 +3,95 @@
         <h1>Páginas</h1>
         <hr />
         <p>
-            Las paginas en <em>Quark.js</em> definen un conjunto de componentes que deben mostrarse en un momento dado
-            al usuario. Permiten definir
+            Las paginas en <em>Quark.js</em> permiten definir un conjunto de componentes que deben mostrarse en un momento dado
+            al usuario.
         </p>
+        <p>
+            En la vista de cualquier componente se puede usar el binding <code>outlet: &lt;nombre&gt;</code> para especificar
+            el lugar donde se debe mostrar un componente va a ser definido por la pagina. Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;div data-bind="outlet: 'navbar'"&gt;
+&lt;/div&gt;
+&lt;div data-bind="outlet: 'body'"&gt;
+&lt;/div&gt;
+            </code-highlight>
+            Aquí se usan dos <code>div</code> en donde se va a mostrar el componente que se defina en la página para
+            los <code>outlets</code> navbar y body
+        </p>
+        <p>
+            Las paginas se definen en segmentos organizados jerarquicamente. Cada segmento puede definir el nombre
+            de uno o mas outlets y que componente deben mostrarse en los mismos. Al cambiar de pagina solo se actualizan los
+            componentes definidos en los segmentos que no son compartidos por ambas paginas. Siguiendo el ejemplo anterior,
+            supongamos que definimos, las paginas como:
+        </p>
+        <p>
+            <code-highlight>
+var pages = {
+    'main':             { navbar: 'navbar-component' },
+    'main/home':        { body: 'main-home' },
+    'main/about':       { body: 'main-about' },
+    'docs':             { navbar: 'docs-navbar-component' },
+    'docs/home':        { body: 'docs-home' },
+    'docs/basics':      { navbar: 'alt-navbar', body: 'docs-basics' }
+}
+            </code-highlight>
+        </p>
+        <p>
+            <ul>
+                <li>
+                    Al mostrar la pagina <code>main/home</code>:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>navbar-component</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>main-home</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Si se cambia la pagina por <code>main/about</code>:
+                    <ul>
+                        <li>
+                            solo se actualizará el <code>div</code> body mostrando el componente <code>main-about</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Al cambiar a <code>docs/home</code> se cambiaran ambos componentes:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>docs-navbar-component</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>docs-home</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Finalmente, los outlet definidos en segmentos hijos tienen mayor prioridad que los definidos en segmentos
+                    superiores, por lo que al navegar a la pagina <code>docs/basics</code> se modificarán ambos <code>div</code>
+                    mostrando:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>alt-navbar</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>docs-basics</code>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>
+            Las paginas pueden definir parametros que <em>Quark.js</em> convertirá en observables cuyos valores
+            se obtendrán de la URL definida en la <a data-bind="href: 'main/docs/basics-routes'">ruta</a> como veremos a
+            continuación.
+        </p>
+        <nav-next-prev params="previousText: 'Observables', previousPage: 'main/docs/basics-observables',
+                               nextText: 'Rutas', nextPage: 'main/docs/basics-routes'">
+
+        </nav-next-prev>
+
     </span>
 <!-- /quark-component -->

@@ -1,0 +1,64 @@
+<!-- quark-component -->
+    <span class="docs">
+        <h1>Observables</h1>
+        <hr />
+        <p>
+            Los observables son otro aspecto que <em>Quark.js</em> toma de <em>Knockout.js</em>. Como vimos, los
+            <a data-bind="href: 'main/docs/basics-bindings'">bindings</a> permiten asociar elementos y/o atributos del DOM
+            con propiedades del modelo de un componente web. Ahora, ¿como se entera la vista cuando un elemento del modelo
+            se actualizó? La respuesta a esto son los observables.
+        </p>
+        <p>
+            Los observables son objetos especiales de <em>Javascript</em> que permiten notificar a quien se suscriba cuando
+            el valor de estos se modifica, también pueden detectar las dependencias automáticamente y actualizar los valores
+            de otros observables dependientes en cascada.
+        </p>
+        <p>
+            Mediante el uso de los observables se logra la actualización "en tiempo real" de la vista y el modelo, y un seguimiento
+            automático de las dependencias entre observables de manera de asegurar que al modificar un valor se actualizarán
+            automaticamente todos los objetos que dependen del mismo.
+        </p>
+        <p>
+            Por ejemplo, si definimos el modelo de la siguiente manera:
+            <code-highlight>
+var modelo = {
+    nombre: ko.observable('Juan Perez'),
+    edad: ko.observable(25)
+};
+            </code-highlight>
+            y la vista asi:
+            <code-highlight params="language: 'html'">
+&lt;input type="text" data-bind="value: nombre" /&gt;
+&lt;input type="text" data-bind="value: edad" /&gt;
+            </code-highlight>
+            cualquier modificación de los input será reflejada en la propiedad correspondiente del modelo y visceversa,
+            cualquier modificación en el valor de las propiedades actualizará el valor de los input.
+        </p>
+        <p>
+            <em>Knockout</em> permite definir ademas:
+            <ul>
+                <li>
+                    arrays observables cuyo funcionamiento es similar a los observables pero notifican cuando los elementos
+                    en el array cambian y,
+                </li>
+                <li>
+                    campos calculados (llamados computed) cuyo valor se actualiza
+                    automáticamente cuando el valor de los observables de los que dependen cambia.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Puedes investigar mas acerca de los observables en la
+            documentación del sitio de <em>Knockout.js</em>
+            acerca de
+            <a href="http://knockoutjs.com/documentation/observables.html">los observables</a>, los
+            <a href="http://knockoutjs.com/documentation/observableArrays.html">observablesArray</a> y los
+            <a href="http://knockoutjs.com/documentation/computedObservables.html">los computed</a>
+        </p>
+        <nav-next-prev params="previousText: 'Bindings', previousPage: 'main/docs/basics-bindings',
+                               nextText: 'Páginas', nextPage: 'main/docs/basics-pages'">
+
+        </nav-next-prev>
+
+    </span>
+<!-- /quark-component -->
