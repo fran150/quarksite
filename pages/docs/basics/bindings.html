@@ -3,29 +3,41 @@
         <h1>Bindings</h1>
         <hr />
         <p>
-            Los bindings son los que permiten efectivamente asociar elementos del DOM que compone la vista de un
-            componente web con el modelo del mismo, de esta manera los cambios en la interfaz del usuario se reflejan
-            inmediatamente en el modelo y visceversa.
-        </p>
-        <p>
-            Enlazar ambos elementos permite que la vista siempre refleje el estado actual del modelo, de forma que las vistas pasan a ser
-            "proyecciones" del estado el modelo. Por otro lado, con esto se logra que los modelos se concentren en representar
-            correctamente los datos y estados del componente sin preocuparse como deben representarse estos en la interfaz del usuario.
+            Los bindings permiten asociar elementos del DOM que compone la vista de un
+            componente web con el modelo del mismo.
         </p>
         <p>
             Un ejemplo de binding sería:
             <code-highlight params="language: 'html'">
-El nombre de esta persona es &lt;span data-bind="text: nombre"&gt;&lt;/span&gt;
+&lt;quark-component&gt;
+    &lt;h1 data-bind="text: model.title"&gt;&lt;/h1&gt;
+&lt;/quark-component&gt
             </code-highlight>
-            Aquí se estaría asociando el contenido o texto del <code>span</code> con la propiedad <code>nombre</code> del modelo.
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+
+        this.title = "Component Example";
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            El ejemplo anterior asocia el texto (o sea el contenido) del <code>div</code> con la propiedad <code>title</code>
+            del modelo. Al usar este componente se mostrará un <code>h1</code> con el texto <em>"Component Example"</em>
+        </p>
+        <p>
+            La idea de los bindings es relacionar elementos del DOM o sus atributos con propiedades del modelo
+            de manera que al modificarse uno actualice automáticamente el otro. Entonces, ¿como informar a la vista que se ha
+            modificado el modelo y visceversa? La respuesta son los
+            <a data-bind="href: 'main/docs/basics-observables'">los observables</a> que se tratarán a continuación.
         </p>
         <p>
             En la <a href="http://knockoutjs.com/documentation/introduction.html">documentación</a> de Knockout puedes
-            encontrar todo acerca de los bindings.
-        </p>
-        <p>
-            Los bindings están fuertemente relacionados con <a data-bind="href: 'main/docs/basics-observables'">los observables</a>
-            que se tratarán a continuación.
+            encontrar mas información acerca de los bindings.
         </p>
         <nav-next-prev params="previousText: 'Componentes Web', previousPage: 'main/docs/basics-web-components',
                                nextText: 'Observables', nextPage: 'main/docs/basics-observables'">

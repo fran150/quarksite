@@ -9,47 +9,115 @@
             se actualizó? La respuesta a esto son los observables.
         </p>
         <p>
-            Los observables son objetos especiales de <em>Javascript</em> que permiten notificar a quien se suscriba cuando
-            el valor de estos se modifica, también pueden detectar las dependencias automáticamente y actualizar los valores
+            Los observables son objetos especiales de <em>Javascript</em> que permiten notificar cuando el valor de
+            estos se modifica a quien se haya suscripto, también detectan las dependencias automáticamente y actualizan los valores
             de otros observables dependientes en cascada.
         </p>
         <p>
-            Mediante el uso de los observables se logra la actualización "en tiempo real" de la vista y el modelo, y un seguimiento
+            Mediante el uso de los observables se logra la actualización "en tiempo real" entre la vista y el modelo y un seguimiento
             automático de las dependencias entre observables de manera de asegurar que al modificar un valor se actualizarán
             automaticamente todos los objetos que dependen del mismo.
         </p>
         <p>
-            Por ejemplo, si definimos el modelo de la siguiente manera:
-            <code-highlight>
-var modelo = {
-    nombre: ko.observable('Juan Perez'),
-    edad: ko.observable(25)
-};
-            </code-highlight>
-            y la vista asi:
+            Por ejemplo:
             <code-highlight params="language: 'html'">
-&lt;input type="text" data-bind="value: nombre" /&gt;
-&lt;input type="text" data-bind="value: edad" /&gt;
+&lt;quark-component&gt;
+    &lt;input data-bind="value: model.nombre"&gt;&lt;/h1&gt;
+    &lt;input data-bind="value: model.edad"&gt;&lt;/h1&gt;
+&lt;/quark-component&gt
             </code-highlight>
-            cualquier modificación de los input será reflejada en la propiedad correspondiente del modelo y visceversa,
-            cualquier modificación en el valor de las propiedades actualizará el valor de los input.
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+
+        this.nombre = ko.observable('Francisco');
+        this.edad = ko.observable(34);
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            cualquier modificación de los <code>input</code> será reflejada en la propiedad correspondiente del modelo y visceversa,
+            cualquier modificación en el valor de las propiedades actualizará el valor de los <code>input</code>.
         </p>
         <p>
-            <em>Knockout</em> permite definir ademas:
-            <ul>
-                <li>
-                    arrays observables cuyo funcionamiento es similar a los observables pero notifican cuando los elementos
-                    en el array cambian y,
-                </li>
-                <li>
-                    campos calculados (llamados computed) cuyo valor se actualiza
-                    automáticamente cuando el valor de los observables de los que dependen cambia.
-                </li>
-            </ul>
+            Como puede verse del ejemplo anterior, los observables se definen usando el método <code>observable</code>
+            de <em>Knockout</em> al que puede pasarse como parámetro el valor inicial.
+            Para leer el valor de un observable debe invocarse como si fuera una funcion sin parámetros, por ejemplo:
+            <code-highlight>
+    this.nombre();
+            </code-highlight>
+            ejecutado dentro del modelo anterior devolverá el valor del observable, o sea el texto <em>"Francisco"</em>.
         </p>
         <p>
-            Puedes investigar mas acerca de los observables en la
-            documentación del sitio de <em>Knockout.js</em>
+            Para asignar un nuevo valor al observale se debe pasar dicho valor por parametros. Por ejemplo:
+            <code-highlight>
+    this.nombre('Patricia');
+            </code-highlight>
+            Asignará el texto <em>"Patricia"</em> al observable <code>nombre</code>.
+        </p>
+        <p>
+            Hay que prestar especial atención a esto, ya que es fácil confundir el valor que contiene el observable,
+            del observable en si mismo.
+        </p>
+            <code-highlight>
+    // Devuelve true
+    this.nombre() == "Patricia";
+    // Devuelve false, ya que this.nombre hace referencia al observable en si y no al valor que contiene.
+    this.nombre == "Patricia"
+            </code-highlight>
+        <p>
+            De la misma forma:
+            <code-highlight>
+    // Asigna el valor "Pipolo" al observable
+    this.nombre("Pipolo");
+    // Reemplaza el observable por un string "Pipolo"
+    this.nombre == "Pipolo"
+            </code-highlight>
+        </p>
+        <p>
+            <em>Knockout</em> permite definir además matrices observables con la funcion <code>observableArray</code> y
+            campos calculados con <code>computed</code>.
+            El el funcionamiento de los <code>observableArray</code> es similar a los observables pero notifican cuando
+            el numero de elementos en la matriz cambia.
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+    this.apellidos = ko.observableArray(["Perez", "Lopez", "Garcia"]);
+            </code-highlight>
+            define un array observable con los elementos <em>Perez, Lopez y Garcia</em>
+        </p>
+        <p>
+            Los observables array tienen la mayoria de las propiedades del objeto <code>Array</code>, por lo que por ejemplo se
+            podría agregar un elemento al array anterior haciendo:
+            <code-highlight>
+    this.apellidos.push('Fernandez');
+            </code-highlight>
+            Esto haría que se notifique a todos que este observable se actualizó.
+        </p>
+        <p>
+            Los <em>computed</em> permiten definir un observable cuyo valor se calcula a partir de otros, estos se crean utilizando
+            la función <code>computed</code> de <em>Knockout</em> y como parámetro reciben una función que deberá
+            calcular y devolver el valor del observable. Por ejemplo:
+            <code-highlight>
+    this.nombreCompleto = ko.computed(function() {
+        var completo = self.nombre();
+
+        var apellidos = self.apellidos();
+        for (var i = 0; i &lt; apellidos.length; i++) {
+            completo += " " + apellidos[i];
+        }
+
+        return completo;
+    });
+            </code-highlight>
+            Devuelve el nombre y todos los apellidos concatenados. Cualquier variación en el <code>nombre</code> o
+            <code>apellidos</code> actualizará automáticamente el valor del computed <code>nombreCompleto</code>.
+        </p>
+        <p>
+            Puedes investigar mas acerca de los observables en la documentación del sitio de <em>Knockout.js</em>
             acerca de
             <a href="http://knockoutjs.com/documentation/observables.html">los observables</a>, los
             <a href="http://knockoutjs.com/documentation/observableArrays.html">observablesArray</a> y los
