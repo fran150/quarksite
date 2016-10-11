@@ -30,7 +30,7 @@
             el HTML de la vista. La vista de los componentes debe ir dentro de un tag <code>quark-component</code>:
             <code-highlight>
 define(['quark', 'knockout'], function($$, ko) {
-    function ComponentExample() {
+    function ComponentExample(params, $scope, $imports) {
         var self = this;
     }
 
@@ -40,6 +40,10 @@ define(['quark', 'knockout'], function($$, ko) {
         </p>
         <p>
             Esta función define un componente que mostrará el titulo "Component Example" en el navegador.
+        </p>
+        <p>
+            Quark.js envia 3 parametros al modelo del componente, el valor de los parametros especificados para el componente,
+            el scope y los imports. El significado y utilidad de estos parametros se detallará mas adelante.
         </p>
         <p>
             Puede resultar bastante engorroso definir todo el HTML con la vista del componente como string en el
@@ -59,7 +63,7 @@ define(['quark', 'knockout'], function($$, ko) {
             Y si se graba la vista en el archivo example.html, se puede reescribir el modulo del componente web como:
             <code-highlight>
 define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ComponentExample() {
+    function ComponentExample(params, $scope, $imports) {
         var self = this;
     }
 

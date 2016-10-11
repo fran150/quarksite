@@ -29,6 +29,7 @@ define(['quark'], function($$) {
                 .register('web-modules', 'pages/docs/basics/web-modules')
                 .register('web-components', 'pages/docs/basics/web-components')
                 .register('observables', 'pages/docs/basics/observables')
+                .register('component-params', 'pages/docs/basics/component-params')
                 .register('bindings', 'pages/docs/basics/bindings')
                 .register('pages', 'pages/docs/basics/pages')
                 .register('controllers', 'pages/docs/basics/controllers')

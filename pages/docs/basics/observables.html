@@ -3,7 +3,7 @@
         <h1>Observables</h1>
         <hr />
         <p>
-            Los observables son otro aspecto que <em>Quark.js</em> toma de <em>Knockout.js</em>. Como vimos, los
+            Los observables son otro aspecto que <em>Quark.js</em> toma de <em>Knockout.js</em>. Como se vio anteriormente, los
             <a data-bind="href: 'main/docs/basics-bindings'">bindings</a> permiten asociar elementos y/o atributos del DOM
             con propiedades del modelo de un componente web. Ahora, ¿como se entera la vista cuando un elemento del modelo
             se actualizó? La respuesta a esto son los observables.
@@ -46,14 +46,14 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
             de <em>Knockout</em> al que puede pasarse como parámetro el valor inicial.
             Para leer el valor de un observable debe invocarse como si fuera una funcion sin parámetros, por ejemplo:
             <code-highlight>
-    this.nombre();
+this.nombre();
             </code-highlight>
             ejecutado dentro del modelo anterior devolverá el valor del observable, o sea el texto <em>"Francisco"</em>.
         </p>
         <p>
             Para asignar un nuevo valor al observale se debe pasar dicho valor por parametros. Por ejemplo:
             <code-highlight>
-    this.nombre('Patricia');
+this.nombre('Patricia');
             </code-highlight>
             Asignará el texto <em>"Patricia"</em> al observable <code>nombre</code>.
         </p>
@@ -62,66 +62,186 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
             del observable en si mismo.
         </p>
             <code-highlight>
-    // Devuelve true
-    this.nombre() == "Patricia";
-    // Devuelve false, ya que this.nombre hace referencia al observable en si y no al valor que contiene.
-    this.nombre == "Patricia"
+// Devuelve true
+this.nombre() == "Patricia";
+// Devuelve false, ya que this.nombre hace referencia al observable en si y no al valor que contiene.
+this.nombre == "Patricia"
             </code-highlight>
         <p>
             De la misma forma:
             <code-highlight>
-    // Asigna el valor "Pipolo" al observable
-    this.nombre("Pipolo");
-    // Reemplaza el observable por un string "Pipolo"
-    this.nombre == "Pipolo"
+// Asigna el valor "Pipolo" al observable
+this.nombre("Pipolo");
+// Reemplaza el observable por un string "Pipolo"
+this.nombre = "Pipolo"
             </code-highlight>
         </p>
         <p>
             <em>Knockout</em> permite definir además matrices observables con la funcion <code>observableArray</code> y
             campos calculados con <code>computed</code>.
+        </p>
+        <h2>Observable Arrays</h2>
+        <hr/>
+        <p>
             El el funcionamiento de los <code>observableArray</code> es similar a los observables pero notifican cuando
             el numero de elementos en la matriz cambia.
         </p>
         <p>
             Por ejemplo:
             <code-highlight>
-    this.apellidos = ko.observableArray(["Perez", "Lopez", "Garcia"]);
+this.apellidos = ko.observableArray(["Perez", "Lopez", "Garcia"]);
             </code-highlight>
             define un array observable con los elementos <em>Perez, Lopez y Garcia</em>
         </p>
         <p>
-            Los observables array tienen la mayoria de las propiedades del objeto <code>Array</code>, por lo que por ejemplo se
+            Los array observables tienen la mayoria de las propiedades del objeto <code>Array</code>, por lo que por ejemplo se
             podría agregar un elemento al array anterior haciendo:
             <code-highlight>
-    this.apellidos.push('Fernandez');
+this.apellidos.push('Fernandez');
             </code-highlight>
-            Esto haría que se notifique a todos que este observable se actualizó.
+            Esto agrega el nuevo elemento y notifica a todas las dependencias que este observable se actualizó. El principal uso de los
+            <code>observableArray</code> es con el binding <code>foreach</code> que mostrará el contenido del mismo por cada item que
+            contenga el array, por ejemplo usando el ejemplo anterior, podría definirse un binding como:
+            <code-highlight params="language: 'html'">
+&lt;ul data-bind="foreach: apellidos"&gt;
+    &lt;li data-bind="text: $data">&lt;/li&gt;
+&lt;/ul&gt;
+            </code-highlight>
+            que mostrará un listado con un item por cada apellido en la matriz.
         </p>
+        <p>
+            Los binding <code>foreach</code> crean un nuevo contexto, por lo que el DOM dentro del <code>foreach</code>
+            hace referencia a cada elemento del <code>observableArray</code> y no al contexto original,
+            $data contiene el modelo actual con el cual se esta haciendo el binding.
+            Mas sobre esto en <a class="text-danger">Falta link</a>
+        </p>
+        <h2>Computed</h2>
+        <hr/>
         <p>
             Los <em>computed</em> permiten definir un observable cuyo valor se calcula a partir de otros, estos se crean utilizando
             la función <code>computed</code> de <em>Knockout</em> y como parámetro reciben una función que deberá
             calcular y devolver el valor del observable. Por ejemplo:
             <code-highlight>
-    this.nombreCompleto = ko.computed(function() {
-        var completo = self.nombre();
+this.nombreCompleto = ko.computed(function() {
+    var completo = self.nombre();
 
-        var apellidos = self.apellidos();
-        for (var i = 0; i &lt; apellidos.length; i++) {
-            completo += " " + apellidos[i];
-        }
+    var apellidos = self.apellidos();
+    for (var i = 0; i &lt; apellidos.length; i++) {
+        completo += " " + apellidos[i];
+    }
 
-        return completo;
-    });
+    return completo;
+});
             </code-highlight>
-            Devuelve el nombre y todos los apellidos concatenados. Cualquier variación en el <code>nombre</code> o
+            Devuelve el nombre y todos los apellidos concatenados. <em>Knockout</em> detecta automáticamente las dependencias
+            por lo que cualquier cambio en los valores de <code>nombre</code> o
             <code>apellidos</code> actualizará automáticamente el valor del computed <code>nombreCompleto</code>.
         </p>
+        <h2>Computed "Puros"</h2>
+        <hr />
         <p>
-            Puedes investigar mas acerca de los observables en la documentación del sitio de <em>Knockout.js</em>
+            Los computed estandar tienen el riesgo de generar leaks de memoria si no son limpiados correctamente
+            (como se verá mas adelante en este capitulo). Para evitar esto <em>Knockout</em> permite definir
+            <code>pureComputed</code>. Si bien son similares a los computed, no tienen riesgo de generar leaks y son mas
+            performantes en cuanto a procesamiento y uso de memoria.
+        </p>
+        <p>
+            La principal diferencia es que la funcion que devuelve el valor del observable debe ser "pura", en el sentido que:
+            <ol>
+                <li>
+                    Evaluar la función no debe producir "efectos colaterales", es decir, modificar el valor de otros observables.
+                </li>
+                <li>
+                    El valor que devuelve la función no debe variar en base al numero de evaluaciones u otra información "escondida".
+                    Su valor debe estar determinado por el valor de otros observables en la aplicación.
+                </li>
+            </ol>
+            Asi que, en definitiva, siempre que la funcion del observable cumpla los criterios antes descriptos es conveniente
+            utilizar el <code>pureComputed</code>.
+        </p>
+        <p>
+            Ejemplo:
+            <code-highlight>
+this.decadas = ko.pureComputed(function() {
+    return self.edad() / 10;
+});
+            </code-highlight>
+        </p>
+        <h2>Suscripciones</h2>
+        <hr/>
+        <p>
+            Knockout permite suscribir funciones a un observable, las mismas serán ejecutadas cuando el valor del observable
+            cambie pasando como parámetro el nuevo valor. Para suscribirse a una función se debe utilizar el método
+            <code>subscribe</code> del observable que toma como parametro la función a invocar en cada llamada, por ejemplo:
+            <code-highlight>
+var subscription = this.nombreCompleto.subscribe(function(newValue) {
+    // Este código se ejecutará cada vez que el valor de nombreCompleto cambie
+});
+            </code-highlight>
+        </p>
+        <h2>Limpiando</h2>
+        <hr/>
+        <p>
+            Tanto los computed como las suscripciones pueden generar leaks de memoria. Principalmente, si hacen referencia
+            o dependen de observables que "viven" mas que el propio computed o suscripción. Para evitar esto se debe
+            invocar los metodos <code>dispose</code> de dichos elementos cuando ya no sean necesarios.
+            <em>Quark.js</em> permite definir un método <code>dispose</code> en el modelo del componente que se invocará cuando
+            va a ser eliminado del DOM, y es ahi es donde es conveniente invocar a su vez al método <code>dispose</code>
+            de todos los computed o suscripciones que se hayan creado en el componente.
+        </p>
+        <p>
+            Por ejemplo, este sería el código completo del modelo que se fue tratando en este capitulo, se agregó al final
+            un metodo <code>dispose</code> que se encargará de eliminar el computed y la suscripción cuando el componente
+            sea eliminado del DOM:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+
+        this.nombre = ko.observable('Francisco');
+        this.edad = ko.observable(34);
+
+        this.nombreCompleto = ko.computed(function() {
+            var completo = self.nombre();
+
+            var apellidos = self.apellidos();
+            for (var i = 0; i &lt; apellidos.length; i++) {
+                completo += " " + apellidos[i];
+            }
+
+            return completo;
+        });
+
+        // Este es un pureComputed y no es necesario limpiarlo invocando dispose
+        this.decadas = ko.pureComputed(function() {
+            return self.edad() / 10;
+        });
+
+        var subscription = this.nombreCompleto.subscribe(function(newValue) {
+            // Este código se ejecutará cada vez que el valor de nombreCompleto cambie
+        });
+
+        this.dispose = function() {
+            self.nombreCompleto.dispose();
+            subscription.dispose();
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Ryan Niemeyer escribió un articulo muy completo sobre limpieza al usar <em>Knockout</em>
+            <a href="http://www.knockmeout.net/2014/10/knockout-cleaning-up.html">aqui</a>
+        </p>
+        <p>
+            Te recomentandamos profundizar mas en la documentación del sitio de <em>Knockout.js</em>
             acerca de
-            <a href="http://knockoutjs.com/documentation/observables.html">los observables</a>, los
-            <a href="http://knockoutjs.com/documentation/observableArrays.html">observablesArray</a> y los
-            <a href="http://knockoutjs.com/documentation/computedObservables.html">los computed</a>
+            <a href="http://knockoutjs.com/documentation/observables.html">los observables y suscripciones</a>, los
+            <a href="http://knockoutjs.com/documentation/observableArrays.html">observablesArray</a>,
+            <a href="http://knockoutjs.com/documentation/computedObservables.html">los computed</a> y
+            <a href="http://knockoutjs.com/documentation/computed-pure.html">pure computed</a>
         </p>
         <nav-next-prev params="previousText: 'Bindings', previousPage: 'main/docs/basics-bindings',
                                nextText: 'Páginas', nextPage: 'main/docs/basics-pages'">

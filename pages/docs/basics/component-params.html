@@ -1,0 +1,67 @@
+<!-- quark-components -->
+    <span class="docs">
+        <h1>Parametros de Componentes</h1>
+        <hr />
+        <p>
+            Asi como los elementos HTML pueden tener atributos que modifican su comportamiento o apariencia los componentes
+            pueden definir parámetros.
+        </p>
+        <p>
+            Los parámetros se definen en el modelo del componente utilizando la funcion <code>parameters</code> de
+            <em>Quark.js</em>. Esta funcion se debe invocar con:
+            <ul>
+                <li>
+                    Un objeto donde cada propiedad es el nombre y valor inicial de un parametro que aceptará el componente.
+                </li>
+                <li>
+                    Como se especificó en el apartado de <a data-bind="href: 'main/docs/basics-web-components'">Componentes Web</a>,
+                    <em>Quark.js</em> envia al modelo 3 parámetros, el primero de ellos es un objeto con el una propiedad por
+                    con el nombre y valor de cada parametro que se pasa al componente.
+                </li>
+                <li>
+                    El objeto o una matriz de objetos en donde se deben crear las propiedades que corresponden con cada
+                    parametro que el componente acepte.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Los parametros pueden ser observables, o literales de <em>Javascript</em>. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.parameters({
+            obs: ko.observable('Hola'),
+            str: 'Mundo',
+            num: 2016
+        }, params, this);
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            define 3 parametros:
+            <ol>
+                <li>
+                    <code>obs</code> que es un observable con valor inicial <em>Hola</em>
+                </li>
+                <li>
+                    <code>str</code> que es un string con el valor inicial <em>Mundo</em>
+                </li>
+                <li>
+                    <code>num</code> que es un numero con el valor inicial <em>2016</em>
+                </li>
+            </ol>
+        </p>
+        <p>
+            Si se registró este componente bajo el tag <code>component-example</code> el que lo utilice podrá pasarle
+            valores customizados a los parametros de la siguiente forma:
+            <code-highlight params="language: 'html'">
+&lt;component-example params="obs: 'Adios', str: 'Planeta', num: 2015"&gt;
+&lt;/component-example&gt;
+            </code-highlight>
+        </p>
+
+    </span>
+<!-- /quark-components -->
