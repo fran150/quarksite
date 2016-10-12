@@ -27,7 +27,7 @@
             el HTML de la vista. La vista de los componentes debe ir dentro de un tag <code>quark-component</code>:
             <code-highlight>
 define(['quark', 'knockout'], function($$, ko) {
-    function ComponentExample(params, $scope, $imports) {
+    function ComponentExample() {
         var self = this;
     }
 
@@ -56,7 +56,7 @@ define(['quark', 'knockout'], function($$, ko) {
             Y si se graba la vista en el archivo example.html, se puede reescribir el modulo del componente web como:
             <code-highlight>
 define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ComponentExample(params, $scope, $imports) {
+    function ComponentExample() {
         var self = this;
     }
 
@@ -78,7 +78,7 @@ define(['quark'], function($$) {
     $$.registerComponent('component-example', 'components/component-example');
 });
             </code-highlight>
-            En el ejemplo anterior se define un modulo que registra el tag <code>component-example</code> con el modulo
+            En el ejemplo anterior se define un modulo que registra el tag <code>component-example</code> con el componente
             ubicado en <code>./components/component-example.js</code>.
         </p>
         <p>
@@ -93,7 +93,7 @@ define(['quark'], function($$) {
             <code-highlight params="language: 'html'">
 &lt;component-example /&gt;
             </code-highlight>
-            Utilizado asi este componente no funcionara
+            Utilizado asi este componente no funcionará
         </p>
         <nav-next-prev params="previousText: 'Módulos Web', previousPage: 'main/docs/basics-web-modules',
                                nextText: 'Bindings', nextPage: 'main/docs/basics-bindings'">

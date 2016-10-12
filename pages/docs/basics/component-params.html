@@ -1,6 +1,6 @@
 <!-- quark-components -->
     <span class="docs">
-        <h1>Parametros de Componentes</h1>
+        <h1>Parámetros de Componentes</h1>
         <hr />
         <p>
             Asi como los elementos HTML pueden tener atributos que modifican su comportamiento o apariencia, los componentes
@@ -8,28 +8,40 @@
             de los componentes que crea.
         </p>
         <p>
-            Los parámetros se definen en el modelo del componente utilizando la funcion <code>parameters</code> de
-            <em>Quark.js</em>. Esta funcion se debe invocar con:
+            Los parámetros se definen en el módelo del componente utilizando la función <code>parameters</code> de
+            <em>Quark.js</em>. Esta función se debe invocar con:
             <ul>
                 <li>
-                    Un objeto donde cada propiedad es el nombre y valor inicial de un parametro que aceptará el componente.
+                    Un objeto donde cada propiedad es el nombre y valor inicial de los parametros que aceptará el componente.
                 </li>
                 <li>
-                    Como se especificó en el apartado de <a data-bind="href: 'main/docs/basics-web-components'">Componentes Web</a>,
-                    <em>Quark.js</em> envia al modelo 3 parámetros, el primero de ellos es un objeto con el una propiedad por
-                    con el nombre y valor de cada parametro que se pasa al componente.
+                    Un objeto donde cada propiedad contiene el nombre y el valor especificado para cada parametro por quien
+                    usa el componente.
                 </li>
                 <li>
-                    El objeto o una matriz de objetos en donde se deben crear las propiedades que corresponden con cada
-                    parametro que el componente acepte.
+                    Un objeto o una matriz de objetos, donde <em>Quark.js</em> creará una propiedad por cada parámetro definido
+                    asociando dicha propiedad con su correspondiente parámetro.
                 </li>
             </ul>
         </p>
         <p>
-            Los parametros pueden ser observables, o literales de <em>Javascript</em>. Por ejemplo:
+            Al construir el modelo del componente, <em>Quark.js</em> envía como primer parametro un objeto en donde
+            cada propiedad corresponde con los parametros especificados por quien usa el componente y su correspondiente valor.
+            Es este objeto el que se debe enviar como segundo parámetro en la llamada a la función <code>parameters</code>.
+        </p>
+        <p>
+            Los parámetros pueden estar definidos como observables, literales, funciones u objetos de <em>Javascript</em>.
+            Por ejemplo, considere el siguiente componente:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    Valor de obs: &lt;span data-bind="model.obs"&gt;&lt;/span&gt;&lt;br /&gt;
+    Valor de str: &lt;span data-bind="model.str"&gt;&lt;/span&gt;&lt;br /&gt;
+    Valor de num: &lt;span data-bind="model.num"&gt;&lt;/span&gt;&lt;br /&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
             <code-highlight>
 define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ComponentExample(params, $scope, $imports) {
+    function ComponentExample(params) {
         var self = this;
 
         $$.parameters({
@@ -42,7 +54,9 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
     return $$.component(ComponentExample, template);
 });
             </code-highlight>
-            define 3 parametros:
+        </p>
+        <p>
+            Como primer parámetro se pasa el objeto que define los siguientes parámetros:
             <ol>
                 <li>
                     <code>obs</code> que es un observable con valor inicial <em>Hola</em>
@@ -56,13 +70,100 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
             </ol>
         </p>
         <p>
-            Si se registró este componente bajo el tag <code>component-example</code> el que lo utilice podrá pasarle
-            valores customizados a los parametros de la siguiente forma:
+            Como segundo parámetro se pasa el objeto <code>params</code> que <em>Quark.js</em> envía como parámetro al modelo
+            que, como se vió anteriormente, contiene los valores definidos por el usuario para cada parámetro.
+            Finalmente, como tercer parámetro se pasa <code>this</code> o sea el propio modelo, con lo cuál, luego de la
+            ejecución de la función <code>parameters</code>, dentro del modelo existirán 3 propiedades con los valores
+            de cada uno de los parametros:
+            <code-highlight>
+self.obs();
+// Devolverá 'Hola'
+self.str;
+// Devolverá 'Mundo'
+self.num;
+// Devolverá 2016
+            </code-highlight>
+        </p>
+        <p>
+            Si se registró este componente bajo el tag <code>component-example</code>, el que lo utilice podrá customizarlo
+            modificando los parámetros como por ejemplo:
             <code-highlight params="language: 'html'">
 &lt;component-example params="obs: 'Adios', str: 'Planeta', num: 2015"&gt;
 &lt;/component-example&gt;
             </code-highlight>
+            Y entonces:
+            <code-highlight>
+self.obs();
+// Devolverá 'Adios'
+self.str;
+// Devolverá 'Planeta'
+self.num;
+// Devolverá 2015
+            </code-highlight>
         </p>
+        <p>
+            Internamente la función <code>parameters</code> compara los tipos de los parametros definidos en el componente y
+            los valores enviados al utilizarse:
+            <ul>
+                <li>
+                    Si el parametro definido no es observable y
+                    <ul>
+                        <li>el valor enviado es observable, asigna el contenido del observable enviado al parámetro definido</li>
+                        <li>el valor enviado no es observable, copia el valor al parametro definido</li>
+                    </ul>
+                </li>
+                <li>
+                    Si el parametro definido es un observable y
+                    <ul>
+                        <li>el valor enviado es también observable, se reemplaza el observable definido con el enviado</li>
+                        <li>el parametro enviado no es observable, se setea el valor del observable definido con el valor enviado</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>
+            Cuando el parámetro definido y enviado son observables, la función <code>parameters</code> básicamente
+            hace que los dos componentes compartan el mismo observable permitiendo que cada componente reaccione a los
+            cambios en el otro.
+        </p>
+        <p>
+            Suponiendo que el ejemplo anterior se registró con el tag <code>component-example</code>, considere el siguiente
+            ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    Nombre: &lt;input type="text" data-bind="value: model.nombre" /&gt;
+    &lt;br /&gt;
+    &lt;br /&gt;
+    &lt;component-example params="obs: model.nombre" &gt;
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params) {
+        var self = this;
 
+        this.nombre = ko.observable('Juan');
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            En este ejemplo el componente posee una propiedad <code>nombre</code> que es un observable. Luego, en la vista se
+            muestra un <code>input</code> cuya propiedad <code>value</code> se enlaza a dicho observable y un componente
+            <code>component-example</code> al que se pasa, como parametro <code>obs</code>, el mismo observable. Como la
+            función <code>parameters</code> reemplaza el observable definido por el enviado, ambos componentes quedan
+            efectivamente enlazados al mismo observable <code>nombre</code> permitiendo que al modificar el valor del
+            <code>input</code> se actualice el contenido del <code>component-example</code>
+        </p>
+        <p>
+            El resultado sería similar a:
+        </p>
+        <div class="well">
+            <other-component>
+            </other-component>
+        </div>
     </span>
 <!-- /quark-components -->

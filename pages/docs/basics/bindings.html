@@ -29,6 +29,202 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
             El ejemplo anterior asocia el texto (o sea el contenido) del <code>div</code> con la propiedad <code>title</code>
             del modelo. Al usar este componente se mostrará un <code>h1</code> con el texto <em>"Component Example"</em>
         </p>
+        <h2>
+            Sintaxis
+        </h2>
+        <hr />
+        <p>
+            Generalmente es fácil y obvio realizar el binding de una propiedad, aunque
+            para casos mas complejos es util enteder el comportamiento y sintaxis del sistema de binding.
+        </p>
+        <p>
+            Un binding consiste generalmente de dos items separados por dos puntos, el nombre del binding y el valor.
+            Un elemento puede incluir multiples bindings (relacionados o no) y cada uno debe ir separado por coma.
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1 data-bind="text: model.title, css: class"&gt;&lt;/h1&gt;
+&lt;/quark-component&gt
+            </code-highlight>
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+
+        this.title = "Component Example";
+        this.class = "text-center";
+        this.price = 500;
+
+        this.getLength = function(data) {
+            return data.length;
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Generalmente el nombre de un binding debe corresponder con alguno de los bindings registrados o bien ser un
+            parametro para otro binding. Si el nombre no corresponde con ninguno de estos, <em>Knockout</em> lo ignorará
+            (sin error o aviso), por lo que si un binding parece no funcionar primero se deberá revisar que el nombre
+            sea correcto.
+        </p>
+        <p>
+            El valor del binding puede ser un valor simple, variable, o casi cualquier expresión <em>Javascript</em> válida.
+            Algunos ejemplos de bindings válidos:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;!-- Variable (usualmente una propiedad del modelo) --&gt;
+    &lt;div data-bind="text: model.title"&gt;&lt;/div&gt;
+
+    &lt;!-- Comparación y condicional --&gt;
+    Este item es &lt;span data-bind="text: price &gt; 50 ? 'caro' : 'barato'"&gt;&lt;/span&gt;.
+
+    &lt;!-- Llamada a funcion y comparación --&gt;
+    &lt;button data-bind="enable: model.getLength(model.title) > 30"&gt;...&lt;/button&gt;
+
+    &lt;!-- Función --&gt;
+    &lt;div data-bind="click: function (data) { alert(data); }"&gt;...&lt;/div&gt;
+
+    &lt;!-- Objeto literal (con propiedades con comillas y sin comillas) --&gt;
+    &lt;div data-bind="with: { emocion: 'feliz', 'expresion-facial': 'risa'}"&gt;...&lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Incluso la coma está bien cuando está entre llaves, corchetes o parentesis. Cuando el valor es un objeto literal,
+            las propiedades deben tener nombres que sean identificadores <em>Javascript</em> válidos, o deben estar entre
+            comillas simples. Si el valor del binding es una expresión inválida o hace referencia a una variable
+            desconocida <em>Knockout</em> dejará de procesar los bindings y generará un error.
+        </p>
+        <p>
+            Los bindings pueden contener cualquier numero de espacios en blanco (espacios, tabs o enter). Existen bindings
+            que permiten ser utilizados sin especificar el valor, en este caso se les dará un valor <code>undefined</code>.
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Titulo&lt;/h1&gt;
+    &lt;div data-bind="content"&gt;&lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <h2>
+            Contexto del binding
+        </h2>
+        <hr />
+        <p>
+            El contexto del binding es un objeto que contiene datos que se pueden referenciar desde el binding. Al aplicar los
+            bindings, <em>Knockout</em> automaticamente crea y mantiene una jerarquía de contextos. La raiz de esta jerarquía
+            hace referencia al objeto que se especifique al iniciar <em>Quark.js</em> en la funcion <code>start</code>.
+            Luego, existen ciertos elementos que crean contextos hijos que se van anidando desde la raiz como puede ser un
+            componente o los bindings <code>foreach</code> y <code>with</code>
+        </p>
+        <p>
+            Los contextos ofrecen las siguientes propiedades que se pueden referenciar desde cualquier binding:
+            <ul>
+                <li>
+                    <code>$parent</code>: Este es el modelo del objeto en el contexto padre, o sea el que se encuentra
+                    inmediatamente fuera del contexto actual. Por ejemplo:
+                    <code-highlight params="language: 'html'">
+&lt;h1 data-bind="text: name"&gt;&lt;/h1&gt;
+
+&lt;div data-bind="with: manager"&gt;
+    &lt;!-- Ahora estamos dentro de un contexto anidado --&gt;
+    &lt;span data-bind="text: name"&gt;&lt;/span&gt; es el administrador de
+    &lt;span data-bind="text: $parent.name"&gt;&lt;/span&gt;
+&lt;/div&gt;
+                    </code-highlight>
+                    En el contexto raiz, esta propiedad es <code>undefined</code>.
+                </li>
+                <li>
+                    <code>$parents</code>: Este es un array de todos los modelos padres:
+                    <ul>
+                        <li><code>$parents[0]</code> es el modelo del padre (igual a la propiedad <code>$parent</code>)</li>
+                        <li><code>$parents[1]</code> es el modelo del abuelo</li>
+                        <li><code>$parents[2]</code> es el modelo del bisabuelo</li>
+                        <li>Y asi...</li>
+                    </ul>
+                </li>
+                <li>
+                    <code>$root</code>: Es el modelo del objeto en el contexto raiz.
+                </li>
+                <li>
+                    <code>$component</code>: Es el modelo del componente actual. Esta propiedad es util si por ejemplo
+                    la vista del componente incluye un binding <code>foreach</code> y desde dentro del mismo se desea
+                    acceder a una propiedad del modelo del componente.
+                    <code-highlight params="language: 'html'">
+&lt;div data-bind="foreach: persons"&gt;
+    &lt;span data-bind="text: name"&gt;&lt;/span&gt; tiene &lt;span data-bind="text: age"&gt;&lt;/span&gt; y
+    trabaja en &lt;span data-bind="text: $component.areaName"&gt;&lt;/span&gt;
+&lt;/div&gt;
+                    </code-highlight>
+                    <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+
+        this.areaName = 'Sales';
+
+        this.persons = [
+            { name: 'Paul', age: 25 },
+            { name: 'Michael', age: 47 },
+            { name: 'Peter', age: 32 }
+        ]
+    }
+
+    return $$.component(ComponentExample, template);
+});
+                    </code-highlight>
+                </li>
+                <li>
+                    <code>$data</code>: Este es el modelo en el contexto actual. En el contexto raiz <code>$data</code> y
+                    <code>$root</code> son el mismo objeto. Dentro de un binding anidado este parametro contendra el
+                    item de datos actual por lo que es util para referenciar el modelo en si mismo y no una propiedad
+                    en dicho modelo. Por ejemplo:
+                    <code-highlight params="language: 'html'">
+&lt;ul data-bind="foreach: ['cats', 'dogs', 'fish']"&gt;
+    &lt;li&gt;El valor es &lt;span data-bind="text: $data"&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+                    </code-highlight>
+                </li>
+                <li>
+                    <code>$index</code>: Solo disponible en los bindings <code>foreach</code>, este es el indice con base 0 del elemento
+                    en la matriz siendo procesado por el binding. A diferencia de otras propiedades del contexto esta propiedad
+                    es un <a data-bind="href: 'main/docs/basics-observables'">observable</a> que se actualiza cada vez que este
+                    valor cambia (se agrega o quita un elemento del array).
+                </li>
+                <li>
+                    <code>$parentContext</code>: Este hace referencia al contexto del padre. No se debe confundir con
+                    <code>$parent</code> que hace referencia al modelo del padre. Esta propiedad es util si se desea acceder
+                    a una propiedad del contexto padre, por ejemplo el <code>$index</code> de un <code>foreach</code> anidado.
+                </li>
+                <li>
+                    <code>$rawData</code>: Este es el model "crudo" en el contexto actual. Casi siempre será igual a
+                    <code>$data</code> a excepto que el modelo esté dentro de un observable. En ese caso en <code>$data</code>
+                    estará el modelo y en <code>$rawData</code> el observable en sí.
+                </li>
+                <li>
+                    <code>$componentTemplateNodes</code>: Contiene un array con los elementos DOM contenidos dentro del tag
+                    al usar un componente. Es usado por el binding <code>content</code> y permite construir componentes
+                    que aceptan templates para definir su salida.
+                </li>
+                <li>
+                    <code>$container</code>: Cuando un componente es usado en el contenido de otro se puede acceder al
+                    modelo del componente contenedor a través de esta propiedad. Por ejemplo:
+                    <code-highlight params="language: 'html'">
+&lt;component-example&gt;
+    &lt;!-- Enlaza el binding click con el metodo close de component-example --&gt;
+    &lt;button data-bind="click: $container.close"&gt;Close&lt;/button&gt;
+&lt;/component-example&gt;
+                    </code-highlight>
+                </li>
+            </ul>
+        </p>
+        <h2>
+            Bindings bidireccionales
+        </h2>
+        <hr />
         <p>
             La idea de los bindings es relacionar elementos del DOM o sus atributos con propiedades del modelo
             de manera que al modificarse uno actualice automáticamente el otro. Entonces, ¿como informar a la vista que se ha
@@ -37,7 +233,9 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
         </p>
         <p>
             En la <a href="http://knockoutjs.com/documentation/introduction.html">documentación</a> de Knockout puedes
-            encontrar mas información acerca de los bindings.
+            encontrar mas información acerca de los bindings,
+            <a href="http://knockoutjs.com/documentation/binding-syntax.html">su sintaxis</a> y
+            <a href="http://knockoutjs.com/documentation/binding-context.html">los contextos</a>.
         </p>
         <nav-next-prev params="previousText: 'Componentes Web', previousPage: 'main/docs/basics-web-components',
                                nextText: 'Observables', nextPage: 'main/docs/basics-observables'">

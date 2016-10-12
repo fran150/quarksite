@@ -1,0 +1,131 @@
+<!-- quark-component -->
+    <span class="docs">
+        <h1>Scope</h1>
+        <hr />
+        <p>
+            Al construir el modelo de un componente <em>Quark.js</em> envía como segundo parámetro un objeto denominado scope.
+            Este objeto es contra el cual se realiza el binding de la vista y sirve para definir propiedades
+            o métodos que son exclusivos para uso de la vista pero que no se quiere que formen parte del modelo. Los métodos
+            y propiedades definidos en el scope no son accesibles para aquellos que utilicen el componente, sino que son para
+            uso exclusivo del propio componente.
+        </p>
+        <p>
+            En la vista se puede utilizar la propiedad <code>model</code> de scope para acceder al modelo del componente.
+            Ejemplos:
+        </p>
+        <p>
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params, $scope) {
+        var self = this;
+
+        // Variable privada del modelo
+        var priv = 'I´m a private variable';
+
+        // Parametro que impacta sobre el modelo por lo que queda de acceso publico
+        // Se puede utilizar tanto desde la vista (a través de la propiedad model) como desde otro componente que
+        // acceda al modelo de este.
+        $$.parameters({
+            publicParam: ko.observable()
+        }, params, this);
+
+        // Parametro que impacta sobre el scope por lo que puede ser utilizado unicamente desde la vista
+        $$.parameters({
+            scopeParam: ko.observable()
+        }, params, $scope);
+
+        var privateParameters = {};
+
+        // Parametro que impacta sobre un objeto privado por lo que no forma parte del modelo ni del scope.
+        // No puede ser usado desde la vista ni queda expuesto con el modelo.
+        $$.parameters({
+            privateParams: ko.observable()
+        }, params, privateParameters);
+
+        // Metodo del modelo por lo que queda publico.
+        // Se puede utilizar tanto desde la vista (a través de la propiedad model) como desde otro componente que
+        // acceda al modelo de este.
+        this.publicMethod = function() {
+        };
+
+        // Metodo del scope por lo que solo puede ser usado por la vista
+        $scope.scopeMethod = function() {
+        };
+
+        // Metodo privado, no se puede usar ni de la vista ni queda accesible con el modelo.
+        function privateMethod() {
+        };
+
+        // Observable del modelo
+        this.publicObs = ko.observable();
+        // Observable del scope
+        $scope.scopeObs = ko.observable();
+        // Observable privado
+        var privateObs = ko.observable();
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    Bind al parametro público &lt;span data-bind="text: model.publicParam"&gt;&lt;/span&gt;
+    Bind al parametro scope &lt;span data-bind="text: scopeParam"&gt;&lt;/span&gt;
+
+    Bind al método público &lt;button data-bind="text: model.publicMethod"&gt;Click&lt;/button&gt;
+    Bind al método scope &lt;button data-bind="text: scopeMethod"&gt;Click&lt;/button&gt;
+
+    Bind al observable público &lt;input data-bind="value: model.publicObs" /&gt;
+    Bind al observable scope &lt;input data-bind="value: scopeObs" /&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            En el ejemplo anterior se definen distintos tipos de propiedades y métodos con diferente accesibilidad.
+            Se debe prestar antención principalmente a que cuando se hace referencia a propiedades o metodos del modelo desde
+            la vista de debe utilizar la propiedad <code>model</code> del scope, y cuando se hace referencia a
+            propiedades o métodos del propio scope se pueden hacer directamente.
+        </p>
+        <p>
+            A continuación se muestra un ejemplo de uso del scope:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params, $scope) {
+        var self = this;
+
+        $$.parameters({
+            texto: ko.observable(''),
+            largoMaximo: ko.observable(10)
+        }, params, this);
+
+        $scope.class = ko.pureComputed(function() {
+            var texto = self.text();
+            var max = self.largoMaximo();
+
+            if ($$.isString(texto)) {
+                if (texto.length > max) {
+                    return "text-danger";
+                }
+            }
+
+            return "";
+        });
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;span data-bind="text: model.texto, css: class"&gt;
+    &lt;/span&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+            Este ejemplo define dos parametros, un texto a mostrar en el componente y el largo maximo admitido.
+            Luego a nivel scope define un computed que devuelve la clase que se debe aplicar al elemento en base
+            a si el largo del texto supera el maximo.
+            De esta forma el texto se pondrá rojo si el largo supera el maximo admitido, y cualquiera que use
+            este componente no podrá acceder a la funcion <code>class</code> ya que la misma reside en el scope.
+        </p>
+    </span>
+<!-- quark-component -->

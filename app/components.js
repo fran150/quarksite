@@ -30,12 +30,12 @@ define(['quark'], function($$) {
                 .register('web-components', 'pages/docs/basics/web-components')
                 .register('observables', 'pages/docs/basics/observables')
                 .register('component-params', 'pages/docs/basics/component-params')
+                .register('scope', 'pages/docs/basics/scope')
                 .register('bindings', 'pages/docs/basics/bindings')
                 .register('pages', 'pages/docs/basics/pages')
                 .register('controllers', 'pages/docs/basics/controllers')
                 .register('routes', 'pages/docs/basics/routes')
             .endNamespace();
-
 
     $$.onNamespace('library')
         .register('finder', 'components/library/finder');
@@ -45,4 +45,7 @@ define(['quark'], function($$) {
 
     $$.onNamespace('nav')
         .register('next-prev', 'components/nav/next-prev');
+
+    $$.registerComponent('component-example', 'components/example/component');
+    $$.registerComponent('other-component', 'components/example/other');
 });
