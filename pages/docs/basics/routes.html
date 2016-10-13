@@ -3,39 +3,137 @@
         <h1>Rutas</h1>
         <hr />
         <p>
-            Las rutas permiten asociar un hash de la URL y la <a data-bind="href: 'main/docs/basics-pages'">página</a>
-            de <em>Quark.js</em> que se desea mostrar cuando se dirija el navegador a dicha URL. Para el sistema
-            de ruteo, <em>Quark.js</em> utiliza
+            En las aplicaciones <a href="https://en.wikipedia.org/wiki/Single-page_application">SPA</a> todo el sitio
+            "cabe" en la página inicial, luego los distintos recursos se van cargando dinamicamente a medida que el usuario
+            navega. Esto rompe con el diseño de los navegadores para la navegación del historial de paginas visitadas
+            utilizando los botones "Adelante" y "Atrás". La solución tradicional es cambiar el
+            <a href="https://en.wikipedia.org/wiki/Fragment_identifier">identificador de fragmento o hash</a> de la URL
+            en relación al estado actual de la pantalla. Esto permite que las distintas acciones se almacenen
+            en el historial del  navegador y que los botones "adelante" y "atrás" del navegador funcionen como se espera.
+        </p>
+        <p>
+            La parte de <em>Quark.js</em> que se encarga de restaurar el estado de la pantalla para cada estado distinto
+            en el hash de la URL se conoce como <code>router</code>.
+        </p>
+        <p>
+            El <code>router</code> de <em>Quark.js</em> permite definir patrones para el hash de la URL y asociarlo con la
+            <a data-bind="href: 'main/docs/basics-pages'">página</a> de <em>Quark.js</em> que se desea mostrar y el valor
+            que se debe dar a los parámetros de dicha página.
+            Cuando se modifica este hash en la URL, <em>Quark.js</em> verifica estos patrones y si encuentra uno que
+            coincida actualiza la pagina y los parametros de la misma en consecuencia.
+        </p>
+        <p>
+            Para configurar los distintos hash y mapearlos a las páginas se debe utilizar la funcion <code>mapRoute</code>
+            de <em>Quark.js</em> enviandole como parámetro un objeto donde el nombre de cada propiedad corresponde con
+            una ruta de la aplicación, y el valor de dicha propiedad es un string con el hash a asociarle.
+        </p>
+        <p>
+            Los patrones están divididos en segmentos limitados por <code>/</code> y pueden contener variables con
+            nombre rodeadas por llaves <code>{}</code>. Por ejemplo, el patrón <code>'main/{foo}/{bar}'</code> coincidirá
+            con las URL <code>main/lorem/ipsum</code> y <code>main/var1/var2</code>, pero no con <code>main/lorem/ipsum/dolor</code>
+            o <code>lorem/ipsum/dolor</code>. Las barras iniciales y finales serán ignoradas en el patrón, por ejemplo
+            <code>/{foo}/</code> es lo mismo que <code>{foo}</code>. Finalmente, un patron puede tener segmentos opcionales
+            rodeados con <code>:</code>, por ejemplo "news/:foo:/:bar:" coincidirá con "news", "news/123" y "news/123/asd".
+        </p>
+        <p>
+            <em>Quark.js</em> automáticamente mapeará el valor de las variables definidas en el hash a los parámetros con
+            el mismo nombre definidos en la página.
+        </p>
+        <p>
+            Para el sistema de ruteo, <em>Quark.js</em> utiliza
             <a href="https://millermedeiros.github.io/crossroads.js">Crossroads.js</a> y
             <a href="https://github.com/millermedeiros/hasher">Hasher</a>.
         </p>
         <p>
-            Mediante las rutas el programador puede definir la url que utilizará el usuario para acceder a una pagina especifica
-            y que valor setear para los parametros de dicha pagina. De esta forma, mediante la URL se podrá controlar el estado
-            de la aplicación. Gracias a <em>Hasher.js</em> el navegador almacena en su historial las diferentes rutas que fue
-            visitando por lo que el usuario podrá navegar por las distintas rutas incluso utilizando los botones adelante y
-            atrás del navegador.
-        </p>
-        <p>
-            En la <a href="https://millermedeiros.github.io/crossroads.js/#crossroads-add_route">documentación</a> de
-            <em>Crossroads.js</em> se indica la estructura que pueden tener las rutas y como definir variables en las mismas.
-            Si el nombre de la variable de la ruta coincide con un parametro de la pagina asociada, se actualiza el observable
-            de la pagina con el valor especificado en la url para dicha variable.
-        </p>
-        <p>
-            Por ejemplo, si la url base de tu sitio es <var>http://example.com</var> y defines las rutas asi:
+            Entonces, por ejemplo, si la url base del sitio es <var>http://example.com</var> y se configura de la
+            siguiente manera:
             <code-highlight>
-var routes = {
-    'main/home':                'home',
-    'main/components/edit':     'edit/{id}'
-}
+define(['quark'], function($$) {
+    var config = {
+        'main':                     { navbar:   'navbar-component' },
+        'main/home':                { body:     'main-home' },
+        'main/customer/editor':     { body:     'main-customer-editor' },
+    };
+
+    var params = {
+        'main/home':                  { language: 'es' },
+        'main/customer/editor':       [ 'id' ]
+    }
+
+    var routes = {
+        'main/home':                '',
+        'main/customer/editor':     'customer/edit/{id}'
+    }
+
+
+    $$.routing.pages(config, params);
+    $$.routing.mapRoute(routes);
+});
             </code-highlight>
         </p>
         <p>
-            Ingresando a la URL <var>http://example.com#home</var> va a cargar la pagina <code>main/home</code>, cambiando la URL a
-            <var>http://example.com#edit/5</var> cargará la pagina <code>main/components/edit</code> y si tiene un parametro <code>id</code>
-            le asignará el valor 5. Luego si la url cambia a por ejemplo a http://example.com#edit/7 no se cargará de nuevo la pagina,
-            ya que el hash coincide con el de la ruta actual; sólo se actualizará el valor del parametro <code>id</code> a 7.
+            Ingresando a la URL <var>http://example.com</var> va a cargar la pagina <code>main/home</code>.
+            Luego, cambiando la URL a <var>http://example.com#customer/edit/5</var> cargará la pagina
+            <code>main/customer/editor</code> y asignará al parámetro <code>id</code> el valor <code>5</code>
+            Finalmente si la url cambia a, por ejemplo a http://example.com#customer/edit/7 no se cargará de nuevo la página,
+            ya que el hash coincide con el de la ruta actual; sólo se actualizará el valor del parametro <code>id</code> a 7,
+            que al ser observable permitirá a los componentes reaccionar a esta modificación.
+        </p>
+        <p>
+            Lo ideal es estructurar la aplicación para que el estado de la interface de usuario esté dictada por el hash
+            especificado en la URL, de esta forma el usuario puede navegar por los distintos estados o incluso guardar
+            alguna página en "favoritos".
+        </p>
+        <h2>Navegación</h2>
+        <hr />
+        <p>
+            Para navegar por las distintas páginas que conforman la aplicación se pueden crear los links y redirecciones
+            a partir del nombre de la página destino y no de la ruta que tiene asociada. <em>Quark.js</em> automáticamente
+            busca el hash definido para la página y crea la URL que corresponda.
+        </p>
+        <p>
+            Esto permite que se puedan cambiar los hash asociados a cada página y automáticamente se actualicen todos los
+            links de la aplicación.
+        </p>
+        <p>
+            Para esto hay dos herramientas, el binding <code>href</code> y la función <code>hash</code> del objeto
+            <code>routing</code> de <em>Quark.js</em>.
+        </p>
+        <p>
+            El binding <code>href</code> se utiliza principalmente en los tags <code>a</code> y permite especificar
+            el nombre de la página de destino. Si la ruta tiene parametros de puede especificar el valor de los mismos
+            utilizando el binding <code>params</code> en el mismo elemento y pasandole un objeto donde cada propiedad
+            corresponde con el nombre del parametro y valor que se le quiere dar.
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;a data-bind="href: 'main/home'"&gt;Ir al Home&lt;/a&gt;
+&lt;a data-bind="href: 'main/customer/editor', params: { id: 5 }"&gt;Editar Cliente 5&lt;/a&gt;
+            </code-highlight>
+            El primer link apuntará a <var>http://example.com</var> y el segundo a <var>http://example.com#customer/edit/5</var>
+        </p>
+        <p>
+            Si se desea obtener la URL de estas páginas por código se debe utilizar la función <code>hash</code>. La misma
+            funciona exactamente igual, el primer parametro es el nombre de la página destino y el segundo el objeto con los
+            valores de cada parámetro.
+            Por ejemplo:
+            <code-highlight>
+$$.routing.hash('main/home');
+// Devolverá ''
+$$.routing.hash('main/customer/editor', { id: 5 });
+// Devolverá 'customer/edit/5'
+
+// Combinandolo con la funcion redirect
+$$.redirect('http://example.com#' + $$.routing.hash('main/home'));
+// Redirige al home
+$$.redirect('http://example.com#' + $$.routing.hash('main/customer/editor', { id: 5 }));
+// Redirige a la pagina de edición del cliente 5
+            </code-highlight>
+        </p>
+        <p>
+            Finalmente, por ejemplo si se cambia la el hash de <code>main/customer/editor</code> a <code>client/{id}/edit</code>
+            los links del ejemplo anterior se modificarán por <var>http://example.com#client/5/edit</var>.
         </p>
         <nav-next-prev params="previousText: 'Páginas', previousPage: 'main/docs/basics-pages',
                                nextText: 'Controladores', nextPage: 'main/docs/basics-controllers'">

@@ -143,7 +143,7 @@ define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, temp
     function OtherExample(params) {
         var self = this;
 
-        this.nombre = ko.observable('Juan');
+        this.nombre = ko.observable('Pedro');
     }
 
     return $$.component(OtherExample, template);
@@ -159,11 +159,11 @@ define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, temp
             <code>input</code> se actualice el contenido del <code>component-example</code>
         </p>
         <p>
-            El resultado sería similar a:
+            El resultado:
         </p>
         <div class="well">
-            <other-component>
-            </other-component>
+            <other-example>
+            </other-example>
         </div>
     </span>
 <!-- /quark-components -->

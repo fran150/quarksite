@@ -28,10 +28,11 @@ define(['quark'], function($$) {
                 .register('intro', 'pages/docs/basics/intro')
                 .register('web-modules', 'pages/docs/basics/web-modules')
                 .register('web-components', 'pages/docs/basics/web-components')
+                .register('bindings', 'pages/docs/basics/bindings')
                 .register('observables', 'pages/docs/basics/observables')
                 .register('component-params', 'pages/docs/basics/component-params')
                 .register('scope', 'pages/docs/basics/scope')
-                .register('bindings', 'pages/docs/basics/bindings')
+                .register('imports', 'pages/docs/basics/imports')
                 .register('pages', 'pages/docs/basics/pages')
                 .register('controllers', 'pages/docs/basics/controllers')
                 .register('routes', 'pages/docs/basics/routes')
@@ -47,5 +48,6 @@ define(['quark'], function($$) {
         .register('next-prev', 'components/nav/next-prev');
 
     $$.registerComponent('component-example', 'components/example/component');
-    $$.registerComponent('other-component', 'components/example/other');
+    $$.registerComponent('other-example', 'components/example/other');
+    $$.registerComponent('scope-example', 'components/example/scope');
 });

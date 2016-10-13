@@ -10,8 +10,8 @@
             uso exclusivo del propio componente.
         </p>
         <p>
-            En la vista se puede utilizar la propiedad <code>model</code> de scope para acceder al modelo del componente.
-            Ejemplos:
+            En la vista se puede utilizar la propiedad <code>model</code> del scope para acceder al modelo del componente.
+            Algunos ejemplos:
         </p>
         <p>
             <code-highlight>
@@ -82,24 +82,24 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
         </p>
         <p>
             En el ejemplo anterior se definen distintos tipos de propiedades y métodos con diferente accesibilidad.
-            Se debe prestar antención principalmente a que cuando se hace referencia a propiedades o metodos del modelo desde
-            la vista de debe utilizar la propiedad <code>model</code> del scope, y cuando se hace referencia a
-            propiedades o métodos del propio scope se pueden hacer directamente.
+            Se debe prestar antención principalmente a que, cuando se hace referencia a propiedades o metodos del modelo desde
+            la vista, de debe utilizar la propiedad <code>model</code> del scope, y cuando se hace referencia a
+            propiedades o métodos del propio scope se pueden referenciar directamente.
         </p>
         <p>
             A continuación se muestra un ejemplo de uso del scope:
             <code-highlight>
-define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ComponentExample(params, $scope) {
+define(['quark', 'knockout', 'text!./scope.html'], function($$, ko, template) {
+    function ScopeExample(params, $scope) {
         var self = this;
 
         $$.parameters({
             texto: ko.observable(''),
-            largoMaximo: ko.observable(10)
+            largoMaximo: ko.observable(20)
         }, params, this);
 
-        $scope.class = ko.pureComputed(function() {
-            var texto = self.text();
+        $scope.clase = ko.pureComputed(function() {
+            var texto = self.texto();
             var max = self.largoMaximo();
 
             if ($$.isString(texto)) {
@@ -112,20 +112,51 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
         });
     }
 
-    return $$.component(ComponentExample, template);
+    return $$.component(ScopeExample, template);
 });
             </code-highlight>
             <code-highlight params="language: 'html'">
 &lt;quark-component&gt;
-    &lt;span data-bind="text: model.texto, css: class"&gt;
+    &lt;span data-bind="text: model.texto, css: clase"&gt;
     &lt;/span&gt;
 &lt;/quark-component&gt;
             </code-highlight>
-            Este ejemplo define dos parametros, un texto a mostrar en el componente y el largo maximo admitido.
-            Luego a nivel scope define un computed que devuelve la clase que se debe aplicar al elemento en base
-            a si el largo del texto supera el maximo.
-            De esta forma el texto se pondrá rojo si el largo supera el maximo admitido, y cualquiera que use
-            este componente no podrá acceder a la funcion <code>class</code> ya que la misma reside en el scope.
+            Este ejemplo define dos parametros, un texto a mostrar en el componente y el largo máximo admitido.
+            Luego a nivel scope define un computed que devuelve la clase que se debe aplicar al elemento
+            si el largo del texto supera el maximo.
+            Cualquiera que use este componente no podrá acceder al computed <code>clase</code>
+            ya que el mismo reside en el scope.
+        </p>
+        <p>
+            Usándolo como:
+            <code-highlight params="language: 'html'">
+&lt;scope-example params="texto: 'Texto Corto'"&gt;
+&lt;/scope-example&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;scope-example params="texto: 'Texto Excesiva e Incomodamente Largo'"&gt;
+&lt;/scope-example&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;input type="text" data-bind="value: someObservable" /&gt;
+&lt;scope-example params="texto: someObservable"&gt;
+&lt;/scope-example&gt;
+            </code-highlight>
+
+            Da como resultado:
+            <div class="well">
+                <scope-example params="texto: 'Texto Corto'">
+                </scope-example>
+                <br />
+                <br />
+                <scope-example params="texto: 'Texto Excesiva e Incomodamente Largo'">
+                </scope-example>
+                <br />
+                <br />
+                <input type="text" data-bind="textInput: someObservable" />
+                <scope-example params="texto: someObservable">
+                </scope-example>
+            </div>
         </p>
     </span>
-<!-- quark-component -->
+<!-- /quark-component -->
