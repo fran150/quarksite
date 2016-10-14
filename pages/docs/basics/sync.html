@@ -1,0 +1,96 @@
+<!-- quark-component -->
+    <span class="docs">
+        <h1>Sincronización</h1>
+        <hr />
+        <p>
+            El proposito de este capitulo es describir el orden de carga y ejecución de los distintos elementos que forman
+            una aplicación en <em>Quark.js</em> y luego presentar algunas herramientas que permiten sincronizar la ejecución
+            del código cuando sea necesario.
+        </p>
+        <p>
+            <h3>Al iniciar la aplicación:</h3>
+            <hr/>
+            <ol>
+                <li>
+                    Se carga la página principal y punto de entrada, el navegador al detectar los tags
+                    script que incluyen <em>Quark.js</em> y <em>Require</em> carga y ejecuta esos scripts.
+                </li>
+                <li>
+                    Entre los script de inicio se ejecuta el que configura require.js con todos los modulos de <em>Quark.js</em>
+                    y luego ejecuta el modulo inicial de la aplicación.
+                </li>
+                <li>
+                    En el modulo inicial se deben registrar todos los componentes, configurar las páginas y rutas y ejecutar
+                    la función <code>activateHasher</code> del objeto <code>routing</code> de <em>Quark.js</em> para iniciar el
+                    sistema de ruteo y <code>start</code> para iniciar la aplicación.
+                </li>
+                <li>
+                    Si se especificó una función custom al activar el sistema de ruteo con la función <code>activateHasher</code>
+                    se ejecuta dicha función que finalmente deberá invocar a la función <code>parse</code> del objeto
+                    <code>routing</code> pasándole el hash.
+                </li>
+                <li>
+                    <em>Quark.js</em> parsea la ruta, luego por cada segmento:
+                    <ol>
+                        <li>
+                            Carga y ejecuta el controlador correspondiente pasando como parámetro el controlador
+                            padre y el <code>tracker</code>.
+                        </li>
+                        <li>
+                            Crea la propiedad parent en el controlador asignandole el controlador padre.
+                        </li>
+                        <li>
+                            Crea la propiedad outlets en el controlador creando por cada outlet definido en el segmento una propiedad
+                            y asignandole el nombre del componente a mostrar.
+                        </li>
+                        <li>
+                            Crea la propiedad params en el controlador creando por cada parametro definido en el segmento de la
+                            página una propiedad y asginandole un observable inicializado al valor definido.
+                        </li>
+                        <li>
+                            Se evalua el valor de cada parametro de la ruta y se le asigna al parametro con el mismo nombre
+                            que se haya definido en el controlador.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Se setea el observable <code>routing.current</code> con el nombre de la página actual.
+                </li>
+                <li>
+                    Al ejecutarse <code>start</code>, si se especificó un modelo se ejecuta dicho modelo y se procede a
+                    realizar el binding del mismo con la página principal.
+                </li>
+                <li>
+                    Al realizarse el binding de cada <code>outlet</code>:
+                    <ol>
+                        <li>
+                            Busca en el arbol de controladores el ultimo que contenga en el objeto
+                            <code>outlets</code> una propiedad con el mismo nombre del outlet y obtiene el tag del componente
+                            que se debe mostrar. Si no se encuentra ninguna se utiliza el componente "empty" que
+                            es un componente vacío.
+                        </li>
+                        <li>
+                            Verifica si el controlador contiene un método <code>sendParameters</code> y en tal caso lo
+                            invoca para obtener los parametros del componente asociado al outlet.
+                        </li>
+                        <li>
+                            Realiza el binding del componente pasándole los parametros obtenidos.
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+
+            <h3>Al cambiar de página</h3>
+            <hr/>
+            <ol>
+                <li>qweqwe</li>
+            </ol>
+
+            <h3>Al cargar un componente</h3>
+            <hr/>
+            <ol>
+                <li>qweqweqwe</li>
+            </ol>
+        </p>
+    </span>
+<!-- /quark-component -->

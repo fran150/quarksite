@@ -34,8 +34,9 @@ define(['quark'], function($$) {
                 .register('scope', 'pages/docs/basics/scope')
                 .register('imports', 'pages/docs/basics/imports')
                 .register('pages', 'pages/docs/basics/pages')
-                .register('controllers', 'pages/docs/basics/controllers')
                 .register('routes', 'pages/docs/basics/routes')
+                .register('controllers', 'pages/docs/basics/controllers')
+                .register('sync', 'pages/docs/basics/sync')
             .endNamespace();
 
     $$.onNamespace('library')

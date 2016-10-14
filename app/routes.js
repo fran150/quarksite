@@ -18,14 +18,15 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-intro':               { 'main': 'pages-docs-basics-intro' },
         'main/docs/basics-web-modules':         { 'main': 'pages-docs-basics-web-modules' },
         'main/docs/basics-web-components':      { 'main': 'pages-docs-basics-web-components' },
-        'main/docs/basics-observables':         { 'main': 'pages-docs-basics-observables' },
         'main/docs/basics-bindings':            { 'main': 'pages-docs-basics-bindings' },
+        'main/docs/basics-observables':         { 'main': 'pages-docs-basics-observables' },
         'main/docs/basics-component-params':    { 'main': 'pages-docs-basics-component-params' },
         'main/docs/basics-scope':               { 'main': 'pages-docs-basics-scope' },
         'main/docs/basics-imports':             { 'main': 'pages-docs-basics-imports' },
         'main/docs/basics-pages':               { 'main': 'pages-docs-basics-pages' },
+        'main/docs/basics-routes':              { 'main': 'pages-docs-basics-routes' },
         'main/docs/basics-controllers':         { 'main': 'pages-docs-basics-controllers' },
-        'main/docs/basics-routes':              { 'main': 'pages-docs-basics-routes' }
+        'main/docs/basics-sync':                { 'main': 'pages-docs-basics-sync' }
     }
 
     var routes = {
@@ -42,8 +43,9 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-scope':               'docs/basics/scope',
         'main/docs/basics-imports':             'docs/basics/imports',
         'main/docs/basics-pages':               'docs/basics/pages',
-        'main/docs/basics-controllers':         'docs/basics/controllers',
         'main/docs/basics-routes':              'docs/basics/routes',
+        'main/docs/basics-controllers':         'docs/basics/controllers',
+        'main/docs/basics-sync':                'docs/basics/sync',
         'main/sidebar/module':                  'components/library/{id}'
     }
 
