@@ -12,48 +12,52 @@
             <hr/>
             <ol>
                 <li>
-                    Se carga la página principal y punto de entrada, el navegador al detectar los tags
+                    Se carga la página principal y punto de entrada. El navegador al detectar los tags
                     script que incluyen <em>Quark.js</em> y <em>Require</em> carga y ejecuta esos scripts.
                 </li>
                 <li>
-                    Entre los script de inicio se ejecuta el que configura require.js con todos los modulos de <em>Quark.js</em>
-                    y luego ejecuta el modulo inicial de la aplicación.
+                    Entre los script de inicio se ejecuta el que configura <em>Require.js</em> con todos los modulos de <em>Quark.js</em>
+                    y luego se ejecuta el modulo inicial de la aplicación.
                 </li>
                 <li>
-                    En el modulo inicial se deben registrar todos los componentes, configurar las páginas y rutas y ejecutar
-                    la función <code>activateHasher</code> del objeto <code>routing</code> de <em>Quark.js</em> para iniciar el
+                    En el modulo inicial se deben registrar todos los componentes, configurar las páginas y rutas. Luego se debe
+                    ejecutar la función <code>activateHasher</code> del objeto <code>routing</code> de <em>Quark.js</em> para iniciar el
                     sistema de ruteo y <code>start</code> para iniciar la aplicación.
                 </li>
                 <li>
                     Si se especificó una función custom al activar el sistema de ruteo con la función <code>activateHasher</code>
-                    se ejecuta dicha función que finalmente deberá invocar a la función <code>parse</code> del objeto
-                    <code>routing</code> pasándole el hash.
+                    se ejecuta dicha función que finalmente deberá invocar a la función <code>routing.parse</code> pasándole el hash
+                    de la ruta a evaluar.
                 </li>
                 <li>
-                    <em>Quark.js</em> parsea la ruta y continúa al proximo punto, paralelamente y en forma asíncronica por cada segmento :
+                    <em>Quark.js</em> parsea el hash y busca la página con la que coincide.
+                </li>
+                <li>
+                    Una vez encontrada la página a la que corresponde el hash especificado, procesa en forma asincronica cada segmento
+                    y por cada uno:
                     <ol>
                         <li>
-                            Carga y ejecuta el controlador correspondiente pasando como parámetro el controlador
-                            padre y el <code>tracker</code>.
+                            Carga y ejecuta el controlador correspondiente pasando como parámetro el
+                            padre y el <code>tracker</code> asociado.
                         </li>
                         <li>
-                            Crea la propiedad parent en el controlador asignandole el controlador padre.
+                            Una vez que se crea el controlador crea la propiedad parent y le asigna el controlador padre.
                         </li>
                         <li>
-                            Crea la propiedad outlets en el controlador creando por cada outlet definido en el segmento una propiedad
-                            y asignandole el nombre del componente a mostrar.
+                            Crea la propiedad outlets en el controlador con una propiedad con el nombre de cada outlet definido
+                            en el segmento y asignandole un string con el <em>tag</em> del componente a mostrar.
                         </li>
                         <li>
-                            Crea la propiedad params en el controlador creando por cada parametro definido en el segmento de la
+                            Crea la propiedad <code>params</code> en el controlador creando por cada parámetro definido en el segmento de la
                             página una propiedad y asginandole un observable inicializado al valor definido.
                         </li>
                         <li>
-                            Se evalua el valor de cada parametro de la ruta y se le asigna al parametro con el mismo nombre
+                            Se evalúa el valor de cada parámetro de la ruta y se le asigna al parametro con el mismo nombre
                             que se haya definido en el controlador.
                         </li>
                         <li>
                             Al finalizar la carga y configuración de todos los controladores se setea el observable
-                            <code>routing.current</code> con el nombre de la página actual indicando la finalización del ruteo
+                            <code>routing.current</code> con el nombre de la página actual indicando la finalización del ruteo.
                         </li>
                     </ol>
                 </li>
@@ -65,7 +69,7 @@
                     Al realizarse el binding de cada <code>outlet</code>:
                     <ol>
                         <li>
-                            Busca en el arbol de controladores el ultimo que contenga en el objeto
+                            Busca en el arbol de controladores el último que contenga en el objeto
                             <code>outlets</code> una propiedad con el mismo nombre del outlet y obtiene el tag del componente
                             que se debe mostrar. Si no se encuentra ninguna se utiliza el componente "empty" que
                             es un componente vacío.
@@ -83,21 +87,21 @@
 
             <h3>Al cambiar de página</h3>
             <hr/>
-            Al cambiar de página <em>Quark.js</em> primero intentará limpiar los objetos de la ruta anterior, tanto los
-            componentes como los controladores.
+            Al cambiar de página, <em>Quark.js</em> primero intentará limpiar los objetos de la ruta anterior (tanto los
+            componentes como los controladores):
             <ol>
                 <li>
                     Compara la ruta anterior con la nueva y por cada segmento distinto recorre los controladores de la ruta
-                    anterior:
+                    anterior y:
                     <ol>
                         <li>
-                            Setea el componente generico <code>empty</code> en la propiedad <code>outlets</code> de
+                            Setea el componente genérico <code>empty</code> en la propiedad <code>outlets</code> de
                             cada controlador, permitiendo que se descargue el componente que se encontraba cargado en dicho
                             outlet.
                         </li>
                         <li>
-                            Si el controlador tiene un metodo <code>dispose</code> lo ejecuta permitiendo que libere todos los
-                            recursos que tenga tomados
+                            Si el controlador tiene un método <code>dispose</code> lo ejecuta permitiendo que libere todos los
+                            recursos que tenga tomados.
                         </li>
                         <li>
                             Finalmente, elimina la referencia al controlador.
@@ -105,53 +109,12 @@
                     </ol>
                 </li>
                 <li>
-                    Por cada segmento nuevo en la ruta realiza la carga de los controladores y componentes relacionados
-                    tal y como se describió en el apartado anterior, a saber:
-                    <ol>
-                        <li>
-                            Carga y ejecuta el controlador correspondiente pasando como parámetro el controlador
-                            padre y el <code>tracker</code>.
-                        </li>
-                        <li>
-                            Crea la propiedad parent en el controlador asignandole el controlador padre.
-                        </li>
-                        <li>
-                            Crea la propiedad outlets en el controlador creando por cada outlet definido en el segmento una propiedad
-                            y asignandole el nombre del componente a mostrar.
-                        </li>
-                        <li>
-                            Crea la propiedad params en el controlador creando por cada parametro definido en el segmento de la
-                            página una propiedad y asginandole un observable inicializado al valor definido.
-                        </li>
-                        <li>
-                            Se evalua el valor de cada parametro de la ruta y se le asigna al parametro con el mismo nombre
-                            que se haya definido en el controlador.
-                        </li>
-                        <li>
-                            Al finalizar la carga y configuración de todos los modulos se setea el observable
-                            <code>routing.current</code> con el nombre de la página actual indicando la finalización del ruteo
-                        </li>
-                    </ol>
-                    Igualmente al cargar cada outlet que tengan los componentes definidos en la nueva ruta:
-                    <ol>
-                        <li>
-                            Busca en el arbol de controladores el ultimo que contenga en el objeto
-                            <code>outlets</code> una propiedad con el mismo nombre del outlet y obtiene el tag del componente
-                            que se debe mostrar. Si no se encuentra ninguna se utiliza el componente "empty" que
-                            es un componente vacío.
-                        </li>
-                        <li>
-                            Verifica si el controlador contiene un método <code>sendParameters</code> y en tal caso lo
-                            invoca para obtener los parametros del componente asociado al outlet.
-                        </li>
-                        <li>
-                            Realiza el binding del componente pasándole los parametros obtenidos.
-                        </li>
-                    </ol>
+                    Una vez que se eliminaron los componentes y controladores anteriores, <em>Quark.js</em> utiliza el procedimiento
+                    descripto anteriormente en el punto 6 para procesar los segmentos nuevos, cargando y configurando los controladores.
                 </li>
                 <li>
-                    Una vez eliminados todos los componentes y controladores de la ruta anterior, y cargados los nuevos
-                    controladores setea el nuevo valor de la pagina actual en <code>routing.current</code>
+                    Luego procede a realizar el binding de los nuevos componentes procesando cualquier modificación a un outlet
+                    existente o nuevos outlets como se describe anteriormente en el punto 8.
                 </li>
             </ol>
 
@@ -173,26 +136,44 @@
                     se ejecuta dicho metodo donde se puede inicializar el componente.
                 </li>
                 <li>
-                    Se crea la propiedad <code>model</code> e <code>imports</code> en el scope con el componente, con el modelo
-                    y el <code>tracker</code> respectivamente.
+                    Se crean las propiedades <code>model</code> e <code>imports</code> en el scope, las mismas
+                    contendrán el modelo y el <code>tracker</code> respectivamente.
                 </li>
                 <li>
                     Se procede a realizar el binding del scope con la vista.
                 </li>
+            </ol>
+
+            <h3>Al importar un componente</h3>
+            <hr/>
+            Cuando se está realizando el binding de un elemento y se detecta un <em>tag</em> customizado con un binding
+            <code>import</code>:
+
+            <ol>
                 <li>
-                    Si se encuentra un <em>tag</em> customizado se repiten estos pasos para cargar el componente nuevo,
-                    si dicho componente posee un binding <code>imports</code>:
+                    Se ejecuta el proceso descrito anteriormente para cargar el componente.
+                </li>
+                <li>
+                    Al finalizar la carga y el binding del nuevo componente se dispara la señal
+                    <code>loaded</code> en el <code>tracker</code> del componente padre pasándole el nombre con el que
+                    se importó y el modelo.
+                </li>
+                <li>
+                    Cuando un componente hijo pasa al estado "Listo" se dispara la señal
+                    <code>readied</code> en el <code>tracker</code> padre pasándole el nombre con el que
+                    se importó y el modelo. Luego, se evalúan todas las dependencias en el padre para ver si están listas
+                    y en ese caso:
                     <ol>
                         <li>
-                            Al comenzar finalizar la carga y el binding del nuevo componente se dispara la señal
-                            <code>loaded</code> en el <code>tracker</code> del padre pasándole el nombre con el que
-                            se importó y el modelo.
+                            Se marca el objeto listo en el <code>tracker</code>.
                         </li>
                         <li>
-                            Una vez que el nuevo componente pase al estado <em>Listo</em> se dispara la señal
-                            <code>readied</code> en el <code>tracker</code> del padre pasándole el nombre con el que
-                            se importó y el modelo y se evalúa si todas las dependencias estan listas, en este caso
-                            se habilita el <code>lock</code> ready indicando que el componente está listo.
+                            Habilita el <code>lock</code> <code>ready</code> indicando que el componente está listo.
+                        </li>
+                        <li>
+                            Si el componente se está a su vez importando, o sea que esta siendo
+                            "trackeado" por el padre, se informa al tracker del padre que este componente ha pasado al
+                            estado "Listo" disparando esta secuencia en dicho componente padre.
                         </li>
                     </ol>
                 </li>
