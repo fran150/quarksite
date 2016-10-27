@@ -170,6 +170,10 @@ define(['quark', 'knockout'], function($$, ko) {
             Aquí se modificó el ejemplo anterior para que como parámetro <code>text</code> se envíe el parametro
             <code>language</code> de la página, que a su vez lo toma del parametro de la ruta.
         </p>
+        <p>
+            Finalmente se puede definir un método <code>dispose</code> que se ejecutará cuando se descarga el controlador
+            al cambiar de página permitiendo liberar los recursos utilizados en dicho controlador.
+        </p>
         <nav-next-prev params="previousText: 'Rutas', previousPage: 'main/docs/basics-routes'">
         </nav-next-prev>
     </span>

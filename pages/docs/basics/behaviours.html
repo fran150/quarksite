@@ -1,0 +1,64 @@
+<!-- quark-component -->
+    <span class="docs">
+        <h1>Behaviours</h1>
+        <hr />
+        <p>
+            Los behaviours o comportamientos permiten ejecutar código para crear propiedades, métodos y agregar funcionalidad
+            a un objeto Javascript. De esta forma se pueden crear objetos y aplicarles un behaviour en particular para darle el
+            comportamiento deseado. De forma similar a las clases y objetos en otros lenguajes de programación, los objetos que
+            tengan un comportamiento aplicado tendrán todas las propiedades y métodos que ese comportamiento define.
+        </p>
+        <p>
+            Se pueden aplicar multiples comportamientos a un objeto, y se puede además verificar que comportamientos tiene
+            aplicado un determinado objeto, de forma que por ejemplo una función puede validar si un objeto que le llega por
+            parametro tiene un behaviour especifico y con esto se asegura que el objeto poseerá una serie de métodos y
+            propiedades definidos por dicho behaviour, de forma muy similar a lo que sería una interfase.
+        </p>
+        <p>
+            Para definir un behaviour se debe utilizar la función <code>behaviour.define</code> de <em>Quark.js</em>. Esta
+            función admite tres parámetros.
+            <ul>
+                <li>
+                    Un string con el nombre del behaviour
+                </li>
+                <li>
+                    Una función que recibe dos parámetros, el objeto destino y la configuración del behaviour. Esta función
+                    debe en base a la configuración crear sobre el objeto destino todas las propiedades y métodos que definen
+                    el behaviour.
+                </li>
+                <li>
+                    Una función que toma el objeto destino y libera los recursos tomados por el behaviour.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    $$.behaviour.define('alert-model', function(target, config) {
+        target.title = ko.observable();
+        target.text = ko.observable();
+        target.type = ko.observable('info');
+
+        target.style = ko.computed(function() {
+            var type = target.type();
+
+            switch(type) {
+                case 'default':
+                case 'primary':
+                case 'info':
+                case 'warning':
+                case 'danger':
+                    return 'text-' + type;
+                default:
+                    return 'text-default';
+            }
+        });
+    }, function(target) {
+        target.style.dispose();
+    });
+});
+            </code-highlight>
+        </p>
+    </span>
+<!-- /quark-component -->
