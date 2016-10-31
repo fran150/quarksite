@@ -27,7 +27,10 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-routes':              { 'main': 'pages-docs-basics-routes' },
         'main/docs/basics-controllers':         { 'main': 'pages-docs-basics-controllers' },
         'main/docs/basics-sync':                { 'main': 'pages-docs-basics-sync' },
-        'main/docs/basics-behaviours':          { 'main': 'pages-docs-basics-behaviours' }
+        'main/docs/basics-behaviours':          { 'main': 'pages-docs-basics-behaviours' },
+        'main/docs/basics-namespaces':          { 'main': 'pages-docs-basics-namespaces' },
+        'main/docs/basics-content':             { 'main': 'pages-docs-basics-content' },
+        'main/docs/basics-virtual':             { 'main': 'pages-docs-basics-virtual' }
     }
 
     var routes = {
@@ -48,6 +51,9 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-controllers':         'docs/basics/controllers',
         'main/docs/basics-sync':                'docs/basics/sync',
         'main/docs/basics-behaviours':          'docs/basics/behaviours',
+        'main/docs/basics-namespaces':          'docs/basics/namespaces',
+        'main/docs/basics-content':             'docs/basics/content',
+        'main/docs/basics-virtual':             'docs/basics/virtual',
         'main/sidebar/module':                  'components/library/{id}'
     }
 

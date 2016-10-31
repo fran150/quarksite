@@ -4,10 +4,86 @@
         <hr />
         <p>
             Si bien <em>Quark.js</em> permite utilizar cualquier nombre de tag, es probable que en grandes aplicaciones
-            la cantidad de componentes cresca rapidamente por lo que se hace primordial agruparlos y ordenarlos de alguna manera.
+            la cantidad de componentes crezca rápidamente por lo que se hace primordial agruparlos y ordenarlos de alguna manera.
         </p>
         <p>
+            <em>Quark.js</em> permite agruparlos en "namespaces" para evitar el conflicto de nombres cuando existen muchos
+            componentes permitiendo agrupar aquellos que estén relacionados entre sí bajo un mismo namespace.
+        </p>
+        <p>
+            El concepto de namespaces en si, es similar al de los directorios de archivos. Dos archivos se pueden llamar igual
+            pero deben estar en distintos directorios. El separador de nombres en los componentes de <em>Quark.js</em> es el
+            guion <code>-</code>. Luego <em>Quark.js</em> proporciona el binding <code>namespace</code> que permite crear un
+            apodo o "alias" a un namespace mejorando la legibilidad del código fuente.
+        </p>
+        <p>
+            Por ejemplo, si se tienen componentes con los siguientes nombres:
+            <div class="well">
+                <code>docs-sidebar-main</code><br />
+                <code>docs-sidebar-ctrl-link</code><br />
+                <code>docs-sidebar-ctrl-button</code><br />
+                <code>docs-sidebar-ctrl-search</code><br />
+                <code>docs-navbar-main</code><br />
+                <code>docs-navbar-ctrl-link</code><br />
+                <code>docs-navbar-ctrl-button</code><br />
+                <code>docs-navbar-ctrl-search</code><br />
+            </div>
+        </p>
+        <p>
+            Se pueden utilizar con namespaces de la siguiente manera:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div data-bind="namespace: 'docs-navbar', alias: 'nav'"&gt;
+    &lt;div data-bind="namespace: 'docs-navbar-ctrl', alias: 'navc'"&gt;
+        &lt;nav:main&gt;
+            &lt;navc:link&gt;
+            &lt;navc:button&gt;
+            &lt;navc:search&gt;
+        &lt;/nav:main&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
+    &lt;div data-bind="namespace: 'docs-sidebar', alias: 'sdb'"&gt;
+    &lt;div data-bind="namespace: 'docs-sidebar-ctrl', alias: 'sdbc'"&gt;
+        &lt;sdb:main&gt;
+            &lt;sdbc:link&gt;
+            &lt;sdbc:button&gt;
+            &lt;sdbc:search&gt;
+        &lt;/sdb:main&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Existe una versión del método <code>register</code> que permite registrar los componentes ordenandolos por
+            namespaces para facilitar la lectura de los mismos. Este método es <code>onNamespace</code> y permite encadenarlo
+            con:
+            <ul>
+                <li><code>namespace</code> (para definir un nuevo namespace) dentro del actual,</li>
+                <li>con register para registrar un componente dentro del namespace actual,</li>
+                <li>con <code>endNamespace</code> para volver al namespace anterior</li>
+            </ul>
+            Por ejemplo:
+            <code-highlight>
+$$.onNamespace('pages')
+    .register('home', 'pages/home')
+    .namespace('library')
+        .register('finder', 'pages/library/finder')
+        .register('details', 'pages/library/details')
+    .endNamespace()
+    .namespace('docs')
+        .register('home', 'pages/docs/home')
+        .register('installing', 'pages/docs/installing');
+            </code-highlight>
+            En este ejemplo se registran los componentes:
+            <div class="well">
+                <code>pages-home</code><br />
+                <code>pages-library-finder</code><br />
+                <code>pages-library-details</code><br />
+                <code>pages-docs-home</code><br />
+                <code>pages-docs-installing</code><br />
+            </div>
         </p>
     </span>
 <!-- /quark-component -->

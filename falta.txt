@@ -1,0 +1,5 @@
+Falta la doc de:
+
+ajax y circuito de autorización
+validacion de forms e inject
+modulos
