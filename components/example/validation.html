@@ -1,0 +1,29 @@
+<quark-component>
+    <div class="row">
+        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.codigo">
+            <label class="control-label">Código</label>
+            <input type="text" class="form-control" data-bind="value: model.item.codigo" />
+            <p data-bind="fieldError: model.item.codigo" class="text-danger"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.nombre">
+            <label class="control-label">Nombre</label>
+            <input type="text" class="form-control" data-bind="value: model.item.nombre" />
+            <p data-bind="fieldError: model.item.nombre" class="text-danger"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.descripcion">
+            <label class="control-label">Descripción</label>
+            <textarea class="form-control" data-bind="value: model.item.descripcion"></textarea>
+            <p data-bind="fieldError: model.item.descripcion" class="text-danger"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-default" data-bind="click: model.reset">Reset</button>
+            <button class="btn btn-primary" data-bind="click: model.save">Guardar</button>
+        </div>
+    </div>
+</quark-component>

@@ -43,6 +43,7 @@ define(['quark'], function($$) {
                 .register('virtual', 'pages/docs/basics/virtual')
                 .register('ajax', 'pages/docs/basics/ajax')
                 .register('modules', 'pages/docs/basics/modules')
+                .register('validation', 'pages/docs/basics/validation')
             .endNamespace();
 
     $$.onNamespace('library')
@@ -57,6 +58,7 @@ define(['quark'], function($$) {
     $$.registerComponent('component-example', 'components/example/component');
     $$.registerComponent('other-example', 'components/example/other');
     $$.registerComponent('scope-example', 'components/example/scope');
+    $$.registerComponent('validation-example', 'components/example/validation');
 
     $$.onNamespace('example')
         .register('content-no-params', 'components/example/content-no-params')

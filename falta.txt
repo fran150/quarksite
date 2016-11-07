@@ -1,4 +1,4 @@
 Falta la doc de:
 
 validacion de forms e inject
-modulos
+inicialización (bootstraping)

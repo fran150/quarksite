@@ -1,0 +1,244 @@
+<quark-component>
+    <span class="docs">
+        <h1>Validación</h1>
+        <hr />
+        <p>
+            <em>Quark.js</em> extiende los observables de <em>Knockout</em> para permitir la validación de un modelo y el
+            formulario asociado.
+        </p>
+        <p>
+            La propiedad <code>validators</code> de <em>Quark.js</em> es un objeto donde cada propiedad corresponde con
+            un validador, cada validador es un objeto que recibe el valor del observable y debe verificar que el mismo sea válido.
+            Se pueden configurar diversos validadores para un mismo observable que se ejecutarán en orden uno por uno verificando
+            que el valor sea correcto.
+        </p>
+        <h2>Creando Validadores</h2>
+        <hr />
+        <p>
+            Los validadores se deben agregar como propiedades del objeto <code>validators</code> de <em>Quark.js</em>. Cada
+            validador es un objeto cuyo constructor toma como parámetros:
+            <ul>
+                <li>
+                    La referencia al observable a validar.
+                </li>
+                <li>
+                    La configuración especificada para dicho validador.
+                </li>
+            </ul>
+        </p>
+        <p>
+            El validador debe poseer un método <code>validate</code> que recibe el nuevo valor del observable y que
+            <em>Quark.js</em> invoca para realizar la validación. En este método como primer medida se debe eliminar
+            el resultado de posibles validaciones previas ejecutando el método <code>validationReset</code> del observable.
+            Luego se procede a realizar la validación y en caso de error se deben setear las siguientes propiedades del
+            observable:
+            <ul>
+                <li>
+                    <code>hasError</code>: Seteando <code>true</code> para indicar que se produjo un error de validación
+                    en este observable.
+                </li>
+                <li>
+                    <code>validationMessage</code>: Mensaje de error a mostrar al usuario. Para generar el mensaje de error
+                    con el nombre para mostrar del campo se puede utilizar la propiedad <code>validatable</code> en donde
+                    se almacena el nombre "amigable" del campo.
+                </li>
+            </ul>
+        </p>
+        <p>
+            El constructor del validador debe devolver la referencia <code>this</code> y la función <code>validate</code>
+            debe devolver true si el valor del observable es valido o false en caso contrario.
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+// Check if the fields has value
+ko.validators.required = function (observable, config) {
+    var self = this;
+
+    // Validate
+    this.validate = function (newValue) {
+        observable.validationReset();
+
+        // Si no tiene un valor valido genera el error
+        if (!newValue) {
+            observable.hasError(true);
+            observable.validationMessage((config['message'] || 'El campo {0} es obligatorio').replace('{0}', observable.validatable));
+
+            return false;
+        }
+
+        return true;
+    };
+
+    return this;
+}
+            </code-highlight>
+            El ejemplo anterior define un validador que verifica campos obligatorios.
+        </p>
+        <h2>Utilizando Validadores</h2>
+        <hr/>
+        <p>
+            El método <code>validation</code> de los observables permite adjuntar un validador a los mismos. Se debe especificar:
+            <ul>
+                <li>
+                    <strong>El nombre:</strong> Nombre del campo a mostrar en pantalla ante cualquier error de validación.
+                </li>
+                <li>
+                    <strong>La configuración:</strong> Un objeto donde cada propiedad es el nombre de un validador y el valor
+                    de dicha propiedad es la configuración de la misma. La configuración requerida por cada validador es
+                    específica de cada uno y depende de la función del mismo.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+define(['knockout', 'quark', 'text!./example.html'], function(ko, $$, template) {
+    function ComponentExample(params, $scope, $imports) {
+        var self = this;
+
+        this.item = {
+            codigo: ko.observable().validation('Código', {
+                required: {}
+            }),
+            nombre: ko.observable().validation('Nombre Completo', {
+                required: {}
+            }),
+            descripcion: ko.observable().validation('Descripción', {
+                required: { message: 'Debe especificar una descripción' }
+            })
+        };
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            Este ejemplo define un componente con una propiedad item, que es a la vez un objeto que contiene 3 propiedades
+            obligatorias sobre las que se configura el validador definido anteriormente. El campo <code>descripcion</code>
+            se configura para que muestre un mensaje "custom" a diferencia de los dos anteriores.
+        </p>
+        <p>
+            Para validar el modelo se debe ejecutar la función <code>validate</code> de <em>Quark.js</em> pasando como parametro:
+            <ul>
+                <li>
+                    El objeto a validar. En el caso del ejemplo anterior sería el modelo.
+                </li>
+                <li>
+                    Si se debe suscribir la validación a la modificación del observable. O sea, se debe especificar true, si
+                    se desea que automáticamente se ejecuten todas las validaciones cuando el valor del observable cambie.
+                </li>
+            </ul>
+        </p>
+        <p>
+            La función <code>validate</code> recorre todas las propiedades definidas en el objeto y ejecuta las validaciones
+            que se hayan configurado en cada uno, devolviendo true si el objeto posee todos los campos validos o false en
+            caso contrario.
+        </p>
+        <p>
+            Si se indicó suscribir los validadores para que se ejecuten automáticamente cuando el valor de los observables
+            cambie se debe desuscribir el objeto utilizando la función <code>unsubscribeValidation</code>.
+        </p>
+        <p>
+            Se puede además limpiar todos los errores de validación utilizando la función <code>validationReset</code>.
+            Por ejemplo:
+        </p>
+            <code-highlight>
+define(['knockout', 'quark', 'text!./example.html'], function(ko, $$, template) {
+    function ComponentExample(params, $scope, $imports) {
+        var self = this;
+
+        this.item = {
+            codigo: ko.observable().validation('Código', {
+                required: {}
+            }),
+            nombre: ko.observable().validation('Nombre Completo', {
+                required: {}
+            }),
+            descripcion: ko.observable().validation('Descripción', {
+                required: { message: 'Debe especificar una descripción' }
+            })
+        };
+
+        this.save = function() {
+            if (ko.validate(self.item, true)) {
+                $$.ajax('http://some_url_to_save', 'GET', ko.mapToJS(self.item), function() {
+                    alert('Saved');
+                });
+            });
+        }
+
+        this.reset = function() {
+            ko.validationReset(self.item);
+        }
+
+        this.dispose = function() {
+            ko.unsubscribeValidation(self.item);
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        <p>
+            Se agrega al modelo del ejemplo anterior 3 metodos, uno que valida el componente antes de llamar al servicio que
+            guardaría el objeto, otro que resetea los errores de validación que se hayan producido y por ultimo se eliminan
+            las suscripciones al eliminarse el componente.
+        </p>
+        <h2>Mostrando los Errores</h2>
+        <hr/>
+        <p>
+            <em>Quark.js</em> una vez definidas las validaciones en el modelo del componente <em>Quark.js</em> posee dos
+            bindings que permiten mostrarlas en la vista para informar al usuario.
+        </p>
+        <p>
+            El binding <code>fieldError</code> hace que el elemento se muestre solo si el observable especificado posee
+            un error de validación y muestra el texto con dicho error en el contenido de dicho elemento.
+        </p>
+        <p>
+            El binding <code>formGroupError</code> aplica el estilo <code>has-error</code> al <code>div</code> con el
+            <code>form-group</code> de <em>Bootstrap</em> lo que hace que tanto el <code>label</code>, como el
+            <code>input</code> del campo con error se muestren en rojo.
+        </p>
+        <p>
+            Ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.codigo"&gt;
+            &lt;label class="control-label"&gt;Código&lt;/label&gt;
+            &lt;input type="text" class="form-control" data-bind="value: model.item.codigo" /&gt;
+            &lt;p data-bind="fieldError: model.item.codigo" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.nombre"&gt;
+            &lt;label class="control-label"&gt;Nombre&lt;/label&gt;
+            &lt;input type="text" class="form-control" data-bind="value: model.item.nombre" /&gt;
+            &lt;p data-bind="fieldError: model.item.nombre" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.descripcion"&gt;
+            &lt;label class="control-label"&gt;Descripción&lt;/label&gt;
+            &lt;textarea class="form-control" data-bind="value: model.item.descripcion"&gt;&lt;/textarea&gt;
+            &lt;p data-bind="fieldError: model.item.descripcion" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12"&gt;
+            &lt;button class="btn btn-default" data-bind="click: model.reset"&gt;Reset&lt;/button&gt;
+            &lt;button class="btn btn-primary" data-bind="click: model.save"&gt;Guardar&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Resultado:
+        </p>
+        <div class="well">
+            <validation-example>
+            </validation-example>
+        </div>
+    </span>
+</quark-component>

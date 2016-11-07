@@ -2,7 +2,8 @@ define(['quark', 'bootstrap',
     'qk-bootstrap/main',
     'qk-alchemy/main',
     './components',
-    './routes'],
+    './routes',
+    './validator'],
     function($$) {
 
     $$.loadCss('bower_components/bootstrap/dist/css/bootstrap.min.css');

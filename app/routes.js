@@ -32,7 +32,8 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-content':             { 'main': 'pages-docs-basics-content' },
         'main/docs/basics-virtual':             { 'main': 'pages-docs-basics-virtual' },
         'main/docs/basics-ajax':                { 'main': 'pages-docs-basics-ajax' },
-        'main/docs/basics-modules':             { 'main': 'pages-docs-basics-modules' }
+        'main/docs/basics-modules':             { 'main': 'pages-docs-basics-modules' },
+        'main/docs/basics-validation':          { 'main': 'pages-docs-basics-validation' }
     }
 
     var routes = {
@@ -58,6 +59,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-virtual':             'docs/basics/virtual',
         'main/docs/basics-ajax':                'docs/basics/ajax',
         'main/docs/basics-modules':             'docs/basics/modules',
+        'main/docs/basics-validation':          'docs/basics/validation',
         'main/sidebar/module':                  'components/library/{id}'
     }
 
