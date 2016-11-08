@@ -92,7 +92,27 @@
                 <al-layout-sidebar-link params="text: 'Modulos',
                                                 pageName: 'main/docs/basics-modules',
                                                 iconFont: ''">
-                </al-layout-sidebar-link>            <!-- /submenu -->
+                </al-layout-sidebar-link>
+                <al-layout-sidebar-link params="text: 'Validación',
+                                                pageName: 'main/docs/basics-validation',
+                                                iconFont: ''">
+                </al-layout-sidebar-link>
+            <!-- /submenu -->
+        </al-layout-sidebar-link>
+        <al-layout-sidebar-link params="text: 'Referencia',
+                                        iconFont: '',
+                                        opened: true">
+            <!-- submenu -->
+                <al-layout-sidebar-link params="text: 'Ajax',
+                                                iconFont: ''">
+                    <!-- submenu -->
+                        <al-layout-sidebar-link params="text: 'ajax method',
+                                                        pageName: 'main/docs/refs-ajax',
+                                                        iconFont: ''">
+                        </al-layout-sidebar-link>
+                    <!-- /submenu -->
+                </al-layout-sidebar-link>
+            <!-- /submenu -->
         </al-layout-sidebar-link>
     </al-layout-sidebar>
 </quark-component>
