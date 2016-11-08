@@ -2,3 +2,4 @@ Falta la doc de:
 
 Inject
 inicialización (bootstraping)
+Formatter

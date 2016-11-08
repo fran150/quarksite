@@ -19,7 +19,7 @@
 
         <al-layout-sidebar-link params="text: 'Conceptos Básicos',
                                         iconFont: '',
-                                        opened: true">
+                                        opened: false">
             <!-- submenu -->
                 <al-layout-sidebar-link params="text: 'Introducción',
                                                 pageName: 'main/docs/basics-intro',
@@ -101,13 +101,21 @@
         </al-layout-sidebar-link>
         <al-layout-sidebar-link params="text: 'Referencia',
                                         iconFont: '',
-                                        opened: true">
+                                        opened: false">
             <!-- submenu -->
                 <al-layout-sidebar-link params="text: 'Ajax',
                                                 iconFont: ''">
                     <!-- submenu -->
-                        <al-layout-sidebar-link params="text: 'ajax method',
+                        <al-layout-sidebar-link params="text: 'ajax',
                                                         pageName: 'main/docs/refs-ajax',
+                                                        iconFont: ''">
+                        </al-layout-sidebar-link>
+                        <al-layout-sidebar-link params="text: 'ajaxConfig',
+                                                        pageName: 'main/docs/refs-ajaxConfig',
+                                                        iconFont: ''">
+                        </al-layout-sidebar-link>
+                        <al-layout-sidebar-link params="text: 'ajaxErrorHandlers',
+                                                        pageName: 'main/docs/refs-ajaxErrorHandlers',
                                                         iconFont: ''">
                         </al-layout-sidebar-link>
                     <!-- /submenu -->

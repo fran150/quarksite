@@ -35,7 +35,9 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-modules':             { 'main': 'pages-docs-basics-modules' },
         'main/docs/basics-validation':          { 'main': 'pages-docs-basics-validation' },
 
-        'main/docs/refs-ajax':                  { 'main': 'pages-docs-refs-ajax' }
+        'main/docs/refs-ajax':                  { 'main': 'pages-docs-refs-ajax' },
+        'main/docs/refs-ajaxConfig':            { 'main': 'pages-docs-refs-ajaxConfig' },
+        'main/docs/refs-ajaxErrorHandlers':     { 'main': 'pages-docs-refs-ajaxErrorHandlers' }
     }
 
     var routes = {
@@ -65,6 +67,8 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-validation':          'docs/basics/validation',
 
         'main/docs/refs-ajax':                  'docs/refs/ajax',
+        'main/docs/refs-ajaxConfig':            'docs/refs/ajaxConfig',
+        'main/docs/refs-ajaxErrorHandlers':     'docs/refs/ajaxErrorHandlers',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

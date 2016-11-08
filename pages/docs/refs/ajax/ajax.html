@@ -1,0 +1,169 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.ajax <small>Método</small></h1>
+        <hr/>
+        <p>
+            Realiza un request HTTP en forma asincronica mediante AJAX. Se utiliza principalmente para invocar servicios REST
+            permitiendo a la aplicación web interactuar con los <em>Backend</em>. Internamente utiliza la funcion
+            <a href="http://api.jquery.com/jquery.ajax/">ajax</a> de <a href="https://jquery.com/">jQuery</a>
+        </p>
+        <h2>
+            <code>
+                .ajax(url, method, [data, callbacks, auth, options])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>url</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        URL a la que se debe realizar el Request HTTP.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>method</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Método HTTP para utilizar en el Request. (GET, POST, PUT, DELETE)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>data</code>
+                    </td>
+                    <td>
+                        <em>objeto, string o array</em>
+                    </td>
+                    <td>
+                        Permite especificar los datos a enviar. Si el Request es GET lo agrega como
+                        <a href="https://en.wikipedia.org/wiki/Query_string">Query String</a> al final
+                        del Request, en los otros métodos se envía en el cuerpo.
+                        Si se especifica un objeto debe contener solo pares de clave/valor.
+                        Es igual al parámetro <code>data</code> de <a href="http://api.jquery.com/jquery.ajax/">ajax</a>
+                        de <a href="https://jquery.com/">jQuery</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>callbacks</code>
+                    </td>
+                    <td>
+                        <em>función u objeto</em>
+                    </td>
+                    <td>
+                        Función a ejecutar cuando finaliza el Request HTTP. Si se especifica una función la misma se ejecutará
+                        cuando la misma se complete correctamente pasando como parametro los datos recibidos en el Request.
+                        La firma de la función es <code>function(data)</code>.<br/>
+                        Se puede especificar un objeto con las siguientes funciones como propiedades:
+                        <ul>
+                            <li>
+                                <code>onSuccess: function(data)</code>: Se invoca cuando el Request finalizó correctamente
+                                pasando como parametro los datos recibidos desde el servicio. Similar al parámetro
+                                <code>success</code> de la función <a href="http://api.jquery.com/jquery.ajax/">ajax</a> de jQuery.
+                            </li>
+                            <li>
+                                <code>onError: function(jqXHR, textStatus, errorThrown)</code>: Se invoca cuando el Request finalizó
+                                con error pasando el objeto <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">XHR</a>, un string
+                                describiendo el tipo de error. Los valores posibles son (además de null si no se produjo ningún
+                                error), "timeout", "error", "abort", and "parsererror". Finalmente se envía la parte de texto del
+                                status HTTP, por ejemplo "Not Found" o "Internal Server Error". La función debe devolver
+                                <code>true</code> si manejó el error, en caso contrario se enviará el mismo a los manejadores
+                                de error definidos en <a data-bind="href: 'main/docs/refs/ajaxErrorHandlers'">ajaxErrorHandlers</a>.
+                            </li>
+                            <li>
+                                <code>onComplete: function()</code>: Se invoca siempre que finalizó el Request ya sea
+                                correctamente o con error.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>auth</code>
+                    </td>
+                    <td>
+                        <em>boolean</em>
+                    </td>
+                    <td>
+                        Indica si el request HTTP requiere autenticación. Especificando true dispara el flow de
+                        autenticación para obtener credenciales validas y enviarlas en el Request.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>options</code>
+                    </td>
+                    <td>
+                        <em>objeto</em>
+                    </td>
+                    <td>
+                        Permite especificar configuraciones de jQuery especificas para el Request. Es exactamente igual
+                        al parámetro <code>settings</code> de la función <a href="http://api.jquery.com/jquery.ajax/">ajax</a>
+                        de jQuery. Se pueden especificar valores por defecto a través de la propiedad ajaxConfig
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Asociados con esta función existen formas de configurar el método para autenticar Request (en caso de que el
+            servidor lo requiera), y manejo automático de errores.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+$$.ajax('http://someurl.com', 'POST', { id: 5, name: 'Test' }, {
+    onSuccess: function(data) {
+        alert('Se grabó correctamente el registro');
+    },
+    onError: function(jqXHR) {
+        alert('Se ha producido un error:' + jqXHR.responseJSON);
+    }
+    onComplete: function() {
+        closePopup();
+    }
+}, true);
+        </code-highlight>
+    </span>
+</quark-component>

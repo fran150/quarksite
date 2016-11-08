@@ -46,7 +46,9 @@ define(['quark'], function($$) {
                 .register('validation', 'pages/docs/basics/validation')
             .endNamespace()
             .namespace('refs')
-                .register('ajax', 'pages/docs/refs/ajax')
+                .register('ajax', 'pages/docs/refs/ajax/ajax')
+                .register('ajaxConfig', 'pages/docs/refs/ajax/ajaxConfig')
+                .register('ajaxErrorHandlers', 'pages/docs/refs/ajax/ajaxErrorHandlers')
             .endNamespace();
 
     $$.onNamespace('library')

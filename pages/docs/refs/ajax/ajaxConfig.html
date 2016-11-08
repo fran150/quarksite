@@ -1,0 +1,140 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.ajaxConfig <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            Permite especificar un valor por defecto para las opciones de los Request HTTP realizados con la función
+            <a data-bind="href: 'main/docs/refs-ajax'">ajax</a>. La configuración es la misma del método
+            <a href="http://api.jquery.com/jquery.ajax/">ajax</a> de <a href="https://jquery.com/">jQuery</a>.
+            Los valores configurados en este objeto aplicarán para todos los Request que se hagan con la función
+            <a href="http://api.jquery.com/jquery.ajax/">ajax</a>, pudiendose modificar alguno para un Request especifico
+            utilizando el parámetro <code>options</code> de la función.
+        </p>
+        <h3>
+            Valores por defecto
+        </h3>
+        <hr />
+        <code-highlight>
+$$.ajaxConfig = {
+    contentType: 'application/json',
+    dataType : 'json',
+    async: true,
+    cache: false
+}
+        </code-highlight>
+        <p>
+            Por defecto <em>Quark.js</em> configura para enviar y recibir JSON de forma asincronica y deshabilitar el cache
+            adjuntando un valor aleatorio en el  <a href="https://en.wikipedia.org/wiki/Query_string">Query String</a>.
+        </p>
+        <h3>
+            Flujo de Autorización
+        </h3>
+        <hr />
+        <p>
+            Como se especifica <a data-bind="href: 'main/docs/basics-ajax'">aquí</a> cuando se invoca al método
+            <a href="http://api.jquery.com/jquery.ajax/">ajax</a> especificando el parámetro <code>auth</code> en
+            <code>true</code> se dispara el flujo de autorización.
+            Este flujo se compone de 3 funciones que se configuran a través de <code>ajaxConfig</code> a
+            través del objeto <code>authorization</code>. Las firmas de dichas funciones y lo que deben hacer cada una es:
+        </p>
+        <p>
+            <ul>
+                <li>
+                    <code>$$.ajaxConfig.authorization.has: function()</code>: Se invoca en primer instancia para definir
+                    si se posee un set de credenciales validas para enviar al servidor. Debe devolver <code>true</code> si
+                    se cuenta con las credenciales o <code>false</code> en caso contrario.
+                </li>
+                <li>
+                    <code>$$.ajaxConfig.authorization.configAuthorization: function(options)</code>: Recibe las opciones
+                    configuradas en el Request en el parámetro <code>options</code>, debe modificar y devolver estas
+                    opciones agregando lo necesario para enviar las credenciales al servidor como parte del Request.
+                </li>
+                <li>
+                    <code>$$.ajaxConfig.authorization.authorize: function(options, callback)</code>: Debe realizar lo necesario
+                    para obtener las credenciales que se deben enviar al servicio para autenticar el Request, por ejemplo,
+                    mostrar un popup con nombre de usuario y contraseña, una vez que se obtuvieron las credenciales se deben
+                    almacenar y luego invocar al parámetro callback pasando <code>true</code> si se cuenta con credenciales
+                    validas para que el flujo continúe. El parámetro <code>options</code> que se envía a la función contiene
+                    las opciones configuradas en el Request. Ademas, <span class="text-danger">cualquier Request que se
+                    realice desde dentro de esta función NO disparará el flujo de autorización para evitar que se bloquee
+                    en un bucle infinito</span>
+                </li>
+            </ul>
+        </p>
+        <h3>
+            Ejemplo
+        </h3>
+        <hr />
+        <p>
+            El siguiente ejemplo muestra la configuración del flujo de autorización en un esquema con
+            <a href="http://jwt.io/">JWT</a> y <em>Windows Authentication</em>:
+            <code-highlight>
+define(["knockout", "quark"], function(ko, $$) {
+    $$.ajaxConfig.authorization = {
+        // Verifies if there's a JWT in session storage
+        has: function() {
+            var token = sessionStorage.getItem("token");
+
+            return ($$.isDefined(token) && token);
+        },
+
+        // Configures request to send token as header
+        configAuthorization: function(opts) {
+            // Gets the token from session storage
+            var token = sessionStorage.getItem("token");
+
+            // Adds it as a header of the request
+            opts.headers = {
+                token: token
+            };
+
+            // Returns the customized ajax config for this request
+            return opts;
+        },
+
+        // Tries to get token from a server using windows authentication
+        authorize: function(callback) {
+            // Configs XHR to send windows credentials
+            var opts = {
+                xhrFields: {
+                    withCredentials: true
+                }
+            };
+
+            // Invokes the service passing windows credentials
+            $$.ajax('http://some-url-to-get-token.com/auth', 'GET', {}, {
+                onSuccess: function(data) {
+                    // If Ok set the new token on session storage
+                    sessionStorage.setItem("token", data);
+
+                    // Invokes the callback to resume normal flow
+                    callback(true);
+                },
+                onError: function(jqxhr, textStatus, errorThrown) {
+                    // Throw error to the user
+                    alert('Error When Trying to Authenticate on Server');
+
+                    // Invokes the callback to finish authorization
+                    callback(false);
+                }
+            }, false, opts);
+        }
+    }
+            </code-highlight>
+        </p>
+        <p>
+            La función <code>has</code> intenta obtener el token JWT desde la sesión, si lo obtiene devuelve <code>true</code>.
+        </p>
+        <p>
+            La función <code>authorize</code> configura el Request para enviar las credenciales de windows utilizando
+            <em>Windows Authentication</em>, luego invoca a una URL que recibe esto, las valida, y devuelve un JWT
+            para utilizar en la autenticación. Si se produjo un error al intentar autenticar muestra un popup con el error.
+            Si se recibió correctamente el token se almacena el mismo en sesión y se invoca al callback indicando que se
+            obtuvieron credenciales validas.
+        </p>
+        <p>
+            Finalmente, la función <code>configAuthorization</code> obtiene el token desde sesión y modifica las opciones
+            del Request para agregarlo dentro de los <em>headers</em> y enviarlo al servidor.
+        </p>
+    </span>
+</quark-component>
