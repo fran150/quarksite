@@ -35,9 +35,22 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-modules':             { 'main': 'pages-docs-basics-modules' },
         'main/docs/basics-validation':          { 'main': 'pages-docs-basics-validation' },
 
+
         'main/docs/refs-ajax':                  { 'main': 'pages-docs-refs-ajax' },
         'main/docs/refs-ajaxConfig':            { 'main': 'pages-docs-refs-ajaxConfig' },
-        'main/docs/refs-ajaxErrorHandlers':     { 'main': 'pages-docs-refs-ajaxErrorHandlers' }
+        'main/docs/refs-ajaxErrorHandlers':     { 'main': 'pages-docs-refs-ajaxErrorHandlers' },
+
+        'main/docs/refs-format':                { 'main': 'pages-docs-refs-format' },
+        'main/docs/refs-formatters':            { 'main': 'pages-docs-refs-formatters' },
+
+        'main/docs/refs-lock':                  { 'main': 'pages-docs-refs-lock' },
+        'main/docs/refs-wait':                  { 'main': 'pages-docs-refs-wait' },
+        'main/docs/refs-synclock':              { 'main': 'pages-docs-refs-synclock' },
+        'main/docs/refs-synclock-lock':         { 'main': 'pages-docs-refs-synclock-lock' },
+        'main/docs/refs-synclock-unlock':       { 'main': 'pages-docs-refs-synclock-unlock' },
+        'main/docs/refs-synclock-islocked':     { 'main': 'pages-docs-refs-synclock-islocked' },
+        'main/docs/refs-synclock-force':        { 'main': 'pages-docs-refs-synclock-force' },
+        'main/docs/refs-synclock-dispose':      { 'main': 'pages-docs-refs-synclock-dispose' }
     }
 
     var routes = {
@@ -66,9 +79,23 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-modules':             'docs/basics/modules',
         'main/docs/basics-validation':          'docs/basics/validation',
 
+
         'main/docs/refs-ajax':                  'docs/refs/ajax',
         'main/docs/refs-ajaxConfig':            'docs/refs/ajaxConfig',
         'main/docs/refs-ajaxErrorHandlers':     'docs/refs/ajaxErrorHandlers',
+        'main/docs/refs-ajaxErrorHandlers':     'docs/refs/ajaxErrorHandlers',
+
+        'main/docs/refs-format':                'docs/refs/format',
+        'main/docs/refs-formatters':            'docs/refs/formatters',
+
+        'main/docs/refs-lock':                  'docs/refs/lock',
+        'main/docs/refs-wait':                  'docs/refs/wait',
+        'main/docs/refs-synclock':              'docs/refs/synclock',
+        'main/docs/refs-synclock-lock':         'docs/refs/synclock/lock',
+        'main/docs/refs-synclock-unlock':       'docs/refs/synclock/unlock',
+        'main/docs/refs-synclock-islocked':     'docs/refs/synclock/islocked',
+        'main/docs/refs-synclock-force':        'docs/refs/synclock/force',
+        'main/docs/refs-synclock-dispose':      'docs/refs/synclock/dispose',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

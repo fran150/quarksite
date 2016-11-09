@@ -49,6 +49,20 @@ define(['quark'], function($$) {
                 .register('ajax', 'pages/docs/refs/ajax/ajax')
                 .register('ajaxConfig', 'pages/docs/refs/ajax/ajaxConfig')
                 .register('ajaxErrorHandlers', 'pages/docs/refs/ajax/ajaxErrorHandlers')
+
+                .register('format', 'pages/docs/refs/formatter/format')
+                .register('formatters', 'pages/docs/refs/formatter/formatters')
+
+                .register('lock', 'pages/docs/refs/sync/lock')
+                .register('wait', 'pages/docs/refs/sync/wait')
+                .namespace('synclock')
+                    .register('', 'pages/docs/refs/sync/synclock')
+                    .register('lock', 'pages/docs/refs/sync/lock/lock')
+                    .register('unlock', 'pages/docs/refs/sync/lock/unlock')
+                    .register('force', 'pages/docs/refs/sync/lock/force')
+                    .register('islocked', 'pages/docs/refs/sync/lock/islocked')
+                    .register('dispose', 'pages/docs/refs/sync/lock/dispose')
+                .endNamespace()
             .endNamespace();
 
     $$.onNamespace('library')

@@ -1,0 +1,92 @@
+<quark-component>
+    <span class="docs">
+        <h1>format <small>binding</small></h1>
+        <hr/>
+        <p>
+            Permite formatear un valor antes de pasarlo a un binding especifico como puede ser <code>text</code> o
+            <code>value</code>. <em>Quark.js</em> permite definir una serie de <code>formatters</code> que definen
+            como debe transformarse un valor tanto al leerlo como escribirlo hacia y desde un observable.
+        </p>
+        <h2>
+            <code>
+                format: &lt;target&gt;, formatter: &lt;name&gt; [, bindTo: &lt;name &gt;]
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>target</code>
+                    </td>
+                    <td>
+                        <em>todos</em>
+                    </td>
+                    <td>
+                        Cualquier valor válido para el binding y que el <code>formatter</code> a aplicar pueda entender.
+                        Puede ser un valor plano o un observable.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>formatter</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del <code>formatter</code> a aplicar. <em>Quark.js</em> buscará en
+                        <a data-bind="href: 'main/docs/refs-formatters'">formatters</a> una propiedad con ese nombre.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>bindTo</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        String con el nombre del binding al que se debe aplicar el valor formateado. Por defecto se aplica
+                        al binding <code>text</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Se pueden definir transformaciones de lectura o escritura que se pueden aplicar con este binding para
+            transformar el valor y aplicarlo a un binding tanto al leer como escribir, esto se hace a través del objeto
+            <a data-bind="href: 'main/docs/refs-formatters'">formatters</a>.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight params="language: 'html'">
+&lt;input type="text" data-bind="format: totalIncome, formatter: 'money', bindTo: 'value'" /&gt;
+&lt;div data-bind="format: totalIncome, formatter: 'money'"&gt;&lt;/div&gt;
+        </code-highlight>
+    </span>
+</quark-component>
