@@ -55,13 +55,38 @@ define(['quark'], function($$) {
 
                 .register('lock', 'pages/docs/refs/sync/lock')
                 .register('wait', 'pages/docs/refs/sync/wait')
+                .register('synclock', 'pages/docs/refs/sync/synclock')
                 .namespace('synclock')
-                    .register('', 'pages/docs/refs/sync/synclock')
                     .register('lock', 'pages/docs/refs/sync/lock/lock')
                     .register('unlock', 'pages/docs/refs/sync/lock/unlock')
                     .register('force', 'pages/docs/refs/sync/lock/force')
                     .register('islocked', 'pages/docs/refs/sync/lock/islocked')
                     .register('dispose', 'pages/docs/refs/sync/lock/dispose')
+                .endNamespace()
+                .register('signal', 'pages/docs/refs/sync/signal')
+                .register('signalclear', 'pages/docs/refs/sync/signalClear')
+
+                .namespace('routing')
+                    .register('href', 'pages/docs/refs/routing/href')
+                .endNamespace()
+
+                .namespace('bindings')
+                    .register('onbind', 'pages/docs/refs/bindings/onbind')
+                .endNamespace()
+
+                .namespace('tracking')
+                    .register('waitready', 'pages/docs/refs/tracking/waitready')
+                .endNamespace()
+
+                .register('associative', 'pages/docs/refs/associative/associative')
+                .namespace('associative')
+                    .register('add', 'pages/docs/refs/associative/observable/add')
+                    .register('get', 'pages/docs/refs/associative/observable/get')
+                    .register('update', 'pages/docs/refs/associative/observable/update')
+                    .register('remove', 'pages/docs/refs/associative/observable/remove')
+                    .register('array', 'pages/docs/refs/associative/observable/array')
+                    .register('each', 'pages/docs/refs/associative/observable/each')
+                    .register('subscribe', 'pages/docs/refs/associative/observable/subscribe')
                 .endNamespace()
             .endNamespace();
 

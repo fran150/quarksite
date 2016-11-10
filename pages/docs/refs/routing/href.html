@@ -1,0 +1,71 @@
+<quark-component>
+    <span class="docs">
+        <h1>href <small>binding</small></h1>
+        <hr/>
+        <p>
+            Setea el atributo <code>href</code> de un link a la ruta correspondiente a la página especificada.
+            Permite generar links utilizando el nombre de la página y no del hash asociado lo que facilita reapuntar
+            todos los links modificando solo el mapeo.
+        </p>
+        <h2>
+            <code>
+                href: &lt;page&gt; [, params: &lt;pageParameters&gt;]
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>page</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre completo de la página a donde debe apuntar el link. <em>Quark.js</em> buscará en la tabla de
+                        mapeo el hash asociado a la página y generará el link correspondiente.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>pageParameters</code>
+                    </td>
+                    <td>
+                        <em>objeto</em>
+                    </td>
+                    <td>
+                        Si la página admite parámetros se debe especificar un objeto donde cada propiedad tiene el nombre de
+                        un parámetro y su valor es el valor que se desea dar en el link para dicho parámetro.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight params="language: 'html'">
+&lt;!-- If page main/person/editor is mapped to hash person/{id}/edit --&gt;
+&lt;a data-bind="href: 'main/person/editor', params: { id: 5 }"&gt;Edit Person&lt;/a&gt;
+&lt;!-- Generates the hash #person/5/edit --&gt;
+        </code-highlight>
+    </span>
+</quark-component>

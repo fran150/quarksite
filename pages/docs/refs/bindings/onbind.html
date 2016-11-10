@@ -1,0 +1,128 @@
+<quark-component>
+    <span class="docs">
+        <h1>onBind <small>binding</small></h1>
+        <hr/>
+        <p>
+            Ejecuta una funcion cuando se realiza el binding del elemento. Se envía como parámetros a la función:
+            <ul>
+                <li>El elemento HTML sobre el que se está realizando el binding</li>
+                <li>El <a data-bind="href: 'main/docs/basics-web-components'">modelo</a></li>
+                <li>El <a data-bind="href: 'main/docs/basics-bindings'">contexto</a> del binding</li>
+            </ul>
+        </p>
+        <h2>
+            <code>
+                onBind: &lt;func&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>func</code>
+                    </td>
+                    <td>
+                        <em>función</em>
+                    </td>
+                    <td>
+                        <p>Función que se invocará al realizarse el binding del elemento. La firma de la funcion debe ser:</p>
+                        <code>function([element [, model [, context]]])</code>
+                        <ul>
+                            <li>
+                                <code>element</code>: Es el objeto DOM del elemento sobre el que se está realizando el binding.
+                            </li>
+                            <li>
+                                <code>model</code>: Es el objeto con el que se está realizando el binding.
+                            </li>
+                            <li>
+                                <code>context</code>: Contexto del binding
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Este binding es muy util cuando se necesita obtener en el modelo de un componente la referencia a un elemento
+            HTML o el contexto del binding. Se utiliza mayormente cuando se desea aplicar alguna función o widget de
+            jQuery a un elemento especifico del componente.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            Este ejemplo implementa el Datepicker de jQueryUI en un componente de <em>Quark.js</em>
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;input type="text" class="form-control" data-bind="onBind: getElement,
+                                                       value: model.text" /&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        <code-highlight>
+define(['knockout', 'quark', 'text!./datepicker.html', 'jqueryui/datepicker'], function (ko, $$, template) {
+    function DatePickerComponent(params, $scope, $imports) {
+        var self = this;
+
+        var element;
+
+        $$.parameters({
+            text: ko.observable(),
+            value: ko.observable(),
+            maxDate: ko.observable()
+        }, params, this);
+
+        $scope.getElement = function(htmlElement) {
+            element = htmlElement;
+            $(element).datepicker();
+
+            var value = self.value();
+            if (value) {
+                $(element).datepicker("setDate", value);
+                self.text($(element).val());
+            }
+        }
+
+        this.subscriptions = {
+            text: self.text.subscribe(function(newValue) {
+                self.value($(element).datepicker("getDate"));
+            }),
+            value: self.value.subscribe(function(newValue) {
+                $(element).datepicker("setDate", newValue);
+            }),
+            maxDate: self.maxDate.subscribe(function(newValue) {
+                $(element).datepicker("option", "maxDate", newValue);
+            })
+        }
+
+    }
+
+    return $$.component(DatePickerComponent, template);
+});
+        </code-highlight>
+    </span>
+</quark-component>

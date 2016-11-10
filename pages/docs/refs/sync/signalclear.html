@@ -1,0 +1,65 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.signalClear <small>Método</small></h1>
+        <hr/>
+        <p>
+            Elimina todas las suscripciones de una señal. Se debería invocar en todas las señales que posea un objeto
+            cuando el mismo se esté eliminando.
+        </p>
+        <h2>
+            <code>
+                signalClear(signal)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>signal</code>
+                    </td>
+                    <td>
+                        <a href="https://millermedeiros.github.io/js-signals/docs/symbols/Signal.html">Signal</a>
+                    </td>
+                    <td>
+                        Señal de la que se deben eliminar todas las suscripciones.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Es un wrapper de <a href="https://millermedeiros.github.io/js-signals/docs/symbols/Signal.html#removeAll">removeAll</a>
+            Es conveniente invocar a esta función en el método <code>dispose</code> de los componentes que posean señales a fin
+            de evitar leaks de memoria.
+        </p>
+    </span>
+</quark-component>

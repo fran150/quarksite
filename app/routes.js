@@ -50,7 +50,24 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-synclock-unlock':       { 'main': 'pages-docs-refs-synclock-unlock' },
         'main/docs/refs-synclock-islocked':     { 'main': 'pages-docs-refs-synclock-islocked' },
         'main/docs/refs-synclock-force':        { 'main': 'pages-docs-refs-synclock-force' },
-        'main/docs/refs-synclock-dispose':      { 'main': 'pages-docs-refs-synclock-dispose' }
+        'main/docs/refs-synclock-dispose':      { 'main': 'pages-docs-refs-synclock-dispose' },
+        'main/docs/refs-signal':                { 'main': 'pages-docs-refs-signal' },
+        'main/docs/refs-signalclear':           { 'main': 'pages-docs-refs-signalclear' },
+
+        'main/docs/refs-routing-href':          { 'main': 'pages-docs-refs-routing-href' },
+
+        'main/docs/refs-bindings-onbind':       { 'main': 'pages-docs-refs-bindings-onbind' },
+
+        'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
+
+        'main/docs/refs-associative':           { 'main': 'pages-docs-refs-associative' },
+        'main/docs/refs-associative-add':       { 'main': 'pages-docs-refs-associative-add' },
+        'main/docs/refs-associative-get':       { 'main': 'pages-docs-refs-associative-get' },
+        'main/docs/refs-associative-update':    { 'main': 'pages-docs-refs-associative-update' },
+        'main/docs/refs-associative-remove':    { 'main': 'pages-docs-refs-associative-remove' },
+        'main/docs/refs-associative-array':     { 'main': 'pages-docs-refs-associative-array' },
+        'main/docs/refs-associative-each':      { 'main': 'pages-docs-refs-associative-each' },
+        'main/docs/refs-associative-subscribe': { 'main': 'pages-docs-refs-associative-subscribe' }
     }
 
     var routes = {
@@ -96,6 +113,23 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-synclock-islocked':     'docs/refs/synclock/islocked',
         'main/docs/refs-synclock-force':        'docs/refs/synclock/force',
         'main/docs/refs-synclock-dispose':      'docs/refs/synclock/dispose',
+        'main/docs/refs-signal':                'docs/refs/signal',
+        'main/docs/refs-signalclear':           'docs/refs/signalclear',
+
+        'main/docs/refs-routing-href':          'docs/refs/href',
+
+        'main/docs/refs-bindings-onbind':       'docs/refs/onbind',
+
+        'main/docs/refs-tracking-waitready':    'docs/refs/waitready',
+
+        'main/docs/refs-associative':           'docs/refs/associative',
+        'main/docs/refs-associative-add':       'docs/refs/associative-add',
+        'main/docs/refs-associative-get':       'docs/refs/associative-get',
+        'main/docs/refs-associative-update':    'docs/refs/associative-update',
+        'main/docs/refs-associative-remove':    'docs/refs/associative-remove',
+        'main/docs/refs-associative-array':     'docs/refs/associative-array',
+        'main/docs/refs-associative-each':      'docs/refs/associative-each',
+        'main/docs/refs-associative-subscribe': 'docs/refs/associative-subscribe',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

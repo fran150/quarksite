@@ -1,0 +1,60 @@
+<quark-component>
+    <span class="docs">
+        <h1>associativeObservable.subscribe <small>Método</small></h1>
+        <hr/>
+        <p>
+            De la misma forma que los <a data-bind="href: 'main/docs/basics-observables'">observables</a> permite suscribir
+            funciones que se debe ejecutar cuando el valor del associativeArray cambia. Cabe destacar que solo se notificará
+            la modificación de un elemento si se hace a través de los métodos provistos para tal efecto.
+        </p>
+        <h2>
+            <code>
+                subscribe(callback)
+            </code>
+        </h2>
+
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>callback</code>
+                    </td>
+                    <td>
+                        <em>función</em>
+                    </td>
+                    <td>
+                        Función que se invocará cada vez que el valor se modifique. La firma de esta función es
+                        <code>function(newValue)</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            De la misma forma que los <a data-bind="href: 'main/docs/basics-observables'">observables</a> devuelve el
+            handler de la suscripción, y también aqui para evitar leaks de memoria se debe invocar al método <code>dispose</code>
+            sobre este handler cuando se este eliminando el objeto que contiene el associativeObservable.
+        </p>
+    </span>
+</quark-component>
