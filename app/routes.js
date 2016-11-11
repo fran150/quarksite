@@ -67,7 +67,13 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-associative-remove':    { 'main': 'pages-docs-refs-associative-remove' },
         'main/docs/refs-associative-array':     { 'main': 'pages-docs-refs-associative-array' },
         'main/docs/refs-associative-each':      { 'main': 'pages-docs-refs-associative-each' },
-        'main/docs/refs-associative-subscribe': { 'main': 'pages-docs-refs-associative-subscribe' }
+        'main/docs/refs-associative-subscribe': { 'main': 'pages-docs-refs-associative-subscribe' },
+
+        'main/docs/refs-knockout-refresh':              { 'main': 'pages-docs-refs-knockout-refresh' },
+        'main/docs/refs-knockout-isobservablearray':    { 'main': 'pages-docs-refs-knockout-isobservablearray' },
+        'main/docs/refs-knockout-iscomputed':           { 'main': 'pages-docs-refs-knockout-iscomputed' },
+        'main/docs/refs-knockout-maptojs':              { 'main': 'pages-docs-refs-knockout-maptojs' },
+        'main/docs/refs-knockout-mapfromjs':            { 'main': 'pages-docs-refs-knockout-mapfromjs' }
     }
 
     var routes = {
@@ -123,13 +129,19 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-tracking-waitready':    'docs/refs/waitready',
 
         'main/docs/refs-associative':           'docs/refs/associative',
-        'main/docs/refs-associative-add':       'docs/refs/associative-add',
-        'main/docs/refs-associative-get':       'docs/refs/associative-get',
-        'main/docs/refs-associative-update':    'docs/refs/associative-update',
-        'main/docs/refs-associative-remove':    'docs/refs/associative-remove',
-        'main/docs/refs-associative-array':     'docs/refs/associative-array',
-        'main/docs/refs-associative-each':      'docs/refs/associative-each',
-        'main/docs/refs-associative-subscribe': 'docs/refs/associative-subscribe',
+        'main/docs/refs-associative-add':       'docs/refs/associative/add',
+        'main/docs/refs-associative-get':       'docs/refs/associative/get',
+        'main/docs/refs-associative-update':    'docs/refs/associative/update',
+        'main/docs/refs-associative-remove':    'docs/refs/associative/remove',
+        'main/docs/refs-associative-array':     'docs/refs/associative/array',
+        'main/docs/refs-associative-each':      'docs/refs/associative/each',
+        'main/docs/refs-associative-subscribe': 'docs/refs/associative/subscribe',
+
+        'main/docs/refs-knockout-refresh':              'docs/refs/knockout/refresh',
+        'main/docs/refs-knockout-isobservablearray':    'docs/refs/knockout/isobservablearray',
+        'main/docs/refs-knockout-iscomputed':           'docs/refs/knockout/iscomputed',
+        'main/docs/refs-knockout-maptojs':              'docs/refs/knockout/maptojs',
+        'main/docs/refs-knockout-mapfromjs':            'docs/refs/knockout/mapfromjs',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

@@ -88,6 +88,14 @@ define(['quark'], function($$) {
                     .register('each', 'pages/docs/refs/associative/observable/each')
                     .register('subscribe', 'pages/docs/refs/associative/observable/subscribe')
                 .endNamespace()
+
+                .namespace('knockout')
+                    .register('refresh', 'pages/docs/refs/knockout/refresh')
+                    .register('isobservablearray', 'pages/docs/refs/knockout/isobservablearray')
+                    .register('iscomputed', 'pages/docs/refs/knockout/iscomputed')
+                    .register('maptojs', 'pages/docs/refs/knockout/maptojs')
+                    .register('mapfromjs', 'pages/docs/refs/knockout/mapfromjs')
+                .endNamespace()
             .endNamespace();
 
     $$.onNamespace('library')
