@@ -94,7 +94,19 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-utils-toshortiso':              { 'main': 'pages-docs-refs-utils-toshortiso' },
         'main/docs/refs-utils-clear':                   { 'main': 'pages-docs-refs-utils-clear' },
         'main/docs/refs-utils-undefine':                { 'main': 'pages-docs-refs-utils-undefine' },
-        'main/docs/refs-utils-formatstring':            { 'main': 'pages-docs-refs-utils-formatstring' }
+        'main/docs/refs-utils-formatstring':            { 'main': 'pages-docs-refs-utils-formatstring' },
+
+        'main/docs/refs-validation-validators':                     { 'main': 'pages-docs-refs-validation-validators' },
+        'main/docs/refs-validation-validate':                       { 'main': 'pages-docs-refs-validation-validate' },
+        'main/docs/refs-validation-unsubscribevalidation':          { 'main': 'pages-docs-refs-validation-unsubscribevalidation' },
+        'main/docs/refs-validation-validationreset':                { 'main': 'pages-docs-refs-validation-validationreset' },
+        'main/docs/refs-validation-observable-validation':          { 'main': 'pages-docs-refs-validation-observable-validation' },
+        'main/docs/refs-validation-observable-validationreset':     { 'main': 'pages-docs-refs-validation-observable-validationreset' },
+        'main/docs/refs-validation-observable-validate':            { 'main': 'pages-docs-refs-validation-observable-validate' },
+        'main/docs/refs-validation-observable-haserror':            { 'main': 'pages-docs-refs-validation-observable-haserror' },
+        'main/docs/refs-validation-observable-validationmessage':   { 'main': 'pages-docs-refs-validation-observable-validationmessage' },
+        'main/docs/refs-validation-formgrouperror':                 { 'main': 'pages-docs-refs-validation-formgrouperror' },
+        'main/docs/refs-validation-fielderror':                     { 'main': 'pages-docs-refs-validation-fielderror' }
     }
 
     var routes = {
@@ -184,6 +196,18 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-utils-clear':                   'docs/refs/utils/clear',
         'main/docs/refs-utils-undefine':                'docs/refs/utils/undefine',
         'main/docs/refs-utils-formatstring':            'docs/refs/utils/formatstring',
+
+        'main/docs/refs-validation-validators':                     'docs/refs/validation/validators',
+        'main/docs/refs-validation-validate':                       'docs/refs/validation/validate',
+        'main/docs/refs-validation-unsubscribevalidation':          'docs/refs/validation/unsubscribevalidation',
+        'main/docs/refs-validation-validationreset':                'docs/refs/validation/validationreset',
+        'main/docs/refs-validation-observable-validation':          'docs/refs/validation/observable/validation',
+        'main/docs/refs-validation-observable-validationreset':     'docs/refs/validation/observable/validationreset',
+        'main/docs/refs-validation-observable-validate':            'docs/refs/validation/observable/validate',
+        'main/docs/refs-validation-observable-haserror':            'docs/refs/validation/observable/haserror',
+        'main/docs/refs-validation-observable-validationmessage':   'docs/refs/validation/observable/validationmessage',
+        'main/docs/refs-validation-formgrouperror':                 'docs/refs/validation/formgrouperror',
+        'main/docs/refs-validation-fielderror':                     'docs/refs/validation/fielderror',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

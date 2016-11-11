@@ -120,6 +120,22 @@ define(['quark'], function($$) {
                     .register('formatstring', 'pages/docs/refs/utils/formatstring')
                 .endNamespace()
 
+                .namespace('validation')
+                    .register('validators', 'pages/docs/refs/validation/validators')
+                    .register('validate', 'pages/docs/refs/validation/validate')
+                    .register('unsubscribevalidation', 'pages/docs/refs/validation/unsubscribevalidation')
+                    .register('validationreset', 'pages/docs/refs/validation/validationreset')
+                    .namespace('observable')
+                        .register('validation', 'pages/docs/refs/validation/observable/validation')
+                        .register('validationreset', 'pages/docs/refs/validation/observable/validationreset')
+                        .register('validate', 'pages/docs/refs/validation/observable/validate')
+                        .register('haserror', 'pages/docs/refs/validation/observable/haserror')
+                        .register('validationmessage', 'pages/docs/refs/validation/observable/validationmessage')
+                    .endNamespace()
+                    .register('formgrouperror', 'pages/docs/refs/validation/formgrouperror')
+                    .register('fielderror', 'pages/docs/refs/validation/fielderror')
+                .endNamespace()
+
             .endNamespace();
 
     $$.onNamespace('library')

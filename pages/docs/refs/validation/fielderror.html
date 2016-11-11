@@ -1,0 +1,68 @@
+<quark-component>
+    <span class="docs">
+        <h1>fieldError <small>binding</small></h1>
+        <hr/>
+        <p>
+            Muestra el elemento cuando el observable especificado tiene un error de validación y setea el texto del mismo
+            al mensaje de error.
+        </p>
+        <h2>
+            <code>
+                fieldError: &lt;field&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>field</code>
+                    </td>
+                    <td>
+                        <em>observable</em>
+                    </td>
+                    <td>
+                        Observable con validador activado. Cuando se produce un error de validación en este observable
+                        se muestra el elemento y se reemplaza el texto del mismo por el error producido.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Permite mostrar errores junto a los campos en los formularios de ingreso de datos.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            El div solo se hará visible si se genera un error de validación en el observable <code>income</code>.
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;input type="text" data-bind="value: income" /&gt;
+&lt;div class="text-error" data-bind="fieldError: income"&gt;&lt;/div&gt;
+        </code-highlight>
+    </span>
+</quark-component>

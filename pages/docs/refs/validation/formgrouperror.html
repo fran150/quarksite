@@ -1,0 +1,70 @@
+<quark-component>
+    <span class="docs">
+        <h1>formGroupError <small>binding</small></h1>
+        <hr/>
+        <p>
+            Aplica la clase <code>has-error</code> a un elemento con <code>form-group</code> de <em>Bootstrap</em> cuando
+            se produce un error en el observable o los observables especificados. Esto hace que tanto el input, como el label
+            del grupo de elementos se muestre en rojo.
+        </p>
+        <h2>
+            <code>
+                formGroupError: &lt;field&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>field</code>
+                    </td>
+                    <td>
+                        <em>Observable o Array</em>
+                    </td>
+                    <td>
+                        Se puede especificar un observable o un array de estos. Si se produce un error en alguno de los
+                        observables especificados aplica el estilo <code>has-error</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Acompañado del binding <a data-bind="href: 'main/docs/refs-validation-fielderror'">fieldError</a> permite
+            mostrar claramente al usuario el error producido en un formulario de entrada.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight params="language: 'html'">
+&lt;div class="form-group" data-bind="fieldError: income"&gt;
+    &lt;label for="incomeField"&gt;Enter your income:&lt;/label&gt;
+    &lt;input type="text" name="incomeField" data-bind="value: income" /&gt;
+    &lt;div class="text-error" data-bind="fieldError: income"&gt;&lt;/div&gt;
+&lt;/div&gt;
+        </code-highlight>
+    </span>
+</quark-component>

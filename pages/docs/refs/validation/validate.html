@@ -1,0 +1,172 @@
+<quark-component>
+    <span class="docs">
+        <h1>ko.validate <small>Método</small></h1>
+        <hr/>
+        <p>
+            Valida el objeto especificado. Se pueden suscribir las validaciones a los observables para que se ejecuten cada
+            vez que el valor de uno de estos cambia.
+        </p>
+        <h2>
+            <code>
+                validate(object [, subscribe])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>object</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto a validar.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>subscribe</code>
+                    </td>
+                    <td>
+                        <em>Boolean</em>
+                    </td>
+                    <td>
+                        Indica si se deben suscribir los validadores a los observables del objeto permitiendo que se
+                        ejecuten las validaciones cada vez que el valor de estos cambie.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Verdadero si el objeto tiene todas las propiedades con un valor válido, caso contrario falso.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Al ejecutar esta función sobre un objeto, <em>Quark.js</em> recorre todas las propiedades del mismo
+            buscando aquellos observables que tengan validadores activos y los ejecuta, si se especificó el parámetro
+            <code>subscribe</code> en <code>true</code>, suscribe los validadores a cada observable de manera que se
+            ejecute la validación automáticamente cuando el valor del observable cambia. Esto permite esperar que el usuario
+            presione el boton para enviar el formulario para correr la primer validación y suscribir los validadores,
+            una vez hecho esto las validaciones se ejecutarán automaticamente cuando el usuario vaya ajustando los campos
+            con error.
+        </p>
+        <p>
+            Cuando <em>Quark.js</em> encuentra un error en el valor de un observable setea la propiedad
+            <a data-bind="href: 'main/docs/refs-validation-observable-haserror'">hasError</a> en <code>true</code>
+            y <a data-bind="href: 'main/docs/refs-validation-observable-validationmessage'">validationMessage</a> con
+            el texto del error.
+        </p>
+        <p>
+            <span class="text-danger"><strong>Atencion!</strong> Si se validó el objeto suscribiendo los validadores
+            es importante que se desuscriban cuando se este eliminando el objeto para evitar leaks de memoria</span>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.codigo"&gt;
+            &lt;label class="control-label"&gt;Código&lt;/label&gt;
+            &lt;input type="text" class="form-control" data-bind="value: model.item.codigo" /&gt;
+            &lt;p data-bind="fieldError: model.item.codigo" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.nombre"&gt;
+            &lt;label class="control-label"&gt;Nombre&lt;/label&gt;
+            &lt;input type="text" class="form-control" data-bind="value: model.item.nombre" /&gt;
+            &lt;p data-bind="fieldError: model.item.nombre" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12 form-group" data-bind="formGroupError: model.item.descripcion"&gt;
+            &lt;label class="control-label"&gt;Descripción&lt;/label&gt;
+            &lt;textarea class="form-control" data-bind="value: model.item.descripcion"&gt;&lt;/textarea&gt;
+            &lt;p data-bind="fieldError: model.item.descripcion" class="text-danger"&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-sm-12"&gt;
+            &lt;button class="btn btn-default" data-bind="click: model.reset"&gt;Reset&lt;/button&gt;
+            &lt;button class="btn btn-primary" data-bind="click: model.save"&gt;Guardar&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            <code-highlight>
+define(['knockout', 'quark', 'text!./validation.html'], function(ko, $$, template) {
+    function ValidationExample(params, $scope, $imports) {
+        var self = this;
+
+        this.item = {
+            codigo: ko.observable().validation('Código', {
+                required: {}
+            }),
+            nombre: ko.observable().validation('Nombre Completo', {
+                required: {}
+            }),
+            descripcion: ko.observable().validation('Descripción', {
+                required: { message: 'Debe especificar una descripción' }
+            })
+        };
+
+        this.save = function() {
+            if (ko.validate(self.item, true)) {
+                alert('Saved');
+            };
+        }
+
+        this.reset = function() {
+            ko.validationReset(self.item);
+        }
+
+        this.dispose = function() {
+            ko.unsubscribeValidation(self.item);
+        }
+    }
+
+    return $$.component(ValidationExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Resultado:
+        </p>
+        <div class="well">
+            <validation-example>
+            </validation-example>
+        </div>
+    </span>
+</quark-component>
