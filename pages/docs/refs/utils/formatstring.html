@@ -1,0 +1,132 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.formatString <small>Método</small></h1>
+        <hr/>
+        <p>
+            Reemplaza el valor de variables en una cadena de texto. Se puede utilizar de dos maneras:
+        </p>
+        <h2>
+            <code>
+                formatString(str, object)
+            </code>
+        </h2>
+        <p>
+            Por cada propiedad del objeto busca en la cadena un texto en la forma <code>{&lt;nombre propiedad&gt;}</code> y lo
+            reemplaza por el valor de dicha propiedad en el objeto.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>str</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        String a formatear
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>object</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad corresponde con una variable en el string.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            String formateado.
+        </p>
+
+        <hr/>
+
+        <h2>
+            <code>
+                formatString(str [, param1[, param2, [, .. param N]]])
+            </code>
+        </h2>
+        <p>
+            Reemplaza las variables <code>{0}</code>, <code>{1}</code>, <code>{2}</code>, <code>{3}</code> ... <code>{N}</code>,
+            por el primer parámetro luego del string, el segundo, el tercero, etc.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>str</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        String a formatear
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>params</code>
+                    </td>
+                    <td>
+                        <em>String</em>
+                    </td>
+                    <td>
+                        Luego del parametro string se deben especificar los valores a reemplazar en el string.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            String formateado.
+        </p>
+    </span>
+</quark-component>

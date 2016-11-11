@@ -1,0 +1,68 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.makeDate <small>Método</small></h1>
+        <hr/>
+        <p>
+            Toma el valor especificado e intenta convertirlo en un objeto <code>Date</code> de <em>Javascript</em>.
+            Si el valor especificado no se puede convertir a una fecha válida y el parametro <code>useToday</code> es <code>true</code>
+            devuelve la fecha de hoy, si el parámetro es <code>false</code> devuelve <code>undefined</code>.
+        </p>
+        <h2>
+            <code>
+                makeDate(value[, useToday])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>value</code>
+                    </td>
+                    <td>
+                        <em>Cualquiera</em>
+                    </td>
+                    <td>
+                        Valor que se debe convertir a fecha
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>useToday</code>
+                    </td>
+                    <td>
+                        <em>Boolean</em>
+                    </td>
+                    <td>
+                        Indica si, en caso de que no se pueda convertir el valor a una fecha valida se debe devolver
+                        la fecha de hoy o undefined.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Objeto <code>Date</code> o <code>undefined</code>
+        </p>
+    </span>
+</quark-component>

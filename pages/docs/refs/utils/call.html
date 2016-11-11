@@ -1,0 +1,104 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.call <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite invocar a un callback pasando un número arbitrario de parámetros. Si el callback es un observable
+            asume que dentro hay una función que es la que debe invocar.
+        </p>
+        <h2>
+            <code>
+                call(callback [, param1[, param2[, ... param N]]])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>callback</code>
+                    </td>
+                    <td>
+                        <em>Observable o Función</em>
+                    </td>
+                    <td>
+                        Callback (u observable que lo contiene) al que hay que invocar
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>params</code>
+                    </td>
+                    <td>
+                        <em>Cualquiera</em>
+                    </td>
+                    <td>
+                        Luego del parametro callback se pueden especificar los parámetros que se deben pasar
+                        al callback.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Resultado del callback.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Sirve para invocar un callback que se haya definido al crear un componente. La función verifica que el callback
+            esté definido y sea una función y en tal caso la invoca, sino no hace nada.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            Al hacer click en un boton invoca al callback solo si el usuario del componente definio uno, pasando el item
+            en donde se hizo clic y la cantidad de clics realizados hasta el momento.
+        </p>
+        <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ExampleComponent(params, $scope, $imports) {
+        var self = this;
+
+        var clickCount = 0;
+
+        $$.parameters({
+            onClick: undefined
+        }, params, this);
+
+        $scope.btnClicked = function(item) {
+            $$.call(self.onClick, item, ++clickCount);
+        }
+    }
+
+    return $$.component(ExampleComponent, template);
+});
+        </code-highlight>
+    </span>
+</quark-component>

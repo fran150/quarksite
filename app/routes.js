@@ -73,7 +73,28 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-knockout-isobservablearray':    { 'main': 'pages-docs-refs-knockout-isobservablearray' },
         'main/docs/refs-knockout-iscomputed':           { 'main': 'pages-docs-refs-knockout-iscomputed' },
         'main/docs/refs-knockout-maptojs':              { 'main': 'pages-docs-refs-knockout-maptojs' },
-        'main/docs/refs-knockout-mapfromjs':            { 'main': 'pages-docs-refs-knockout-mapfromjs' }
+        'main/docs/refs-knockout-mapfromjs':            { 'main': 'pages-docs-refs-knockout-mapfromjs' },
+
+        'main/docs/refs-utils-isdefined':               { 'main': 'pages-docs-refs-utils-isdefined' },
+        'main/docs/refs-utils-isstring':                { 'main': 'pages-docs-refs-utils-isstring' },
+        'main/docs/refs-utils-isint':                   { 'main': 'pages-docs-refs-utils-isint' },
+        'main/docs/refs-utils-canbeint':                { 'main': 'pages-docs-refs-utils-canbeint' },
+        'main/docs/refs-utils-isnumeric':               { 'main': 'pages-docs-refs-utils-isnumeric' },
+        'main/docs/refs-utils-isdecimal':               { 'main': 'pages-docs-refs-utils-isdecimal' },
+        'main/docs/refs-utils-isarray':                 { 'main': 'pages-docs-refs-utils-isarray' },
+        'main/docs/refs-utils-isobject':                { 'main': 'pages-docs-refs-utils-isobject' },
+        'main/docs/refs-utils-isfunction':              { 'main': 'pages-docs-refs-utils-isfunction' },
+        'main/docs/refs-utils-isdate':                  { 'main': 'pages-docs-refs-utils-isdate' },
+        'main/docs/refs-utils-isvaliddate':             { 'main': 'pages-docs-refs-utils-isvaliddate' },
+        'main/docs/refs-utils-clone':                   { 'main': 'pages-docs-refs-utils-clone' },
+        'main/docs/refs-utils-cloneobservable':         { 'main': 'pages-docs-refs-utils-cloneobservable' },
+        'main/docs/refs-utils-clonemixed':              { 'main': 'pages-docs-refs-utils-clonemixed' },
+        'main/docs/refs-utils-call':                    { 'main': 'pages-docs-refs-utils-call' },
+        'main/docs/refs-utils-makedate':                { 'main': 'pages-docs-refs-utils-makedate' },
+        'main/docs/refs-utils-toshortiso':              { 'main': 'pages-docs-refs-utils-toshortiso' },
+        'main/docs/refs-utils-clear':                   { 'main': 'pages-docs-refs-utils-clear' },
+        'main/docs/refs-utils-undefine':                { 'main': 'pages-docs-refs-utils-undefine' },
+        'main/docs/refs-utils-formatstring':            { 'main': 'pages-docs-refs-utils-formatstring' }
     }
 
     var routes = {
@@ -142,6 +163,27 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-knockout-iscomputed':           'docs/refs/knockout/iscomputed',
         'main/docs/refs-knockout-maptojs':              'docs/refs/knockout/maptojs',
         'main/docs/refs-knockout-mapfromjs':            'docs/refs/knockout/mapfromjs',
+
+        'main/docs/refs-utils-isdefined':               'docs/refs/utils/isdefined',
+        'main/docs/refs-utils-isstring':                'docs/refs/utils/isstring',
+        'main/docs/refs-utils-isint':                   'docs/refs/utils/isint',
+        'main/docs/refs-utils-canbeint':                'docs/refs/utils/canbeint',
+        'main/docs/refs-utils-isnumeric':               'docs/refs/utils/isnumeric',
+        'main/docs/refs-utils-isdecimal':               'docs/refs/utils/isdecimal',
+        'main/docs/refs-utils-isarray':                 'docs/refs/utils/isarray',
+        'main/docs/refs-utils-isobject':                'docs/refs/utils/isobject',
+        'main/docs/refs-utils-isfunction':              'docs/refs/utils/isfunction',
+        'main/docs/refs-utils-isdate':                  'docs/refs/utils/isdate',
+        'main/docs/refs-utils-isvaliddate':             'docs/refs/utils/isvaliddate',
+        'main/docs/refs-utils-clone':                   'docs/refs/utils/clone',
+        'main/docs/refs-utils-cloneobservable':         'docs/refs/utils/cloneobservable',
+        'main/docs/refs-utils-clonemixed':              'docs/refs/utils/clonemixed',
+        'main/docs/refs-utils-call':                    'docs/refs/utils/call',
+        'main/docs/refs-utils-makedate':                'docs/refs/utils/makedate',
+        'main/docs/refs-utils-toshortiso':              'docs/refs/utils/toshortiso',
+        'main/docs/refs-utils-clear':                   'docs/refs/utils/clear',
+        'main/docs/refs-utils-undefine':                'docs/refs/utils/undefine',
+        'main/docs/refs-utils-formatstring':            'docs/refs/utils/formatstring',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

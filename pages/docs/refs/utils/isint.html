@@ -1,0 +1,90 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.isInt <small>Método</small></h1>
+        <hr/>
+        <p>
+            Devuelve verdadero si la variable especificada es un entero.
+        </p>
+        <h2>
+            <code>
+                isInt(variable)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>variable</code>
+                    </td>
+                    <td>
+                        <em>Cualquiera</em>
+                    </td>
+                    <td>
+                        Variable que se debe verificar si es un entero.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Verdadero si la variable especificada es un entero.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Si desea verificar que la variable se pueda transformar en entero utilice el método
+            <a data-bind="href: 'main/docs/refs-utils-canbeint'">canBeInt</a>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ExampleComponent(params, $scope, $imports) {
+        var self = this;
+
+        var num = 5;
+        var sNum = '5';
+        var str = 'marron 5';
+
+        $$.isInt(num); // returns true
+        $$.isInt(sNum); // returns false
+        $$.isInt(str); // returns false
+
+        $$.canBeInt(num); // returns true
+        $$.canBeInt(sNum); // returns true
+        $$.canBeInt(str); // returns false
+    }
+
+    return $$.component(ExampleComponent, template);
+});
+        </code-highlight>
+
+    </span>
+</quark-component>

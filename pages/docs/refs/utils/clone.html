@@ -1,0 +1,68 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.clone <small>Método</small></h1>
+        <hr/>
+        <p>
+            Genera una copia del objeto especificado.
+        </p>
+        <h2>
+            <code>
+                clone(source)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>source</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto del que se debe generar la copia
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Copia del objeto especificado.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            El metodo genera una copia del objeto y todas sus propiedades, si la propiedad almacena la referencia a otro objeto
+            se copia la referencia, por lo que las propiedades de ambos (el original y el clonado) van a estar apuntando
+            al mismo objeto en memoria.
+        </p>
+        <p>
+            Debido a esto, si el objeto tiene propiedades observables, el objeto clonado apuntará a los mismos observables,
+            por lo que este método se debe utilizar preferentemente para clonar objetos planos (que no contienen observables).
+        </p>
+    </span>
+</quark-component>
