@@ -106,7 +106,18 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-validation-observable-haserror':            { 'main': 'pages-docs-refs-validation-observable-haserror' },
         'main/docs/refs-validation-observable-validationmessage':   { 'main': 'pages-docs-refs-validation-observable-validationmessage' },
         'main/docs/refs-validation-formgrouperror':                 { 'main': 'pages-docs-refs-validation-formgrouperror' },
-        'main/docs/refs-validation-fielderror':                     { 'main': 'pages-docs-refs-validation-fielderror' }
+        'main/docs/refs-validation-fielderror':                     { 'main': 'pages-docs-refs-validation-fielderror' },
+
+        'main/docs/refs-web-redirect':                 { 'main': 'pages-docs-refs-web-redirect'},
+        'main/docs/refs-web-getparam':                 { 'main': 'pages-docs-refs-web-getparam'},
+        'main/docs/refs-web-replaceandbind':           { 'main': 'pages-docs-refs-web-replaceandbind'},
+        'main/docs/refs-web-htmlencode':               { 'main': 'pages-docs-refs-web-htmlencode'},
+        'main/docs/refs-web-htmldecode':               { 'main': 'pages-docs-refs-web-htmldecode'},
+        'main/docs/refs-web-limittext':                { 'main': 'pages-docs-refs-web-limittext'},
+        'main/docs/refs-web-setcookie':                { 'main': 'pages-docs-refs-web-getcookie'},
+        'main/docs/refs-web-getcookie':                { 'main': 'pages-docs-refs-web-setcookie'},
+        'main/docs/refs-web-clearcookie':              { 'main': 'pages-docs-refs-web-clearcookie'},
+        'main/docs/refs-web-loadcss':                  { 'main': 'pages-docs-refs-web-loadcss'}
     }
 
     var routes = {
@@ -208,6 +219,17 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-validation-observable-validationmessage':   'docs/refs/validation/observable/validationmessage',
         'main/docs/refs-validation-formgrouperror':                 'docs/refs/validation/formgrouperror',
         'main/docs/refs-validation-fielderror':                     'docs/refs/validation/fielderror',
+
+        'main/docs/refs-web-redirect':                 'docs/refs/web/redirect',
+        'main/docs/refs-web-getparam':                 'docs/refs/web/getparam',
+        'main/docs/refs-web-replaceandbind':           'docs/refs/web/replaceandbind',
+        'main/docs/refs-web-htmlencode':               'docs/refs/web/htmlencode',
+        'main/docs/refs-web-htmldecode':               'docs/refs/web/htmldecode',
+        'main/docs/refs-web-limittext':                'docs/refs/web/limittext',
+        'main/docs/refs-web-setcookie':                'docs/refs/web/getcookie',
+        'main/docs/refs-web-getcookie':                'docs/refs/web/setcookie',
+        'main/docs/refs-web-clearcookie':              'docs/refs/web/clearcookie',
+        'main/docs/refs-web-loadcss':                  'docs/refs/web/loadcss'
 
         'main/sidebar/module':                  'components/library/{id}'
     }

@@ -136,6 +136,18 @@ define(['quark'], function($$) {
                     .register('fielderror', 'pages/docs/refs/validation/fielderror')
                 .endNamespace()
 
+                .namespace('web')
+                    .register('redirect', 'pages/docs/refs/web/validators')
+                    .register('getparam', 'pages/docs/refs/web/getparam')
+                    .register('replaceandbind', 'pages/docs/refs/web/replaceandbind')
+                    .register('htmlencode', 'pages/docs/refs/web/htmlencode')
+                    .register('htmldecode', 'pages/docs/refs/web/htmldecode')
+                    .register('limittext', 'pages/docs/refs/web/limittext')
+                    .register('setcookie', 'pages/docs/refs/web/setcookie')
+                    .register('getcookie', 'pages/docs/refs/web/getcookie')
+                    .register('clearcookie', 'pages/docs/refs/web/clearcookie')
+                    .register('loadcss', 'pages/docs/refs/web/loadcss')
+                .endNamespace()
             .endNamespace();
 
     $$.onNamespace('library')
