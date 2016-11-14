@@ -1,0 +1,66 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.redirect <small>Método</small></h1>
+        <hr/>
+        <p>
+            Redirige el navegador a la URL especificada.
+        </p>
+        <h2>
+            <code>
+                redirect(url)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>url</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Url a donde se desea redirigir el navegador.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            En las aplicaciones <em>Quark.js</em>, este método es recomendado utilizarlo solo para los enlaces externos.
+            Para los enlaces entre paginas internas de la aplicación se recomienda utilizar el método
+            <a data-bind="href: 'main/docs/refs-routing-redirecthash'">redirectHash</a> del sistema de ruteo, ya que permite
+            referenciar las páginas por su nombre interno facilitando la administración de los hash que componen las rutas
+            de acceso a cada pagina o estado de la aplicación.
+        </p>
+    </span>
+</quark-component>

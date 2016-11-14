@@ -1,8 +1,8 @@
-define(['quark', 'knockout', 'text!./clearcookie.html'], function($$, ko, template) {
-    function DocsRefsClearCookiePage(params, $scope, $imports) {
+define(['quark', 'knockout', 'text!./htmldecode.html'], function($$, ko, template) {
+    function DocsRefsHtmlDecodePage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsClearCookiePage, template);
+    return $$.component(DocsRefsHtmlDecodePage, template);
 });

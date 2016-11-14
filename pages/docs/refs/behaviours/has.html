@@ -1,14 +1,13 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.getParam <small>Método</small></h1>
+        <h1>$$.behaviours.has <small>Método</small></h1>
         <hr/>
         <p>
-            Extrae del <a href="https://en.wikipedia.org/wiki/Query_string">Query String</a> el valor de la variable
-            con el nombre especificado.
+            Devuelve verdadero si el objeto tiene el comportamiento especificado.
         </p>
         <h2>
             <code>
-                getParam(name)
+                has(object, behaviourName)
             </code>
         </h2>
         <h3>
@@ -32,13 +31,24 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>name</code>
+                        <code>object</code>
                     </td>
                     <td>
-                        <em>string</em>
+                        <em>Objeto</em>
                     </td>
                     <td>
-                        Nombre de la variable a leer.
+                        Objeto que se desea verificar si tiene el comportamiento aplicado.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>behaviourName</code>
+                    </td>
+                    <td>
+                        <em>String</em>
+                    </td>
+                    <td>
+                        Nombre del comportamiento
                     </td>
                 </tr>
             </tbody>
@@ -49,7 +59,7 @@
         </h3>
         <hr />
         <p>
-            Valor de la variable con el nombre especificado o vacío si no la encontró.
+            Verdadero si el objeto posee el comportamiento especificado.
         </p>
     </span>
 </quark-component>

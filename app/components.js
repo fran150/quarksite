@@ -68,6 +68,7 @@ define(['quark'], function($$) {
 
                 .namespace('routing')
                     .register('href', 'pages/docs/refs/routing/href')
+                    .register('redirecthash', 'pages/docs/refs/routing/redirecthash')
                 .endNamespace()
 
                 .namespace('bindings')
@@ -137,7 +138,7 @@ define(['quark'], function($$) {
                 .endNamespace()
 
                 .namespace('web')
-                    .register('redirect', 'pages/docs/refs/web/validators')
+                    .register('redirect', 'pages/docs/refs/web/redirect')
                     .register('getparam', 'pages/docs/refs/web/getparam')
                     .register('replaceandbind', 'pages/docs/refs/web/replaceandbind')
                     .register('htmlencode', 'pages/docs/refs/web/htmlencode')
@@ -147,6 +148,13 @@ define(['quark'], function($$) {
                     .register('getcookie', 'pages/docs/refs/web/getcookie')
                     .register('clearcookie', 'pages/docs/refs/web/clearcookie')
                     .register('loadcss', 'pages/docs/refs/web/loadcss')
+                .endNamespace()
+
+                .namespace('behaviours')
+                    .register('define', 'pages/docs/refs/behaviours/define')
+                    .register('apply', 'pages/docs/refs/behaviours/apply')
+                    .register('has', 'pages/docs/refs/behaviours/has')
+                    .register('dispose', 'pages/docs/refs/behaviours/dispose')
                 .endNamespace()
             .endNamespace();
 

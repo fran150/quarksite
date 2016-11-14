@@ -1,15 +1,13 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.limitText <small>Método</small></h1>
+        <h1>$$.behaviours.apply <small>Método</small></h1>
         <hr/>
         <p>
-            Corta la cadena en la cantidad de caracteres especificados, si el texto original es mas largo muestra puntos
-            suspensivos al final del texto. Esta función es util para mostrar el resumen de un texto indicando que el
-            mismo es mas largo. Se debe proporcionar al usuario alguna forma de poder ver el resto.
+            Aplica el o los comportamientos a un objeto.
         </p>
         <h2>
             <code>
-                limitText(value, limit)
+                apply(behaviour, object [, config])
             </code>
         </h2>
         <h3>
@@ -33,25 +31,36 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>value</code>
+                        <code>behaviour</code>
                     </td>
                     <td>
-                        <em>string</em>
+                        <em>String o Array</em>
                     </td>
                     <td>
-                        String al que se quiere limitar el largo.
+                        String o Array de strings con los nombres de todos los comportamientos
+                        a aplicarle al objeto.
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <code>limit</code>
+                        <code>object</code>
                     </td>
                     <td>
-                        <em>int</em>
+                        <em>Objeto</em>
                     </td>
                     <td>
-                        Limite de caracteres de la cadena. Si el largo de la original excede este limite se
-                        reemplazarán los ultimos 3 por puntos suspensivos.
+                        Objeto al que se le deben aplicar los comportamientos.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>config</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto con la configuración de el o los behaviours especificados.
                     </td>
                 </tr>
             </tbody>
@@ -62,7 +71,7 @@
         </h3>
         <hr />
         <p>
-            String cortado en el maximo de caracteres especificados.
+            Nada.
         </p>
     </span>
 </quark-component>

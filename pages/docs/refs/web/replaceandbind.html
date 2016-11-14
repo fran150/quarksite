@@ -1,0 +1,88 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.replaceAndBind <small>Método</small></h1>
+        <hr/>
+        <p>
+            Reemplaza el contenido de un elemento por el HTML especificado y luego realiza el binding del nuevo contenido
+            contra el modelo especificado.
+        </p>
+        <h2>
+            <code>
+                replaceAndBind(placeholderSelector, html, model)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>placeholderSelector</code>
+                    </td>
+                    <td>
+                        <em>String, Object</em>
+                    </td>
+                    <td>
+                        Objeto cuyo contenido se quiere reemplazar. Se puede especificar cualquier
+                        <a href="https://api.jquery.com/category/selectors/">selector</a> de jQuery válido o bien directamente
+                        la referencia al nodo DOM. Debe utilizarse con un selector que atrape un único elemento.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>html</code>
+                    </td>
+                    <td>
+                        <em>String</em>
+                    </td>
+                    <td>
+                        HTML con el nuevo contenido que se debe setear al elemento.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>model</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto contra el que se debe realizar el binding del nuevo contenido.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Esta función es util cuando, por ejemplo, se está recibiendo contenido HTML desde un servicio Web y se desea
+            mostrarlo en pantalla y realizar los bindings contra un objeto asociado.
+        </p>
+    </span>
+</quark-component>

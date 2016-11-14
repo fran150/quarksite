@@ -55,6 +55,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signalclear':           { 'main': 'pages-docs-refs-signalclear' },
 
         'main/docs/refs-routing-href':          { 'main': 'pages-docs-refs-routing-href' },
+        'main/docs/refs-routing-redirecthash':  { 'main': 'pages-docs-refs-routing-redirecthash' },
 
         'main/docs/refs-bindings-onbind':       { 'main': 'pages-docs-refs-bindings-onbind' },
 
@@ -108,16 +109,21 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-validation-formgrouperror':                 { 'main': 'pages-docs-refs-validation-formgrouperror' },
         'main/docs/refs-validation-fielderror':                     { 'main': 'pages-docs-refs-validation-fielderror' },
 
-        'main/docs/refs-web-redirect':                 { 'main': 'pages-docs-refs-web-redirect'},
-        'main/docs/refs-web-getparam':                 { 'main': 'pages-docs-refs-web-getparam'},
-        'main/docs/refs-web-replaceandbind':           { 'main': 'pages-docs-refs-web-replaceandbind'},
-        'main/docs/refs-web-htmlencode':               { 'main': 'pages-docs-refs-web-htmlencode'},
-        'main/docs/refs-web-htmldecode':               { 'main': 'pages-docs-refs-web-htmldecode'},
-        'main/docs/refs-web-limittext':                { 'main': 'pages-docs-refs-web-limittext'},
-        'main/docs/refs-web-setcookie':                { 'main': 'pages-docs-refs-web-getcookie'},
-        'main/docs/refs-web-getcookie':                { 'main': 'pages-docs-refs-web-setcookie'},
-        'main/docs/refs-web-clearcookie':              { 'main': 'pages-docs-refs-web-clearcookie'},
-        'main/docs/refs-web-loadcss':                  { 'main': 'pages-docs-refs-web-loadcss'}
+        'main/docs/refs-web-redirect':                 { 'main': 'pages-docs-refs-web-redirect' },
+        'main/docs/refs-web-getparam':                 { 'main': 'pages-docs-refs-web-getparam' },
+        'main/docs/refs-web-replaceandbind':           { 'main': 'pages-docs-refs-web-replaceandbind' },
+        'main/docs/refs-web-htmlencode':               { 'main': 'pages-docs-refs-web-htmlencode' },
+        'main/docs/refs-web-htmldecode':               { 'main': 'pages-docs-refs-web-htmldecode' },
+        'main/docs/refs-web-limittext':                { 'main': 'pages-docs-refs-web-limittext' },
+        'main/docs/refs-web-setcookie':                { 'main': 'pages-docs-refs-web-setcookie' },
+        'main/docs/refs-web-getcookie':                { 'main': 'pages-docs-refs-web-getcookie' },
+        'main/docs/refs-web-clearcookie':              { 'main': 'pages-docs-refs-web-clearcookie' },
+        'main/docs/refs-web-loadcss':                  { 'main': 'pages-docs-refs-web-loadcss' },
+
+        'main/docs/refs-behaviours-define':            { 'main': 'pages-docs-refs-behaviours-define' },
+        'main/docs/refs-behaviours-apply':             { 'main': 'pages-docs-refs-behaviours-apply' },
+        'main/docs/refs-behaviours-has':               { 'main': 'pages-docs-refs-behaviours-has' },
+        'main/docs/refs-behaviours-dispose':           { 'main': 'pages-docs-refs-behaviours-dispose' }
     }
 
     var routes = {
@@ -167,6 +173,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signalclear':           'docs/refs/signalclear',
 
         'main/docs/refs-routing-href':          'docs/refs/href',
+        'main/docs/refs-routing-redirecthash':  'docs/refs/redirecthash',
 
         'main/docs/refs-bindings-onbind':       'docs/refs/onbind',
 
@@ -226,10 +233,15 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-web-htmlencode':               'docs/refs/web/htmlencode',
         'main/docs/refs-web-htmldecode':               'docs/refs/web/htmldecode',
         'main/docs/refs-web-limittext':                'docs/refs/web/limittext',
-        'main/docs/refs-web-setcookie':                'docs/refs/web/getcookie',
-        'main/docs/refs-web-getcookie':                'docs/refs/web/setcookie',
+        'main/docs/refs-web-getcookie':                'docs/refs/web/getcookie',
+        'main/docs/refs-web-setcookie':                'docs/refs/web/setcookie',
         'main/docs/refs-web-clearcookie':              'docs/refs/web/clearcookie',
-        'main/docs/refs-web-loadcss':                  'docs/refs/web/loadcss'
+        'main/docs/refs-web-loadcss':                  'docs/refs/web/loadcss',
+
+        'main/docs/refs-behaviours-define':            'docs/refs/behaviour/define',
+        'main/docs/refs-behaviours-apply':             'docs/refs/behaviour/apply',
+        'main/docs/refs-behaviours-has':               'docs/refs/behaviour/has',
+        'main/docs/refs-behaviours-dispose':           'docs/refs/behaviour/dispose',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

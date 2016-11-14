@@ -1,8 +1,8 @@
-define(['quark', 'knockout', 'text!./clearcookie.html'], function($$, ko, template) {
-    function DocsRefsClearCookiePage(params, $scope, $imports) {
+define(['quark', 'knockout', 'text!./limittext.html'], function($$, ko, template) {
+    function DocsRefsLimitTextPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsClearCookiePage, template);
+    return $$.component(DocsRefsLimitTextPage, template);
 });
