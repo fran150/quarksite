@@ -127,7 +127,18 @@ define(['quark', 'knockout'], function($$, ko) {
 
         'main/docs/refs-content-content':              { 'main': 'pages-docs-refs-content-content' },
         'main/docs/refs-content-hascontent':           { 'main': 'pages-docs-refs-content-hascontent' },
-        'main/docs/refs-content-hasnotcontent':        { 'main': 'pages-docs-refs-content-hasnotcontent' }
+        'main/docs/refs-content-hasnotcontent':        { 'main': 'pages-docs-refs-content-hasnotcontent' },
+
+        'main/docs/refs-core-modules':                 { 'main': 'pages-docs-refs-core-modules' },
+        'main/docs/refs-core-module':                 { 'main': 'pages-docs-refs-core-module' },
+        'main/docs/refs-core-start':                   { 'main': 'pages-docs-refs-core-start' },
+        'main/docs/refs-core-modulemain':              { 'main': 'pages-docs-refs-core-modulemain' },
+        'main/docs/refs-core-component':               { 'main': 'pages-docs-refs-core-component' },
+        'main/docs/refs-core-parameters':              { 'main': 'pages-docs-refs-core-parameters' },
+        'main/docs/refs-core-inject':                  { 'main': 'pages-docs-refs-core-inject' },
+        'main/docs/refs-core-emptytemplate':           { 'main': 'pages-docs-refs-core-emptytemplate' },
+        'main/docs/refs-core-registercomponent':       { 'main': 'pages-docs-refs-core-registercomponent' },
+        'main/docs/refs-core-onnamespace':             { 'main': 'pages-docs-refs-core-onnamespace' }
     }
 
     var routes = {
@@ -250,6 +261,17 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-content-content':              'docs/refs/content/content',
         'main/docs/refs-content-hascontent':           'docs/refs/content/hascontent',
         'main/docs/refs-content-hasnotcontent':        'docs/refs/content/hasnotcontent',
+
+        'main/docs/refs-core-modules':                 'docs/refs/core/modules',
+        'main/docs/refs-core-module':                  'docs/refs/core/module',
+        'main/docs/refs-core-start':                   'docs/refs/core/start',
+        'main/docs/refs-core-modulemain':              'docs/refs/core/modulemain',
+        'main/docs/refs-core-component':               'docs/refs/core/component',
+        'main/docs/refs-core-parameters':              'docs/refs/core/parameters',
+        'main/docs/refs-core-inject':                  'docs/refs/core/inject',
+        'main/docs/refs-core-emptytemplate':           'docs/refs/core/emptytemplate',
+        'main/docs/refs-core-registercomponent':       'docs/refs/core/registercomponent',
+        'main/docs/refs-core-onnamespace':             'docs/refs/core/onnamespace',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

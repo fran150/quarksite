@@ -163,6 +163,19 @@ define(['quark'], function($$) {
                     .register('hasnotcontent', 'pages/docs/refs/content/hasnotcontent')
                 .endNamespace()
 
+                .namespace('core')
+                    .register('modules', 'pages/docs/refs/core/modules')
+                    .register('module', 'pages/docs/refs/core/module')
+                    .register('start', 'pages/docs/refs/core/start')
+                    .register('modulemain', 'pages/docs/refs/core/modulemain')
+                    .register('component', 'pages/docs/refs/core/component')
+                    .register('parameters', 'pages/docs/refs/core/parameters')
+                    .register('inject', 'pages/docs/refs/core/inject')
+                    .register('emptytemplate', 'pages/docs/refs/core/emptytemplate')
+                    .register('registercomponent', 'pages/docs/refs/core/registercomponent')
+                    .register('onnamespace', 'pages/docs/refs/core/onnamespace')
+                .endNamespace()
+
             .endNamespace();
 
     $$.onNamespace('library')
