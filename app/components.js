@@ -156,6 +156,13 @@ define(['quark'], function($$) {
                     .register('has', 'pages/docs/refs/behaviours/has')
                     .register('dispose', 'pages/docs/refs/behaviours/dispose')
                 .endNamespace()
+
+                .namespace('content')
+                    .register('content', 'pages/docs/refs/content/content')
+                    .register('hascontent', 'pages/docs/refs/content/hascontent')
+                    .register('hasnotcontent', 'pages/docs/refs/content/hasnotcontent')
+                .endNamespace()
+
             .endNamespace();
 
     $$.onNamespace('library')

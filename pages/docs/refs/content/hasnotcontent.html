@@ -1,0 +1,114 @@
+<quark-component>
+    <span class="docs">
+        <h1>hasNotContent <small>binding</small></h1>
+        <hr/>
+        <p>
+            Realiza el binding del contenido del elemento solo si el usuario no especificó cierto tipo de contenido en el componente.
+        </p>
+        <p>
+            Tiene 3 formas de uso:
+        </p>
+        <h2>
+            <code>
+                hasNotContent
+            </code>
+        </h2>
+        <p>
+            Realiza el binding solo si el componente no tiene contenido.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <p>
+            Ninguno.
+        </p>
+
+        <hr />
+
+        <h2>
+            <code>
+                hasNotContent: &lt;selector&gt;
+            </code>
+        </h2>
+        <p>
+            Realiza el binding del contenido solo si el componente no tiene algun contenido que corresponda con el selector
+            especificado.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>selector</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Selector de jQuery que indica el contenido que se debe buscar en el componente.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr />
+
+        <h2>
+            <code>
+                hasContent: &lt;name&gt;, virtual: true
+            </code>
+        </h2>
+        <p>
+            Solo realizará el binding del contenido si no se especificó algun tag virtual con el nombre especificado.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del elemento virtual que no debe existir en el componente.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </span>
+</quark-component>

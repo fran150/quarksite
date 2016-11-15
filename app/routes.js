@@ -123,7 +123,11 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-behaviours-define':            { 'main': 'pages-docs-refs-behaviours-define' },
         'main/docs/refs-behaviours-apply':             { 'main': 'pages-docs-refs-behaviours-apply' },
         'main/docs/refs-behaviours-has':               { 'main': 'pages-docs-refs-behaviours-has' },
-        'main/docs/refs-behaviours-dispose':           { 'main': 'pages-docs-refs-behaviours-dispose' }
+        'main/docs/refs-behaviours-dispose':           { 'main': 'pages-docs-refs-behaviours-dispose' },
+
+        'main/docs/refs-content-content':              { 'main': 'pages-docs-refs-content-content' },
+        'main/docs/refs-content-hascontent':           { 'main': 'pages-docs-refs-content-hascontent' },
+        'main/docs/refs-content-hasnotcontent':        { 'main': 'pages-docs-refs-content-hasnotcontent' }
     }
 
     var routes = {
@@ -242,6 +246,10 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-behaviours-apply':             'docs/refs/behaviour/apply',
         'main/docs/refs-behaviours-has':               'docs/refs/behaviour/has',
         'main/docs/refs-behaviours-dispose':           'docs/refs/behaviour/dispose',
+
+        'main/docs/refs-content-content':              'docs/refs/content/content',
+        'main/docs/refs-content-hascontent':           'docs/refs/content/hascontent',
+        'main/docs/refs-content-hasnotcontent':        'docs/refs/content/hasnotcontent',
 
         'main/sidebar/module':                  'components/library/{id}'
     }
