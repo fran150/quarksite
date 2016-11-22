@@ -1,0 +1,72 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.routing.activateHasher <small>Método</small></h1>
+        <hr/>
+        <p>
+            Inicializa el sistema de ruteo de <em>Quark.js</em>. Permite definir una función customizada que se ejecute cada
+            vez que el hash en la url cambia.
+        </p>
+        <h2>
+            <code>
+                activateHasher([customRouter])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>customRouter</code>
+                    </td>
+                    <td>
+                        <em>Función</em>
+                    </td>
+                    <td>
+                        Se puede especificar una función con la firma:<br/>
+                        <code>function(oldHash, newHash)</code><br/>
+                        que se ejecutará cada vez que el hash de la página cambie.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Al invocar a esta función, <em>Quark.js</em> comenzará a escuchar cambios en el hash de la URL del navegador,
+            con el hash ingresado rastreará la página que corresponde visualizar y y cargará los
+            <a data-bind="href: 'main/docs/refs-routing-outlet'">outlet</a> con los componentes y configuración correspondiente.
+        </p>
+        <p>
+            Si se especifica una función en el parametro <code>customRouter</code> la misma deberá invocar a
+            <a data-bind="href: 'main/docs/refs-routing-parse'">$$.routing.parse</a> pasando el nuevo hash para que el enrutador
+            realice el cambio de pagina.
+        </p>
+    </span>
+</quark-component>

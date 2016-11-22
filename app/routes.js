@@ -54,13 +54,22 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signal':                { 'main': 'pages-docs-refs-signal' },
         'main/docs/refs-signalclear':           { 'main': 'pages-docs-refs-signalclear' },
 
-        'main/docs/refs-routing-href':          { 'main': 'pages-docs-refs-routing-href' },
-        'main/docs/refs-routing-redirecthash':  { 'main': 'pages-docs-refs-routing-redirecthash' },
+        'main/docs/refs-routing-href':              { 'main': 'pages-docs-refs-routing-href' },
+        'main/docs/refs-routing-redirecthash':      { 'main': 'pages-docs-refs-routing-redirecthash' },
+        'main/docs/refs-routing-controllersbase':   { 'main': 'pages-docs-refs-routing-controllersbase' },
+        'main/docs/refs-routing-current':           { 'main': 'pages-docs-refs-routing-current' },
+        'main/docs/refs-routing-routed':            { 'main': 'pages-docs-refs-routing-routed' },
+        'main/docs/refs-routing-pages':             { 'main': 'pages-docs-refs-routing-pages' },
+        'main/docs/refs-routing-maproute':          { 'main': 'pages-docs-refs-routing-maproute' },
+        'main/docs/refs-routing-parse':             { 'main': 'pages-docs-refs-routing-parse' },
+        'main/docs/refs-routing-hash':              { 'main': 'pages-docs-refs-routing-hash' },
+        'main/docs/refs-routing-activatehasher':    { 'main': 'pages-docs-refs-routing-activatehasher' },
+        'main/docs/refs-routing-outlet':            { 'main': 'pages-docs-refs-routing-outlet' },
 
         'main/docs/refs-bindings-onbind':       { 'main': 'pages-docs-refs-bindings-onbind' },
 
         'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
-        'main/docs/refs-tracking-import':    { 'main': 'pages-docs-refs-tracking-import' },
+        'main/docs/refs-tracking-import':       { 'main': 'pages-docs-refs-tracking-import' },
 
         'main/docs/refs-associative':           { 'main': 'pages-docs-refs-associative' },
         'main/docs/refs-associative-add':       { 'main': 'pages-docs-refs-associative-add' },
@@ -189,8 +198,17 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signal':                'docs/refs/signal',
         'main/docs/refs-signalclear':           'docs/refs/signalclear',
 
-        'main/docs/refs-routing-href':          'docs/refs/href',
-        'main/docs/refs-routing-redirecthash':  'docs/refs/redirecthash',
+        'main/docs/refs-routing-href':              'docs/refs/routing/href',
+        'main/docs/refs-routing-redirecthash':      'docs/refs/routing/redirecthash',
+        'main/docs/refs-routing-controllersbase':   'docs/refs/routing/controllersbase',
+        'main/docs/refs-routing-current':           'docs/refs/routing/current',
+        'main/docs/refs-routing-routed':            'docs/refs/routing/routed',
+        'main/docs/refs-routing-pages':             'docs/refs/routing/pages',
+        'main/docs/refs-routing-maproute':          'docs/refs/routing/maproute',
+        'main/docs/refs-routing-parse':             'docs/refs/routing/parse',
+        'main/docs/refs-routing-hash':              'docs/refs/routing/hash',
+        'main/docs/refs-routing-activatehasher':    'docs/refs/routing/activatehasher',
+        'main/docs/refs-routing-outlet':            'docs/refs/routing/outlet',
 
         'main/docs/refs-bindings-onbind':       'docs/refs/onbind',
 

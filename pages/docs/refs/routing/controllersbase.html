@@ -1,0 +1,22 @@
+<quark-component>
+    <span class="docs">
+        <h1>$$.routing.controllersBase <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            Directorio raiz en donde se deben buscar los controladores de las páginas. El valor por defecto es "controllers".
+        </p>
+        <p>
+            Por cada segmento de la pagina actual, <em>Quark.js</em> buscará un archivo dentro de esta carpeta con el
+            controlador correspondiente.
+        </p>
+        <p>
+            Asi por ejemplo, si la página actual es <code>main/clients/new</code>, <em>Quark.js</em> intentará cargar los
+            controladores de cada segmento desde los siguientes archivos:
+        </p>
+        <div class="well">
+            controllers/main.js <br/>
+            controllers/main/clients.js <br/>
+            controllers/main/clients/new.js <br/>
+        </div>
+    </span>
+</quark-component>
