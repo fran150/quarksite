@@ -1,37 +1,92 @@
 <quark-component>
     <span class="docs">
-        <h1>Módulos</h1>
-        <hr />
+        <h1>$$.module <small>Método</small></h1>
+        <hr/>
         <p>
-            <em>Quark.js</em> permite agrupar componentes, librerías <em>Javascript</em>, hojas de estilo, páginas y rutas
-            asociadas en un módulo o paquete que puede configurarse fácilmente en cualquier aplicación que necesite utilizarlo.
+            Define un modulo de <em>Quark.js</em>. Un módulo permite agrupar componentes, librerías <em>Javascript</em>,
+            hojas de estilo, páginas y rutas asociadas en un módulo o paquete que puede configurarse fácilmente
+            en cualquier aplicación que necesite utilizarlo.
         </p>
         <p>
             Esto puede utilizarse para crear librerías reutilizables con componentes relacionados, secciones de una aplicación
             o cualquier otra división que resulte conveniente.
         </p>
+        <h2>
+            <code>
+                module(moduleInfo, config [, mainConstructor])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>moduleInfo</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Los modulos de <em>Quark.js</em> necesitan información acerca del módulo web en
+                        el que están alojados, para esto se debe agregar como dependencia a <code>'module'</code>, esto hace que
+                        <em>Require</em> injecte en la variable correspondiente a esta dependencia un objeto con todos los datos
+                        del modulo actual, este objeto es el que se debe pasar como parámetro a la función <code>module</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>config</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Configuración del módulo.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>mainConstructor</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Permite especificar una funcion que se utilizará para construir
+                        un objeto que será considerado el objeto principal del modulo.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
         <p>
-            Para definir un módulo de <em>Quark.js</em> se debe crear un modulo web de <em>Require</em> que devuelva el resultado
-            de la función <code>module</code>, esta función requiere los siguientes parámetros.
-            <ul>
-                <li>
-                    <strong>moduleInfo:</strong> Los modulos de <em>Quark.js</em> necesitan información acerca del módulo web en
-                    el que están alojados, para esto se debe agregar como dependencia a <code>'module'</code>, esto hace que
-                    <em>Require</em> injecte en la variable correspondiente a esta dependencia un objeto con todos los datos
-                    del modulo actual, este objeto es el que se debe pasar como parámetro a la función <code>module</code>
-                </li>
-                <li>
-                    <strong>config:</strong> Como segundo parámetro se debe especificar la configuración del módulo como se explica
-                    mas adelante.
-                </li>
-                <li>
-                    <strong>mainConstructor:</strong> Este parametro permite especificar una funcion que se utilizará para construir
-                    un objeto que será considerado el objeto principal del modulo.
-                </li>
-            </ul>
+            Nada.
         </p>
-        <h2>Configuración del modulo</h2>
-        <hr/>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
         <p>
             La configuración del módulo es un objeto en cuyas propiedades se deben configurar los componentes, librerías
             <em>Javascript</em>, hojas de estilo, páginas y rutas que contendrá el módulo.
@@ -77,9 +132,11 @@
                 </li>
             </ul>
         </p>
-        <p>
-            Por ejemplo, el siguiente modulo define componentes a través de <code>components</code> y <code>namespaces</code>,
-            Agrega una hoja de estilos CSS y una nueva libreria a <em>Require.js</em>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
             <code-highlight>
 define(['module', 'knockout', 'jquery', 'quark'], function(mod, ko, $, $$) {
     return $$.module(mod, {
@@ -125,6 +182,5 @@ define(['module', 'knockout', 'jquery', 'quark'], function(mod, ko, $, $$) {
     });
 });
             </code-highlight>
-        </p>
     </span>
 </quark-component>

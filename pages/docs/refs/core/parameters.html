@@ -1,21 +1,13 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.lock <small>Método</small></h1>
+        <h1>$$.parameters <small>Método</small></h1>
         <hr/>
         <p>
-            Genera y devuelve un objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>, también llamado
-            <code>lock</code> a secas, que permite suscribir la ejecución de una o varias funciones a la ocurrencia de un
-            evento. Esto permite sincronizar la  aplicación haciendo que ciertas acciones esperen a un evento antes de
-            ejecutarse.
-        </p>
-        <p>
-            Las funciones se suscriben al <code>lock</code> usando la función <a data-bind="href: 'main/docs/refs-wait'">wait</a>.
-            Si el <code>lock</code> está abierto estas funciones se ejecutarán inmediatamente, si el <code>lock</code> está
-            cerrado las funciones esperarán que se abra para ejecutarse.
+            Permite definir los parámetros que aceptará el componente.
         </p>
         <h2>
             <code>
-                lock([unlocked])
+                parameters(params, values, objects)
             </code>
         </h2>
         <h3>
@@ -39,13 +31,37 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>unlocked</code>
+                        <code>values</code>
                     </td>
                     <td>
-                        <em>boolean</em>
+                        <em>Objeto</em>
                     </td>
                     <td>
-                        Indica si el objeto se debe crear cerrado. El valor por defecto es <code>false</code>.
+                        Objeto donde cada propiedad es el nombre y valor inicial de los parametros que aceptará el componente.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>params</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Un objeto donde cada propiedad contiene el nombre y el valor especificado para cada parametro por quien
+                        usa el componente. Este objeto se recibe en el constructor del modelo del componente.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>objects</code>
+                    </td>
+                    <td>
+                        <em>Objeto, Array</em>
+                    </td>
+                    <td>
+                        Un objeto o una matriz de objetos, donde <em>Quark.js</em> creará una propiedad por cada parámetro definido
+                        asociando dicha propiedad con su correspondiente parámetro.
                     </td>
                 </tr>
             </tbody>
@@ -56,7 +72,7 @@
         </h3>
         <hr />
         <p>
-            Objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>.
+            Nada
         </p>
 
         <h3>
@@ -64,41 +80,68 @@
         </h3>
         <hr />
         <p>
-            Las funciones suscriptas al <code>lock</code> se ejecutarán una vez cuando el mismo se abra y su suscripción
-            será eliminada. Sin embargo, para evitar que queden leaks de memoria por funciones suscriptas que no se ejecutaron
-            se debe invocar el método <code>dispose</code> del <code>lock</code> al eliminarse el objeto que lo contiene.
+            Los parámetros pueden estar definidos como observables, literales, funciones u objetos de <em>Javascript</em>.
+        </p>
+        <p>
+            Internamente la función <code>parameters</code> compara los tipos de los parametros definidos en el componente y
+            los valores enviados al utilizarse:
+            <ul>
+                <li>
+                    Si el parametro definido no es observable y
+                    <ul>
+                        <li>el valor enviado es observable, asigna el contenido del observable enviado al parámetro definido</li>
+                        <li>el valor enviado no es observable, copia el valor al parametro definido</li>
+                    </ul>
+                </li>
+                <li>
+                    Si el parametro definido es un observable y
+                    <ul>
+                        <li>el valor enviado es también observable, se reemplaza el observable definido con el enviado</li>
+                        <li>el parametro enviado no es observable, se setea el valor del observable definido con el valor enviado</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>
+            Cuando el parámetro definido y enviado son observables, la función <code>parameters</code> básicamente
+            hace que los dos componentes compartan el mismo observable permitiendo que cada componente reaccione a los
+            cambios en el otro.
         </p>
 
         <h3>
             Ejemplo:
         </h3>
         <hr />
-        <code-highlight>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    Valor de obs: &lt;span data-bind="model.obs"&gt;&lt;/span&gt;&lt;br /&gt;
+    Valor de str: &lt;span data-bind="model.str"&gt;&lt;/span&gt;&lt;br /&gt;
+    Valor de num: &lt;span data-bind="model.num"&gt;&lt;/span&gt;&lt;br /&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+            <code-highlight>
 define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ExampleComponent(params, $scope, $imports) {
+    function ComponentExample(params) {
         var self = this;
 
-        this.saved = $$.lock();
-
-        $$.wait(self.saved, function() {
-            logSomething();
-        });
-
-        $$.wait(self.saved, function() {
-            alertSomething();
-        });
-
-        $scope.clicked = function() {
-            self.saved.unlock();
-        }
-
-        this.dispose = function() {
-            self.saved.dispose();
-        }
+        $$.parameters({
+            obs: ko.observable('Hola'),
+            str: 'Mundo',
+            num: 2016
+        }, params, this);
     }
 
-    return $$.component(ExampleComponent, template);
+    return $$.component(ComponentExample, template);
 });
-        </code-highlight>
+            </code-highlight>
+            <code-highlight>
+// Dentro del componente:
+self.obs();
+// Devolverá 'Hola'
+self.str;
+// Devolverá 'Mundo'
+self.num;
+// Devolverá 2016
+            </code-highlight>
     </span>
 </quark-component>

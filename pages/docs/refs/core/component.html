@@ -1,21 +1,19 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.lock <small>Método</small></h1>
+        <h1>$$.component <small>Método</small></h1>
         <hr/>
         <p>
-            Genera y devuelve un objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>, también llamado
-            <code>lock</code> a secas, que permite suscribir la ejecución de una o varias funciones a la ocurrencia de un
-            evento. Esto permite sincronizar la  aplicación haciendo que ciertas acciones esperen a un evento antes de
-            ejecutarse.
+            Permite definir un nuevo <a data-bind="href: 'main/docs/basics-web-component'">componente</a> de <em>Quark.js</em>.
+            Los componentes deben definirse como <a data-bind="href: 'main/docs/basics-web-modules'">modulos web</a> que
+            devuelven el resultado de invocar a este método.
         </p>
         <p>
-            Las funciones se suscriben al <code>lock</code> usando la función <a data-bind="href: 'main/docs/refs-wait'">wait</a>.
-            Si el <code>lock</code> está abierto estas funciones se ejecutarán inmediatamente, si el <code>lock</code> está
-            cerrado las funciones esperarán que se abra para ejecutarse.
+            El template del componente se puede especificar como string pero lo mas conveniente y recomendado es separarlo en
+            un archivo HTML aparte y cargarlo utilizando <em>Require.js</em>.
         </p>
         <h2>
             <code>
-                lock([unlocked])
+                component(model, template)
             </code>
         </h2>
         <h3>
@@ -39,13 +37,40 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>unlocked</code>
+                        <code>model</code>
                     </td>
                     <td>
-                        <em>boolean</em>
+                        <em>Clase</em>
                     </td>
                     <td>
-                        Indica si el objeto se debe crear cerrado. El valor por defecto es <code>false</code>.
+                        El modelo define el comportamiento del componente y se debe especificar como una clase que recibe
+                        como parametro:
+                        <ul>
+                            <li>
+                                Los <a data-bind="href: 'main/docs/basics-component-params'">parametros</a> enviados al
+                                componente por el usuario.
+                            </li>
+                            <li>
+                                El <a data-bind="href: 'main/docs/basics-scope'">scope</a> del componente.
+                            </li>
+                            <li>
+                                El <a data-bind="href: 'main/docs/basics-imports'">tracker</a> con los componentes importados
+                                al modelo.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>template</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Codigo HTML que define como debe mostrarse el componente en el navegador. <em>Quark.js</em> realizará
+                        un <a data-bind="href: 'main/docs/basics-bindings'">binding</a> entre el template y el modelo del
+                        componente.
                     </td>
                 </tr>
             </tbody>
@@ -56,7 +81,7 @@
         </h3>
         <hr />
         <p>
-            Objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>.
+            Definición del componente que contiene, el modelo, el template y el tipo de datos del modelo.
         </p>
 
         <h3>
@@ -64,9 +89,10 @@
         </h3>
         <hr />
         <p>
-            Las funciones suscriptas al <code>lock</code> se ejecutarán una vez cuando el mismo se abra y su suscripción
-            será eliminada. Sin embargo, para evitar que queden leaks de memoria por funciones suscriptas que no se ejecutaron
-            se debe invocar el método <code>dispose</code> del <code>lock</code> al eliminarse el objeto que lo contiene.
+            Si desde un componente se carga mediante <em>Require.js</em> el modelo de otro, se obtendrá el resultado de la
+            ejecución de esta función. Se puede utilizar la propiedad <code>modelType</code> para obtener la clase del modelo
+            de dicho componente. Esto sirve por ejemplo para verificar que el componente que se esta desarrollando se utilice
+            solamente dentro de un tipo de componente especifico como se ve en el ejemplo a continuación.
         </p>
 
         <h3>
@@ -74,27 +100,23 @@
         </h3>
         <hr />
         <code-highlight>
-define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+// Loads exampleContainer component from the exampleModule
+define(['quark', 'knockout', 'text!./example.html', 'exampleModule/exampleContainer'], function($$, ko, template, ExampleContainer) {
     function ExampleComponent(params, $scope, $imports) {
         var self = this;
 
-        this.saved = $$.lock();
+        // This method executes with the onBind binding
+        $scope.init = function(element, viewModel, context) {
+            // Check if the container is defined and of the expected type.
+            if (context.$container) {
+                if (context.$container instanceof ExampleContainer) {
+                    return;
+                }
+            }
 
-        $$.wait(self.saved, function() {
-            logSomething();
-        });
-
-        $$.wait(self.saved, function() {
-            alertSomething();
-        });
-
-        $scope.clicked = function() {
-            self.saved.unlock();
+            throw Error('This component must be used inside an ExampleContainer component');
         }
 
-        this.dispose = function() {
-            self.saved.dispose();
-        }
     }
 
     return $$.component(ExampleComponent, template);

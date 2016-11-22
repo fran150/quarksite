@@ -1,21 +1,15 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.lock <small>Método</small></h1>
+        <h1>$$.inject <small>Método</small></h1>
         <hr/>
         <p>
-            Genera y devuelve un objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>, también llamado
-            <code>lock</code> a secas, que permite suscribir la ejecución de una o varias funciones a la ocurrencia de un
-            evento. Esto permite sincronizar la  aplicación haciendo que ciertas acciones esperen a un evento antes de
-            ejecutarse.
-        </p>
-        <p>
-            Las funciones se suscriben al <code>lock</code> usando la función <a data-bind="href: 'main/docs/refs-wait'">wait</a>.
-            Si el <code>lock</code> está abierto estas funciones se ejecutarán inmediatamente, si el <code>lock</code> está
-            cerrado las funciones esperarán que se abra para ejecutarse.
+            Copia las propiedades del mismo nombre del objeto origen al objeto destino. Si la propiedad origen o destino son
+            observables copia el contenido del observable y no el propio observable. Las propiedades cuyos nombres no coinciden
+            son ignoradas.
         </p>
         <h2>
             <code>
-                lock([unlocked])
+                inject(from, to [, recursively])
             </code>
         </h2>
         <h3>
@@ -39,13 +33,36 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>unlocked</code>
+                        <code>from</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto de origen de donde se deben tomar los valores.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>to</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto de destino a donde se deben copiar los valores.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>recursively</code>
                     </td>
                     <td>
                         <em>boolean</em>
                     </td>
                     <td>
-                        Indica si el objeto se debe crear cerrado. El valor por defecto es <code>false</code>.
+                        Verdadero si se debe ejecutar esta función recursivamente en cada propiedad que contenga un objeto
+                        copiando todo el grafo a partir del objeto raiz.
                     </td>
                 </tr>
             </tbody>
@@ -56,7 +73,7 @@
         </h3>
         <hr />
         <p>
-            Objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>.
+            Nada
         </p>
 
         <h3>
@@ -64,9 +81,9 @@
         </h3>
         <hr />
         <p>
-            Las funciones suscriptas al <code>lock</code> se ejecutarán una vez cuando el mismo se abra y su suscripción
-            será eliminada. Sin embargo, para evitar que queden leaks de memoria por funciones suscriptas que no se ejecutaron
-            se debe invocar el método <code>dispose</code> del <code>lock</code> al eliminarse el objeto que lo contiene.
+            Si se define un componente que contiene un objeto cuyas propiedades son todos observables con validadores, este
+            método permite por ejemplo poblar dicho objeto con el resultado de la llamada un servicio sin pisar los observables
+            (lo que produciría que se pierdan los validadores).
         </p>
 
         <h3>
@@ -78,22 +95,20 @@ define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) 
     function ExampleComponent(params, $scope, $imports) {
         var self = this;
 
-        this.saved = $$.lock();
+        this.item = {
+            code: ko.observable().validation({
+                required: {}
+            }),
+            name: ko.observable().validation({
+                required: {},
+                length: { min: 5, max: 255 }
+            })
+        };
 
-        $$.wait(self.saved, function() {
-            logSomething();
-        });
-
-        $$.wait(self.saved, function() {
-            alertSomething();
-        });
-
-        $scope.clicked = function() {
-            self.saved.unlock();
-        }
-
-        this.dispose = function() {
-            self.saved.dispose();
+        this.read = function() {
+            $$.ajax('http://rest.example.com', 'GET', {}, function(data) {
+                $$.inject(data, self.item);
+            });
         }
     }
 

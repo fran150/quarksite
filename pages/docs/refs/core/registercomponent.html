@@ -1,21 +1,14 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.lock <small>Método</small></h1>
+        <h1>$$.registerComponent <small>Método</small></h1>
         <hr/>
         <p>
-            Genera y devuelve un objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>, también llamado
-            <code>lock</code> a secas, que permite suscribir la ejecución de una o varias funciones a la ocurrencia de un
-            evento. Esto permite sincronizar la  aplicación haciendo que ciertas acciones esperen a un evento antes de
-            ejecutarse.
-        </p>
-        <p>
-            Las funciones se suscriben al <code>lock</code> usando la función <a data-bind="href: 'main/docs/refs-wait'">wait</a>.
-            Si el <code>lock</code> está abierto estas funciones se ejecutarán inmediatamente, si el <code>lock</code> está
-            cerrado las funciones esperarán que se abra para ejecutarse.
+            Permite registrar un componente. <em>Quark.js</em> asocia el Tag HTML con el que se utilizará el componente con el
+            modelo del mismo.
         </p>
         <h2>
             <code>
-                lock([unlocked])
+                registerComponent(tag, url)
             </code>
         </h2>
         <h3>
@@ -39,13 +32,24 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>unlocked</code>
+                        <code>tag</code>
                     </td>
                     <td>
-                        <em>boolean</em>
+                        <em>string</em>
                     </td>
                     <td>
-                        Indica si el objeto se debe crear cerrado. El valor por defecto es <code>false</code>.
+                        Nombre del tag con el que se registrará el componente.,
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>url</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Url en donde se debe obtener el modelo del componente.
                     </td>
                 </tr>
             </tbody>
@@ -56,49 +60,21 @@
         </h3>
         <hr />
         <p>
-            Objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>.
-        </p>
-
-        <h3>
-            Observaciones
-        </h3>
-        <hr />
-        <p>
-            Las funciones suscriptas al <code>lock</code> se ejecutarán una vez cuando el mismo se abra y su suscripción
-            será eliminada. Sin embargo, para evitar que queden leaks de memoria por funciones suscriptas que no se ejecutaron
-            se debe invocar el método <code>dispose</code> del <code>lock</code> al eliminarse el objeto que lo contiene.
+            Nada.
         </p>
 
         <h3>
             Ejemplo:
         </h3>
         <hr />
-        <code-highlight>
-define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ExampleComponent(params, $scope, $imports) {
-        var self = this;
-
-        this.saved = $$.lock();
-
-        $$.wait(self.saved, function() {
-            logSomething();
-        });
-
-        $$.wait(self.saved, function() {
-            alertSomething();
-        });
-
-        $scope.clicked = function() {
-            self.saved.unlock();
-        }
-
-        this.dispose = function() {
-            self.saved.dispose();
-        }
-    }
-
-    return $$.component(ExampleComponent, template);
+        <p>
+            <code-highlight>
+define(['quark'], function($$) {
+    $$.registerComponent('component-example', 'components/component-example');
 });
-        </code-highlight>
+            </code-highlight>
+            En el ejemplo anterior se define un modulo que registra el tag <code>component-example</code> con el componente
+            ubicado en <code>./components/component-example.js</code>.
+        </p>
     </span>
 </quark-component>
