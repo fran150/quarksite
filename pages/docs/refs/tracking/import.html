@@ -1,0 +1,90 @@
+<quark-component>
+    <span class="docs">
+        <h1>import <small>binding</small></h1>
+        <hr/>
+        <p>
+            Permite "importar" el modelo de un componente que se esta utilizando al modelo del propio componente. Se debe
+            utilizar en el tag del componente a importar proporcionando el nombre con el que luego se desea acceder al mismo.
+        </p>
+        <h2>
+            <code>
+                import: &lt;name&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre con el que se debe importar el modelo del componente.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            <em>Quark.js</em> envía como tercer parámetro al modelo del componente un objeto denominado
+            <a data-bind="href: 'main/docs/refs-tracker'">tracker</a> que permite acceder a los modelos de todos los componentes
+             importados.
+        </p>
+        <p>
+            Para mas información acerca de como funcionan los imports, remitase a
+            <a data-bind="href: 'main/docs/basics-imports'">este</a> articulo.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var child = $imports.get('example');
+            child.someMethod();
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+        </code-highlight>
+    </span>
+</quark-component>

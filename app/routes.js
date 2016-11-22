@@ -60,6 +60,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-bindings-onbind':       { 'main': 'pages-docs-refs-bindings-onbind' },
 
         'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
+        'main/docs/refs-tracking-import':    { 'main': 'pages-docs-refs-tracking-import' },
 
         'main/docs/refs-associative':           { 'main': 'pages-docs-refs-associative' },
         'main/docs/refs-associative-add':       { 'main': 'pages-docs-refs-associative-add' },
@@ -130,14 +131,16 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-content-hasnotcontent':        { 'main': 'pages-docs-refs-content-hasnotcontent' },
 
         'main/docs/refs-core-modules':                 { 'main': 'pages-docs-refs-core-modules' },
-        'main/docs/refs-core-module':                 { 'main': 'pages-docs-refs-core-module' },
+        'main/docs/refs-core-module':                  { 'main': 'pages-docs-refs-core-module' },
         'main/docs/refs-core-start':                   { 'main': 'pages-docs-refs-core-start' },
         'main/docs/refs-core-component':               { 'main': 'pages-docs-refs-core-component' },
         'main/docs/refs-core-parameters':              { 'main': 'pages-docs-refs-core-parameters' },
         'main/docs/refs-core-inject':                  { 'main': 'pages-docs-refs-core-inject' },
         'main/docs/refs-core-emptytemplate':           { 'main': 'pages-docs-refs-core-emptytemplate' },
         'main/docs/refs-core-registercomponent':       { 'main': 'pages-docs-refs-core-registercomponent' },
-        'main/docs/refs-core-onnamespace':             { 'main': 'pages-docs-refs-core-onnamespace' }
+        'main/docs/refs-core-onnamespace':             { 'main': 'pages-docs-refs-core-onnamespace' },
+        'main/docs/refs-core-namespace':               { 'main': 'pages-docs-refs-core-namespace' },
+        'main/docs/refs-core-virtual':                 { 'main': 'pages-docs-refs-core-virtual' }
     }
 
     var routes = {
@@ -192,6 +195,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-bindings-onbind':       'docs/refs/onbind',
 
         'main/docs/refs-tracking-waitready':    'docs/refs/waitready',
+        'main/docs/refs-tracking-import':       'docs/refs/import',
 
         'main/docs/refs-associative':           'docs/refs/associative',
         'main/docs/refs-associative-add':       'docs/refs/associative/add',
@@ -270,6 +274,8 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-emptytemplate':           'docs/refs/core/emptytemplate',
         'main/docs/refs-core-registercomponent':       'docs/refs/core/registercomponent',
         'main/docs/refs-core-onnamespace':             'docs/refs/core/onnamespace',
+        'main/docs/refs-core-namespace':               'docs/refs/core/namespace',
+        'main/docs/refs-core-virtual':                 'docs/refs/core/virtual',
 
         'main/sidebar/module':                  'components/library/{id}'
     }

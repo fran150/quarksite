@@ -77,6 +77,7 @@ define(['quark'], function($$) {
 
                 .namespace('tracking')
                     .register('waitready', 'pages/docs/refs/tracking/waitready')
+                    .register('import', 'pages/docs/refs/tracking/import')
                 .endNamespace()
 
                 .register('associative', 'pages/docs/refs/associative/associative')
@@ -173,6 +174,8 @@ define(['quark'], function($$) {
                     .register('emptytemplate', 'pages/docs/refs/core/emptytemplate')
                     .register('registercomponent', 'pages/docs/refs/core/registercomponent')
                     .register('onnamespace', 'pages/docs/refs/core/onnamespace')
+                    .register('namespace', 'pages/docs/refs/core/namespace')
+                    .register('virtual', 'pages/docs/refs/core/virtual')
                 .endNamespace()
 
             .endNamespace();

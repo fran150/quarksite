@@ -1,0 +1,111 @@
+<quark-component>
+    <span class="docs">
+        <h1>namespace <small>binding</small></h1>
+        <hr/>
+        <p>
+            Permite definir un alias para un namespace y dentro del contenido del binding hacer referencia al namespace
+            a través de dicho alias.
+        </p>
+        <h2>
+            <code>
+                namespace: &lt;fullName&gt;, alias: &lt;shortName&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>fullName</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre completo del namespace.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>shortName</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Alias del namespace dentro del elemento.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Este binding se suele utilizar en su forma virtual para hacer mas legible la vista de componentes que utiliza
+            mucho componentes con nombres largos. Para nombrar un componente en forma abreviada se debe llamar al tag con
+            <code>&lt;alias del namespace&gt;:>&lt;nombre del componente&gt;</code>.
+        </p>
+        <p>
+            Puede obtener mas información sobre esto <a data-bind="href: 'main/docs/basics-namespaces'">aqui</a>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            Si se tienen componentes con los siguientes nombres:
+            <div class="well">
+                <code>docs-sidebar-main</code><br />
+                <code>docs-sidebar-ctrl-link</code><br />
+                <code>docs-sidebar-ctrl-button</code><br />
+                <code>docs-sidebar-ctrl-search</code><br />
+                <code>docs-navbar-main</code><br />
+                <code>docs-navbar-ctrl-link</code><br />
+                <code>docs-navbar-ctrl-button</code><br />
+                <code>docs-navbar-ctrl-search</code><br />
+            </div>
+        </p>
+        <p>
+            Se pueden utilizar con namespaces de la siguiente manera:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;!-- ko namespace: 'docs-navbar', alias: 'nav' --&gt;
+        &lt;nav:main&gt;
+            &lt;nav:ctrl-link&gt;
+            &lt;nav:ctrl-button&gt;
+            &lt;nav:ctrl-search&gt;
+        &lt;/nav:main&gt;
+    &lt;!-- /ko --&gt;
+
+    &lt;!-- ko namespace: 'docs-sidebar', alias: 'sdb' --&gt;
+        &lt;sdb:main&gt;
+            &lt;sdb:ctrl-link&gt;
+            &lt;sdb:ctrl-button&gt;
+            &lt;sdb:ctrl-search&gt;
+        &lt;/sdb:main&gt;
+    &lt;!-- /ko --&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+    </span>
+</quark-component>
