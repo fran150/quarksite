@@ -1,14 +1,16 @@
 <quark-component>
     <span class="docs">
-        <h1>import <small>binding</small></h1>
+        <h1>outlet <small>binding</small></h1>
         <hr/>
         <p>
-            Permite "importar" el modelo de un componente que se esta utilizando al modelo del propio componente. Se debe
-            utilizar en el tag del componente a importar proporcionando el nombre con el que luego se desea acceder al mismo.
+            Permite definir un outlet, las páginas pueden definir un conjunto de componentes que se deben mostrar en cada
+            segmento, el outlet permite indicar donde se debe mostrar dicho segmento. Cada outlet tiene un nombre y se debe
+            definir en la configuración de la página el nombre del outlet y el tag del componente que se debe mostrar, como
+            puede verse en la definición del método <a data-bind="href: 'main/docs/refs-routing.pages'">routing.pages</a>.
         </p>
         <h2>
             <code>
-                import: &lt;name&gt;
+                outlet: &lt;name&gt; [, resetScroll: &lt;reset&gt;]
             </code>
         </h2>
         <h3>
@@ -38,7 +40,19 @@
                         <em>string</em>
                     </td>
                     <td>
-                        Nombre con el que se debe importar el modelo del componente.
+                        Nombre del outlet, debe corresponder con un outlet definido el algun segmento de la página.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>reset</code>
+                    </td>
+                    <td>
+                        <em>boolean</em>
+                    </td>
+                    <td>
+                        Indica si se debe resetear cualquier scroll realizado al cambiar el componente que se muestra en el
+                        outlet. Por defecto es true.
                     </td>
                 </tr>
             </tbody>
@@ -49,42 +63,8 @@
         </h3>
         <hr />
         <p>
-            <em>Quark.js</em> envía como tercer parámetro al modelo del componente un objeto denominado
-            <a data-bind="href: 'main/docs/refs-tracker'">tracker</a> que permite acceder a los modelos de todos los componentes
-             importados.
+            Si dos segmentos de la misma página definen distintos valores para el mismo outlet, <em>Quark.js</em> siempre
+            mostrará el componente definido en el ultimo segmento.
         </p>
-        <p>
-            Para mas información acerca de como funcionan los imports, remitase a
-            <a data-bind="href: 'main/docs/basics-imports'">este</a> articulo.
-        </p>
-
-        <h3>
-            Ejemplo:
-        </h3>
-        <hr />
-        <code-highlight params="language: 'html'">
-&lt;quark-component&gt;
-    &lt;h1&gt;Componente Padre&lt;/h1&gt;
-
-    &lt;component-example data-bind="import: 'example'"&gt;
-    &lt;/component-example&gt;
-
-    &lt;/component-example&gt;
-&lt;/quark-component&gt;
-        </code-highlight>
-        <code-highlight>
-define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
-    function OtherExample(params, $scope, $imports) {
-        var self = this;
-
-        $$.wait($imports.ready, function() {
-            var child = $imports.get('example');
-            child.someMethod();
-        });
-    }
-
-    return $$.component(OtherExample, template);
-});
-        </code-highlight>
     </span>
 </quark-component>

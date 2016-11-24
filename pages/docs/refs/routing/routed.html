@@ -1,81 +1,10 @@
 <quark-component>
     <span class="docs">
-        <h1>ko.validators <small>Propiedad</small></h1>
+        <h1>$$.routing.routed <small>Propiedad</small></h1>
         <hr/>
         <p>
-            Permite definir una serie de validadores que luego se pueden activar en los observables permitiendo verificar
-            que los mismos contengan un valor valido.
-        </p>
-        <p>
-            Cada validador es un objeto cuyo constructor toma como parámetros:
-            <ul>
-                <li>
-                    La referencia al observable a validar.
-                </li>
-                <li>
-                    La configuración especificada para dicho validador.
-                </li>
-            </ul>
-        </p>
-        <p>
-            La interfaz del validador debe ser:
-            <code-highlight>
-function (observable, config) {
-    this.validate = function (newValue);
-
-    return this;
-}
-            </code-highlight>
-        </p>
-        <p>
-            El validador debe poseer un método <code>validate</code> que recibe el nuevo valor del observable y que
-            <em>Quark.js</em> invoca para realizar la validación. En este método como primer medida se debe eliminar
-            el resultado de posibles validaciones previas ejecutando el método <code>validationReset</code> del observable.
-            Luego se procede a realizar la validación y en caso de error se deben setear las siguientes propiedades del
-            observable:
-            <ul>
-                <li>
-                    <code>hasError</code>: Seteando <code>true</code> para indicar que se produjo un error de validación
-                    en este observable.
-                </li>
-                <li>
-                    <code>validationMessage</code>: Mensaje de error a mostrar al usuario. Para generar el mensaje de error
-                    con el nombre para mostrar del campo se puede utilizar la propiedad <code>validatable</code> en donde
-                    se almacena el nombre "amigable" del campo.
-                </li>
-            </ul>
-        </p>
-        <p>
-            El constructor del validador debe devolver la referencia <code>this</code> y la función <code>validate</code>
-            debe devolver true si el valor del observable es valido o false en caso contrario.
-        </p>
-        <h2>Ejemplo</h2>
-        <hr/>
-        <p>
-            <code-highlight>
-// Check if the fields has value
-ko.validators.required = function (observable, config) {
-    var self = this;
-
-    // Validate
-    this.validate = function (newValue) {
-        observable.validationReset();
-
-        // Si no tiene un valor valido genera el error
-        if (!newValue) {
-            observable.hasError(true);
-            observable.validationMessage((config['message'] || 'El campo {0} es obligatorio').replace('{0}', observable.validatable));
-
-            return false;
-        }
-
-        return true;
-    };
-
-    return this;
-}
-            </code-highlight>
-            El ejemplo anterior define un validador que verifica campos obligatorios.
+            <a data-bind="href: 'main/docs/basics-sync'">Señal</a> que se dispara cada vez que se termina de rutear
+            a una nueva página.
         </p>
     </span>
 </quark-component>

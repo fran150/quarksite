@@ -1,21 +1,16 @@
 <quark-component>
     <span class="docs">
-        <h1>$$.lock <small>Método</small></h1>
+        <h1>$$.routing.parse <small>Método</small></h1>
         <hr/>
         <p>
-            Genera y devuelve un objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>, también llamado
-            <code>lock</code> a secas, que permite suscribir la ejecución de una o varias funciones a la ocurrencia de un
-            evento. Esto permite sincronizar la  aplicación haciendo que ciertas acciones esperen a un evento antes de
-            ejecutarse.
-        </p>
-        <p>
-            Las funciones se suscriben al <code>lock</code> usando la función <a data-bind="href: 'main/docs/refs-wait'">wait</a>.
-            Si el <code>lock</code> está abierto estas funciones se ejecutarán inmediatamente, si el <code>lock</code> está
-            cerrado las funciones esperarán que se abra para ejecutarse.
+            Parsea la ruta especificada y cambia a la pagina correspondiente seteando ademas el valor de las variables de dicha
+            página. Puede ser invocado desde cualquier objeto pero su uso mas común es dentro de la función customizada
+            que se puede pasar al método <a data-bind="href: 'main/docs/refs-routing-activatehasher'">activateHasher</a>
+            para disparar el tratamiento por parte de <em>Quark.js</em> de la nueva ruta.
         </p>
         <h2>
             <code>
-                lock([unlocked])
+                parse(hash)
             </code>
         </h2>
         <h3>
@@ -39,13 +34,13 @@
             <tbody>
                 <tr>
                     <td>
-                        <code>unlocked</code>
+                        <code>hash</code>
                     </td>
                     <td>
-                        <em>boolean</em>
+                        <em>string</em>
                     </td>
                     <td>
-                        Indica si el objeto se debe crear cerrado. El valor por defecto es <code>false</code>.
+                        Hash que se debe parsear.
                     </td>
                 </tr>
             </tbody>
@@ -56,7 +51,7 @@
         </h3>
         <hr />
         <p>
-            Objeto <a data-bind="href: 'main/docs/refs-synclock'">SyncLock</a>.
+            Nada.
         </p>
 
         <h3>
@@ -64,40 +59,26 @@
         </h3>
         <hr />
         <p>
-            Las funciones suscriptas al <code>lock</code> se ejecutarán una vez cuando el mismo se abra y su suscripción
-            será eliminada. Sin embargo, para evitar que queden leaks de memoria por funciones suscriptas que no se ejecutaron
-            se debe invocar el método <code>dispose</code> del <code>lock</code> al eliminarse el objeto que lo contiene.
+            Para mas información ingrese a <a data-bind="href: 'main/docs/basics-routes'">este articulo</a>
         </p>
 
         <h3>
-            Ejemplo:
+            Ejemplo
         </h3>
         <hr />
+        <p>
+            El siguiente ejemplo extrae del hash especificado por el usuario la primer parte y asume que es el lenguaje,
+            luego parsea el resto del hash.
+        </p>
         <code-highlight>
-define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
-    function ExampleComponent(params, $scope, $imports) {
-        var self = this;
+$$.routing.activateHasher(function(oldHash, newHash) {
+    var index = newHash.indexOf('/');
+    var language = newHash.substring(0, index);
+    var hash = newHash.substring(index + 1);
 
-        this.saved = $$.lock();
+    setLanguage(language);
 
-        $$.wait(self.saved, function() {
-            logSomething();
-        });
-
-        $$.wait(self.saved, function() {
-            alertSomething();
-        });
-
-        $scope.clicked = function() {
-            self.saved.unlock();
-        }
-
-        this.dispose = function() {
-            self.saved.dispose();
-        }
-    }
-
-    return $$.component(ExampleComponent, template);
+    $$.routing.parse(newHash);
 });
         </code-highlight>
     </span>

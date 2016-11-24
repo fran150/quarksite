@@ -80,10 +80,6 @@ define(['quark'], function($$) {
                     .register('outlet', 'pages/docs/refs/routing/outlet')
                 .endNamespace()
 
-                .namespace('bindings')
-                    .register('onbind', 'pages/docs/refs/bindings/onbind')
-                .endNamespace()
-
                 .namespace('tracking')
                     .register('waitready', 'pages/docs/refs/tracking/waitready')
                     .register('import', 'pages/docs/refs/tracking/import')
@@ -185,6 +181,7 @@ define(['quark'], function($$) {
                     .register('onnamespace', 'pages/docs/refs/core/onnamespace')
                     .register('namespace', 'pages/docs/refs/core/namespace')
                     .register('virtual', 'pages/docs/refs/core/virtual')
+                    .register('onbind', 'pages/docs/refs/core/onbind')
                 .endNamespace()
 
             .endNamespace();

@@ -66,8 +66,6 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-routing-activatehasher':    { 'main': 'pages-docs-refs-routing-activatehasher' },
         'main/docs/refs-routing-outlet':            { 'main': 'pages-docs-refs-routing-outlet' },
 
-        'main/docs/refs-bindings-onbind':       { 'main': 'pages-docs-refs-bindings-onbind' },
-
         'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
         'main/docs/refs-tracking-import':       { 'main': 'pages-docs-refs-tracking-import' },
 
@@ -149,6 +147,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-registercomponent':       { 'main': 'pages-docs-refs-core-registercomponent' },
         'main/docs/refs-core-onnamespace':             { 'main': 'pages-docs-refs-core-onnamespace' },
         'main/docs/refs-core-namespace':               { 'main': 'pages-docs-refs-core-namespace' },
+        'main/docs/refs-core-onbind':                  { 'main': 'pages-docs-refs-core-onbind' },
         'main/docs/refs-core-virtual':                 { 'main': 'pages-docs-refs-core-virtual' }
     }
 
@@ -209,8 +208,6 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-routing-hash':              'docs/refs/routing/hash',
         'main/docs/refs-routing-activatehasher':    'docs/refs/routing/activatehasher',
         'main/docs/refs-routing-outlet':            'docs/refs/routing/outlet',
-
-        'main/docs/refs-bindings-onbind':       'docs/refs/onbind',
 
         'main/docs/refs-tracking-waitready':    'docs/refs/waitready',
         'main/docs/refs-tracking-import':       'docs/refs/import',
@@ -294,6 +291,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-onnamespace':             'docs/refs/core/onnamespace',
         'main/docs/refs-core-namespace':               'docs/refs/core/namespace',
         'main/docs/refs-core-virtual':                 'docs/refs/core/virtual',
+        'main/docs/refs-core-onbind':                  'docs/refs/core/onbind',
 
         'main/sidebar/module':                  'components/library/{id}'
     }
