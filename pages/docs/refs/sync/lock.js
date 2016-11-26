@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./lock.html'], function($$, ko, template) {
-    function DocsRefsLockPage(params, $scope, $imports) {
+    function DocsRefsSyncLockPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsLockPage, template);
+    return $$.component(DocsRefsSyncLockPage, template);
 });

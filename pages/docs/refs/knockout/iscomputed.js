@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./iscomputed.html'], function($$, ko, template) {
-    function DocsRefsIsComputedPage(params, $scope, $imports) {
+    function DocsRefsKoIsComputedPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsIsComputedPage, template);
+    return $$.component(DocsRefsKoIsComputedPage, template);
 });

@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./validate.html'], function($$, ko, template) {
-    function DocsRefsValidatePage(params, $scope, $imports) {
+    function DocsRefsValidationValidatePage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsValidatePage, template);
+    return $$.component(DocsRefsValidationValidatePage, template);
 });

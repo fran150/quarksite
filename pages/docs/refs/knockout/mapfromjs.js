@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./mapfromjs.html'], function($$, ko, template) {
-    function DocsRefsMapFromJSPage(params, $scope, $imports) {
+    function DocsRefsKoMapFromJSPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsMapFromJSPage, template);
+    return $$.component(DocsRefsKoMapFromJSPage, template);
 });

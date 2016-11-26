@@ -1,8 +1,8 @@
-define(['quark', 'knockout', 'text!./htmlencode.html'], function($$, ko, template) {
-    function DocsRefsHtmlEncodePage(params, $scope, $imports) {
+Webdefine(['quark', 'knockout', 'text!./htmlencode.html'], function($$, ko, template) {
+    function DocsRefsWebHtmlEncodePage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsHtmlEncodePage, template);
+    return $$.component(DocsRefsWebHtmlEncodePage, template);
 });

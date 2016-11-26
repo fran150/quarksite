@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./wait.html'], function($$, ko, template) {
-    function DocsRefsWaitPage(params, $scope, $imports) {
+    function DocsRefsSyncWaitPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsWaitPage, template);
+    return $$.component(DocsRefsSyncWaitPage, template);
 });

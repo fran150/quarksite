@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./replaceandbind.html'], function($$, ko, template) {
-    function DocsRefsReplaceAndBindPage(params, $scope, $imports) {
+    function DocsRefsWebReplaceAndBindPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsReplaceAndBindPage, template);
+    return $$.component(DocsRefsWebReplaceAndBindPage, template);
 });

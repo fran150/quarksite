@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./onbind.html'], function($$, ko, template) {
-    function DocsRefsOnBindPage(params, $scope, $imports) {
+    function DocsRefsCoreOnBindPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsOnBindPage, template);
+    return $$.component(DocsRefsCoreOnBindPage, template);
 });

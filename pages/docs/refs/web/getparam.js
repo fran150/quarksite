@@ -1,8 +1,8 @@
 define(['quark', 'knockout', 'text!./getparam.html'], function($$, ko, template) {
-    function DocsRefsGetParamPage(params, $scope, $imports) {
+    function DocsRefsWebGetParamPage(params, $scope, $imports) {
         var self = this;
 
     }
 
-    return $$.component(DocsRefsGetParamPage, template);
+    return $$.component(DocsRefsWebGetParamPage, template);
 });

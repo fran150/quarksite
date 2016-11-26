@@ -1,7 +1,7 @@
 define(['quark', 'knockout', 'text!./format.html'], function($$, ko, template) {
-    function DocsRefsFormatPage(params, $scope, $imports) {
+    function DocsRefsFormatterFormatPage(params, $scope, $imports) {
         var self = this;
     }
 
-    return $$.component(DocsRefsFormatPage, template);
+    return $$.component(DocsRefsFormatterFormatPage, template);
 });
