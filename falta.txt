@@ -1,8 +1,3 @@
 Falta la doc de:
 
 inicialización (bootstraping)
-exists en associative observable
-tracker
-
-Falta arreglar el menu de tercer nivel
-Ver tema de desplegables con link

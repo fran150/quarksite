@@ -1,12 +1,12 @@
 <quark-component>
     <span class="docs">
-        <h1>ko.associativeObservable.remove <small>Método</small></h1>
+        <h1>ko.associativeObservable.exists <small>Método</small></h1>
         <hr/>
         <p>
-            Elimina el elemento con la clave especificada. Si no existe un elemento con dicha clave genera una excepción.
+            Indica si existe un elemento con la clave especificada
         <h2>
             <code>
-                remove(key)
+                exists(key)
             </code>
         </h2>
 
@@ -37,7 +37,7 @@
                         <em>string</em>
                     </td>
                     <td>
-                        Clave del valor a eliminar
+                        Clave del elemento a buscar.
                     </td>
                 </tr>
             </tbody>
@@ -48,7 +48,7 @@
         </h3>
         <hr />
         <p>
-            El valor del elemento eliminado.
+            Verdadero si existe un elemento con la clave especificada, falso en caso contrario.
         </p>
     </span>
 </quark-component>

@@ -66,6 +66,7 @@ define(['quark'], function($$) {
                 .register('signal', 'pages/docs/refs/sync/signal')
                 .register('signalclear', 'pages/docs/refs/sync/signalClear')
 
+                .register('routing', 'pages/docs/refs/routing/routing')
                 .namespace('routing')
                     .register('href', 'pages/docs/refs/routing/href')
                     .register('redirecthash', 'pages/docs/refs/routing/redirecthash')
@@ -88,6 +89,7 @@ define(['quark'], function($$) {
                 .register('associative', 'pages/docs/refs/associative/associative')
                 .namespace('associative')
                     .register('add', 'pages/docs/refs/associative/observable/add')
+                    .register('exists', 'pages/docs/refs/associative/observable/exists')
                     .register('get', 'pages/docs/refs/associative/observable/get')
                     .register('update', 'pages/docs/refs/associative/observable/update')
                     .register('remove', 'pages/docs/refs/associative/observable/remove')
@@ -156,6 +158,7 @@ define(['quark'], function($$) {
                     .register('loadcss', 'pages/docs/refs/web/loadcss')
                 .endNamespace()
 
+                .register('behaviours', 'pages/docs/refs/behaviours/behaviours')
                 .namespace('behaviours')
                     .register('define', 'pages/docs/refs/behaviours/define')
                     .register('apply', 'pages/docs/refs/behaviours/apply')

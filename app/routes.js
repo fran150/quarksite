@@ -54,6 +54,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signal':                { 'main': 'pages-docs-refs-signal' },
         'main/docs/refs-signalclear':           { 'main': 'pages-docs-refs-signalclear' },
 
+        'main/docs/refs-routing':                   { 'main': 'pages-docs-refs-routing' },
         'main/docs/refs-routing-href':              { 'main': 'pages-docs-refs-routing-href' },
         'main/docs/refs-routing-redirecthash':      { 'main': 'pages-docs-refs-routing-redirecthash' },
         'main/docs/refs-routing-controllersbase':   { 'main': 'pages-docs-refs-routing-controllersbase' },
@@ -71,6 +72,7 @@ define(['quark', 'knockout'], function($$, ko) {
 
         'main/docs/refs-associative':           { 'main': 'pages-docs-refs-associative' },
         'main/docs/refs-associative-add':       { 'main': 'pages-docs-refs-associative-add' },
+        'main/docs/refs-associative-exists':    { 'main': 'pages-docs-refs-associative-exists' },
         'main/docs/refs-associative-get':       { 'main': 'pages-docs-refs-associative-get' },
         'main/docs/refs-associative-update':    { 'main': 'pages-docs-refs-associative-update' },
         'main/docs/refs-associative-remove':    { 'main': 'pages-docs-refs-associative-remove' },
@@ -128,6 +130,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-web-clearcookie':              { 'main': 'pages-docs-refs-web-clearcookie' },
         'main/docs/refs-web-loadcss':                  { 'main': 'pages-docs-refs-web-loadcss' },
 
+        'main/docs/refs-behaviours':                   { 'main': 'pages-docs-refs-behaviours' },
         'main/docs/refs-behaviours-define':            { 'main': 'pages-docs-refs-behaviours-define' },
         'main/docs/refs-behaviours-apply':             { 'main': 'pages-docs-refs-behaviours-apply' },
         'main/docs/refs-behaviours-has':               { 'main': 'pages-docs-refs-behaviours-has' },
@@ -197,6 +200,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-signal':                'docs/refs/signal',
         'main/docs/refs-signalclear':           'docs/refs/signalclear',
 
+        'main/docs/refs-routing':                   'docs/refs/routing',
         'main/docs/refs-routing-href':              'docs/refs/routing/href',
         'main/docs/refs-routing-redirecthash':      'docs/refs/routing/redirecthash',
         'main/docs/refs-routing-controllersbase':   'docs/refs/routing/controllersbase',
@@ -214,6 +218,7 @@ define(['quark', 'knockout'], function($$, ko) {
 
         'main/docs/refs-associative':           'docs/refs/associative',
         'main/docs/refs-associative-add':       'docs/refs/associative/add',
+        'main/docs/refs-associative-exists':    'docs/refs/associative/exists',
         'main/docs/refs-associative-get':       'docs/refs/associative/get',
         'main/docs/refs-associative-update':    'docs/refs/associative/update',
         'main/docs/refs-associative-remove':    'docs/refs/associative/remove',
@@ -271,6 +276,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-web-clearcookie':              'docs/refs/web/clearcookie',
         'main/docs/refs-web-loadcss':                  'docs/refs/web/loadcss',
 
+        'main/docs/refs-behaviours':                   'docs/refs/behaviours',
         'main/docs/refs-behaviours-define':            'docs/refs/behaviour/define',
         'main/docs/refs-behaviours-apply':             'docs/refs/behaviour/apply',
         'main/docs/refs-behaviours-has':               'docs/refs/behaviour/has',
