@@ -83,6 +83,11 @@ define(['quark'], function($$) {
                 .namespace('tracking')
                     .register('waitready', 'pages/docs/refs/tracking/waitready')
                     .register('import', 'pages/docs/refs/tracking/import')
+                    .register('ready', 'pages/docs/refs/tracking/ready')
+                    .register('loaded', 'pages/docs/refs/tracking/loaded')
+                    .register('readied', 'pages/docs/refs/tracking/readied')
+                    .register('isReady', 'pages/docs/refs/tracking/isready')
+                    .register('get', 'pages/docs/refs/tracking/get')
                 .endNamespace()
 
                 .register('associative', 'pages/docs/refs/associative/associative')
