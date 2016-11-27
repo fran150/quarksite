@@ -1,0 +1,85 @@
+<quark-component>
+    <span class="docs">
+        <h1>tracker.get <small>Método</small></h1>
+        <hr/>
+        <p>
+            Devuelve la dependencia con el nombre especificado.
+        </p>
+        <h2>
+            <code>
+                get(name)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre de la dependencia a obtener
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Modelo de la dependencia <a data-bind="href: 'main/docs/basics-imports'">importada</a> con el nombre especificado.
+            Si la dependencia no existe o no se cargó devuelve <code>undefined</code>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var child = $imports.get('example');
+            child.someMethod();
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+    </span>
+</quark-component>

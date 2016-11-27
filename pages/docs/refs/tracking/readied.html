@@ -1,0 +1,42 @@
+<quark-component>
+    <span class="docs">
+        <h1>tracker.readied <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            <a data-bind="href: 'main/docs/refs-sync-signal'">Señal</a> que se dispara cada vez que una dependencia pasa al
+            estado "listo". Debe tenerse cuidado ya que el hecho de que una dependencia se haya marcado como "lista" no quiere
+            decir que el componente este listo, puede haber otras dependencias que todavia no terminaron de cargar.
+        </p>
+        <h3>Ejemplo</h3>
+        <hr/>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $imports.readied.add(function(name, model) {
+            alert('La dependencia ' + name + ' está lista');
+
+            if (name == 'example') {
+                model.someMethod();
+            }
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+
+    </span>
+</quark-component>

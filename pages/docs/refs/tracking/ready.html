@@ -1,0 +1,37 @@
+<quark-component>
+    <span class="docs">
+        <h1>tracker.ready <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            <a data-bind="href: 'main/docs/refs-sync-lock'">Lock</a> que se abre cuando el componente pasa al estado listo,
+            indicando que todas las dependencias se han cargado y están listas.
+        </p>
+        <h3>Ejemplo</h3>
+        <hr/>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var child = $imports.get('example');
+            child.someMethod();
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+    </span>
+</quark-component>

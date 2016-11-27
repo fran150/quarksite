@@ -1,3 +1,4 @@
 Falta la doc de:
 
 inicialización (bootstraping)
+Veriifcar docs tracking y docs del objeto tracking en el desplegable

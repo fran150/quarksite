@@ -69,6 +69,11 @@ define(['quark', 'knockout'], function($$, ko) {
 
         'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
         'main/docs/refs-tracking-import':       { 'main': 'pages-docs-refs-tracking-import' },
+        'main/docs/refs-tracking-ready':        { 'main': 'pages-docs-refs-tracking-ready' },
+        'main/docs/refs-tracking-loaded':       { 'main': 'pages-docs-refs-tracking-loaded' },
+        'main/docs/refs-tracking-readied':      { 'main': 'pages-docs-refs-tracking-readied' },
+        'main/docs/refs-tracking-isready':      { 'main': 'pages-docs-refs-tracking-isready' },
+        'main/docs/refs-tracking-get':          { 'main': 'pages-docs-refs-tracking-get' },
 
         'main/docs/refs-associative':           { 'main': 'pages-docs-refs-associative' },
         'main/docs/refs-associative-add':       { 'main': 'pages-docs-refs-associative-add' },
@@ -213,8 +218,13 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-routing-activatehasher':    'docs/refs/routing/activatehasher',
         'main/docs/refs-routing-outlet':            'docs/refs/routing/outlet',
 
-        'main/docs/refs-tracking-waitready':    'docs/refs/waitready',
-        'main/docs/refs-tracking-import':       'docs/refs/import',
+        'main/docs/refs-tracking-waitready':    'docs/refs/tracker/waitready',
+        'main/docs/refs-tracking-import':       'docs/refs/tracker/import',
+        'main/docs/refs-tracking-ready':        'docs/refs/tracker/ready',
+        'main/docs/refs-tracking-loaded':       'docs/refs/tracker/loaded',
+        'main/docs/refs-tracking-readied':      'docs/refs/tracker/readied',
+        'main/docs/refs-tracking-isready':      'docs/refs/tracker/isready',
+        'main/docs/refs-tracking-get':          'docs/refs/tracker/get',
 
         'main/docs/refs-associative':           'docs/refs/associative',
         'main/docs/refs-associative-add':       'docs/refs/associative/add',
