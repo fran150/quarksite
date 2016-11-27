@@ -9,7 +9,7 @@
             el control de la página.
         </p>
         <p>
-            Como se vió anteriormente, <em>Quark.js</em> está basado en módulos, (el propio <em>Quark.js</em> es un modulo),
+            Como se vió anteriormente, <em>Quark.js</em> está basado en módulos, (el propio <em>Quark.js</em> es un módulo),
             por lo que el <code>bootstraping</code> consiste en configurar <em>Require</em> para que cargue <em>Quark.js</em>,
             sus dependencias y ejecute el <code>script</code> de inicialización.
         </p>
@@ -75,5 +75,8 @@ require = requireConfigure(require, {
 &lt;script src="app/require.config.js"&gt;&lt;/script&gt;
 &lt;script data-main="app/startup" src="bower_components/requirejs/require.js"&gt;&lt;/script&gt;
         </code-highlight>
+        <p>
+            El archivo <code>app/startup.js</code> es el primer módulo de la aplicación que se ejecutará.
+        </p>
     </span>
 </quark-component>

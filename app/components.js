@@ -36,6 +36,7 @@ define(['quark'], function($$) {
                 .register('pages', 'pages/docs/basics/pages')
                 .register('routes', 'pages/docs/basics/routes')
                 .register('controllers', 'pages/docs/basics/controllers')
+                .register('bootstraping', 'pages/docs/basics/bootstraping')
                 .register('sync', 'pages/docs/basics/sync')
                 .register('behaviours', 'pages/docs/basics/behaviours')
                 .register('namespaces', 'pages/docs/basics/namespaces')
@@ -82,12 +83,13 @@ define(['quark'], function($$) {
                 .endNamespace()
 
                 .namespace('tracking')
+                    .register('tracker', 'pages/docs/refs/tracking/tracker')
                     .register('waitready', 'pages/docs/refs/tracking/waitready')
                     .register('import', 'pages/docs/refs/tracking/import')
                     .register('ready', 'pages/docs/refs/tracking/ready')
                     .register('loaded', 'pages/docs/refs/tracking/loaded')
                     .register('readied', 'pages/docs/refs/tracking/readied')
-                    .register('isReady', 'pages/docs/refs/tracking/isready')
+                    .register('isready', 'pages/docs/refs/tracking/isready')
                     .register('get', 'pages/docs/refs/tracking/get')
                 .endNamespace()
 
@@ -190,6 +192,11 @@ define(['quark'], function($$) {
                     .register('namespace', 'pages/docs/refs/core/namespace')
                     .register('virtual', 'pages/docs/refs/core/virtual')
                     .register('onbind', 'pages/docs/refs/core/onbind')
+                .endNamespace()
+
+                .namespace('bootstraping')
+                    .register('requireconfigure', 'pages/docs/refs/bootstraping/requireconfigure')
+                    .register('quarkrequireconf', 'pages/docs/refs/bootstraping/quarkrequireconf')
                 .endNamespace()
 
             .endNamespace();

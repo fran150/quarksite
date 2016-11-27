@@ -1,0 +1,73 @@
+<quark-component>
+    <span class="docs">
+        <h1>QuarkRequireConf <small>Función</small></h1>
+        <hr/>
+        <p>
+            Devuelve la configuración de <em>Quark.js</em> que se debe aplicar a require. Se debe utilizar con la función
+            <a data-bind="href: 'main/docs/refs-bootstraping-requireconfigure'">requireConfigure</a>
+        </p>
+        <h2>
+            <code>
+                QuarkRequireConf()([bowerModulesDir])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>bowerModulesDir</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Se puede especificar el directorio raiz en donde se encuentran los modulos bower, si no se especifica
+                        nada se toma el estandar: <code>bower_components</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Objeto con las configuraciones de Require para <em>Quark.js</em>.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+var require;
+require = requireConfigure(require, QuarkRequireConf());
+require = requireConfigure(require, {
+    paths: {
+        'bootstrap':        'bower_components/bootstrap/dist/js/bootstrap.min',
+    },
+    shim: {
+        bootstrap: ['jquery']
+    }
+});
+        </code-highlight>
+    </span>
+</quark-component>

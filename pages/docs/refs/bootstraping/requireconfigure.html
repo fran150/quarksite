@@ -1,0 +1,87 @@
+<quark-component>
+    <span class="docs">
+        <h1>requireConfigure <small>Función</small></h1>
+        <hr/>
+        <p>
+            Permite combinar configuraciones de <em>Require</em>. Se puede
+            utilizar esta función para combinar la configuración de <em>Quark.js</em> con otros módulos que su aplicación
+            requiera. Esta función se encuentra dentro del <code>script</code> <code>require.configurator.js</code> que
+            viene en la carpeta principal de <em>Quark.js</em>
+        </p>
+        <h2>
+            <code>
+                requireConfigure(config1 [, config2])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>config1</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        <em>Require</em> necesita que especifique la configuración en la variable global <code>require</code>,
+                        puede pasar esta variable como primer parametro a sucesivas llamadas a esta funcion para ir agregando
+                        distintas configuraciones.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>config2</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto con la configuración de Require que se quiere aplicar.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Objeto con las configuraciones de Require combinadas.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+var require;
+require = requireConfigure(require, QuarkRequireConf());
+require = requireConfigure(require, {
+    paths: {
+        'bootstrap':        'bower_components/bootstrap/dist/js/bootstrap.min',
+    },
+    shim: {
+        bootstrap: ['jquery']
+    }
+});
+        </code-highlight>
+    </span>
+</quark-component>

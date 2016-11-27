@@ -26,6 +26,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-pages':               { 'main': 'pages-docs-basics-pages' },
         'main/docs/basics-routes':              { 'main': 'pages-docs-basics-routes' },
         'main/docs/basics-controllers':         { 'main': 'pages-docs-basics-controllers' },
+        'main/docs/basics-bootstraping':        { 'main': 'pages-docs-basics-bootstraping' },
         'main/docs/basics-sync':                { 'main': 'pages-docs-basics-sync' },
         'main/docs/basics-behaviours':          { 'main': 'pages-docs-basics-behaviours' },
         'main/docs/basics-namespaces':          { 'main': 'pages-docs-basics-namespaces' },
@@ -67,6 +68,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-routing-activatehasher':    { 'main': 'pages-docs-refs-routing-activatehasher' },
         'main/docs/refs-routing-outlet':            { 'main': 'pages-docs-refs-routing-outlet' },
 
+        'main/docs/refs-tracking-tracker':      { 'main': 'pages-docs-refs-tracking-tracker' },
         'main/docs/refs-tracking-waitready':    { 'main': 'pages-docs-refs-tracking-waitready' },
         'main/docs/refs-tracking-import':       { 'main': 'pages-docs-refs-tracking-import' },
         'main/docs/refs-tracking-ready':        { 'main': 'pages-docs-refs-tracking-ready' },
@@ -156,7 +158,10 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-onnamespace':             { 'main': 'pages-docs-refs-core-onnamespace' },
         'main/docs/refs-core-namespace':               { 'main': 'pages-docs-refs-core-namespace' },
         'main/docs/refs-core-onbind':                  { 'main': 'pages-docs-refs-core-onbind' },
-        'main/docs/refs-core-virtual':                 { 'main': 'pages-docs-refs-core-virtual' }
+        'main/docs/refs-core-virtual':                 { 'main': 'pages-docs-refs-core-virtual' },
+
+        'main/docs/refs-bootstraping-requireconfigure':     { 'main': 'pages-docs-refs-bootstraping-requireconfigure' },
+        'main/docs/refs-bootstraping-quarkrequireconf':     { 'main': 'pages-docs-refs-bootstraping-quarkrequireconf' }
     }
 
     var routes = {
@@ -176,6 +181,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/basics-pages':               'docs/basics/pages',
         'main/docs/basics-routes':              'docs/basics/routes',
         'main/docs/basics-controllers':         'docs/basics/controllers',
+        'main/docs/basics-bootstraping':        'docs/basics/bootstraping',
         'main/docs/basics-sync':                'docs/basics/sync',
         'main/docs/basics-behaviours':          'docs/basics/behaviours',
         'main/docs/basics-namespaces':          'docs/basics/namespaces',
@@ -218,6 +224,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-routing-activatehasher':    'docs/refs/routing/activatehasher',
         'main/docs/refs-routing-outlet':            'docs/refs/routing/outlet',
 
+        'main/docs/refs-tracking-tracker':      'docs/refs/tracker/tracker',
         'main/docs/refs-tracking-waitready':    'docs/refs/tracker/waitready',
         'main/docs/refs-tracking-import':       'docs/refs/tracker/import',
         'main/docs/refs-tracking-ready':        'docs/refs/tracker/ready',
@@ -308,6 +315,9 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-namespace':               'docs/refs/core/namespace',
         'main/docs/refs-core-virtual':                 'docs/refs/core/virtual',
         'main/docs/refs-core-onbind':                  'docs/refs/core/onbind',
+
+        'main/docs/refs-bootstraping-requireconfigure':     'docs/refs/bootstraping/requireconfigure',
+        'main/docs/refs-bootstraping-quarkrequireconf':     'docs/refs/bootstraping/quarkrequireconf',
 
         'main/sidebar/module':                  'components/library/{id}'
     }
