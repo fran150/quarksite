@@ -1,5 +1,6 @@
 var require;
-require = requireConfigure(QuarkRequireConf(), {
+require = requireConfigure(QuarkRequireConf());
+require = requireConfigure(require, {
     paths: {
         'config':           'app/config',
         'data':             'data',
