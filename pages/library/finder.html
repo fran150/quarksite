@@ -1,6 +1,11 @@
 <quark-component>
     <h1>Search for Quark Modules</h1>
 
-    <library-finder>
-    </library-finder>
+    <library-finder-form params="text: model.text,
+                                 onSearch: model.onSearch">
+    </library-finder-form>
+
+    <library-finder-results params="ajaxMessage: model.ajaxMessage,
+                                    data: model.data">
+    </library-finder-results>
 </quark-component>

@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"moduleId": {
+			"name": "moduleId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "moduleId",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 1
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 2
+		},
+		"comments": {
+			"name": "comments",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "comments",
+			"order": 3
+		},
+		"parameters": {
+			"name": "parameters",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "parameters",
+			"order": 4
+		},
+		"methods": {
+			"name": "methods",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "methods",
+			"order": 5
+		},
+		"properties": {
+			"name": "properties",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "properties",
+			"order": 6
+		}
+	}
+}

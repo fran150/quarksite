@@ -145,17 +145,17 @@ define(['quark', 'knockout', 'text!./scope.html'], function($$, ko, template) {
 
             Da como resultado:
             <div class="well">
-                <scope-example params="texto: 'Texto Corto'">
-                </scope-example>
+                <example-scope params="texto: 'Texto Corto'">
+                </example-scope>
                 <br />
                 <br />
-                <scope-example params="texto: 'Texto Excesiva e Incomodamente Largo'">
-                </scope-example>
+                <example-scope params="texto: 'Texto Excesiva e Incomodamente Largo'">
+                </example-scope>
                 <br />
                 <br />
                 <input type="text" data-bind="textInput: someObservable" />
-                <scope-example params="texto: someObservable">
-                </scope-example>
+                <example-scope params="texto: someObservable">
+                </example-scope>
             </div>
         </p>
 

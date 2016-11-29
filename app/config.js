@@ -6,7 +6,8 @@ define([], function() {
     return {
         urls: {
             api: {
-                modules: server.api + '/modules'
+                modules: server.api + '/modules',
+                components: server.api + '/components'
             }
         }
     }
