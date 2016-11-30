@@ -9,7 +9,6 @@ define(['quark', 'knockout', 'data/modules'], function($$, ko, ModulesData) {
 
         this.search = function() {
             dataSource.search(self.text(), function(data) {
-                debugger;
                 self.data(data);
             });
         }
@@ -21,7 +20,7 @@ define(['quark', 'knockout', 'data/modules'], function($$, ko, ModulesData) {
                         text: self.text,
                         data: self.data,
                         onSearch: self.search,
-                        ajaxMessage: dataSource.ajaxMessage
+                        ajaxMessage: dataSource.message
                     }
                     break;
             }

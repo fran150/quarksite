@@ -8,7 +8,6 @@ define(['quark', 'knockout', 'text!./form.html'], function($$, ko, template) {
         }, params, this);
 
         this.search = function() {
-            debugger;
             $$.call(self.onSearch, self.text());
         }
 
