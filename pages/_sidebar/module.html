@@ -1,28 +1,20 @@
 <quark-component>
     <al-layout-sidebar params="marginTop: 10, minSidebarSize: 250">
+        <!-- ko if: ajaxMessage -->
+            <al-layout-sidebar-title params="text: 'Cargando'">
+            </al-layout-sidebar-title>
+        <!-- /ko -->
+
+
         <al-layout-sidebar-link params="text: 'Components',
                                         iconFont: 'fa fa-cubes',
                                         opened: true">
             <!-- submenu -->
-                <al-layout-sidebar-link params="text: 'al-layout',
-                                                iconFont: 'fa fa-cube'">
-                </al-layout-sidebar-link>
-                <al-layout-sidebar-link params="text: 'al-layout-sidebar',
-                                                iconFont: 'fa fa-cube'">
-                </al-layout-sidebar-link>
-            <!-- /submenu -->
-        </al-layout-sidebar-link>
-
-        <al-layout-sidebar-link params="text: 'Pages',
-                                        iconFont: 'fa fa-cubes',
-                                        opened: true">
-            <!-- submenu -->
-                <al-layout-sidebar-link params="text: 'al-layout',
-                                                iconFont: 'fa fa-cube'">
-                </al-layout-sidebar-link>
-                <al-layout-sidebar-link params="text: 'al-layout-sidebar',
-                                                iconFont: 'fa fa-cube'">
-                </al-layout-sidebar-link>
+                <!-- ko foreach: model.components -->
+                    <al-layout-sidebar-link params="text: name,
+                                                    iconFont: 'fa fa-cube'">
+                    </al-layout-sidebar-link>
+                <!-- /ko -->
             <!-- /submenu -->
         </al-layout-sidebar-link>
     </al-layout-sidebar>

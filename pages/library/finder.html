@@ -2,10 +2,11 @@
     <h1>Search for Quark Modules</h1>
 
     <library-finder-form params="text: model.text,
-                                 onSearch: model.onSearch">
+                                 onSearch: model.search">
     </library-finder-form>
 
     <library-finder-results params="ajaxMessage: model.ajaxMessage,
+                                    pageName: 'main/library/modules/module',
                                     data: model.data">
     </library-finder-results>
 </quark-component>

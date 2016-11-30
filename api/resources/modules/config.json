@@ -48,6 +48,22 @@
 			"required": false,
 			"id": "tags",
 			"order": 5
+		},
+		"components": {
+			"name": "components",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "components",
+			"order": 6
+		},
+		"behaviours": {
+			"name": "behaviours",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "behaviours",
+			"order": 7
 		}
 	}
 }

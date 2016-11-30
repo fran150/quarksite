@@ -11,5 +11,5 @@ define(['quark', 'bootstrap',
     $$.loadCss('css/main.css');
 
     $$.routing.activateHasher();
-    $$.start();
+    $$.routing.routed.add($$.start);
 });

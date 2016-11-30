@@ -4,7 +4,7 @@ define(['quark', 'knockout', 'text!./results.html'], function($$, ko, template) 
 
         $$.parameters({
             data: ko.observableArray(),
-            routeName: ko.observable(),
+            pageName: ko.observable(),
             ajaxMessage: ko.observable()
         }, params, this);
     }
