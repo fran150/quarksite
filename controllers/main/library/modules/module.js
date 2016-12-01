@@ -1,18 +1,17 @@
 define(['quark', 'knockout'], function($$, ko) {
-    function MainLibraryModulesModuleController() {
+    function MainLibraryModulesController() {
         var self = this;
 
         this.sendParameters = function(name) {
-            debugger;
             switch (name) {
                 case "main":
                     return {
-                        moduleName: self.params.id
+                        module: self.parent.module
                     }
                     break;
             }
         }
     }
 
-    return MainLibraryModulesModuleController;
+    return MainLibraryModulesController;
 })

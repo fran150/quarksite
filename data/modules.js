@@ -21,14 +21,18 @@ define(['quark', 'knockout', 'config'], function($$, ko, config) {
             }, false, { cache: true });
         }
 
-        this.read = function(name, callback) {
+        this.read = function(bowerId, callback) {
             self.ajaxMessage('Loading...');
 
-            var query = config.urls.api.modules + "?name=" + name;
+            var query = config.urls.api.modules + "?bowerId=" + bowerId;
 
             $$.ajax(query, 'GET', {}, {
                 onSuccess: function(data) {
-                    callback(data);
+                    if ($$.isArray(data)) {
+                        callback(data[0]);
+                    } else {
+                        callback();
+                    }
                 },
                 onComplete: function() {
                     self.ajaxMessage('');

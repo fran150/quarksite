@@ -6,7 +6,7 @@ define(['quark', 'knockout'], function($$, ko) {
                                                     'sidebar': 'sidebar-module',
                                                     'container': 'container-sidebar'
                                                 },
-        'main/library/modules/module':          { 'main': 'empty' }
+        'main/library/modules/module':          { 'main': 'pages-library-module' }
     }
 
     var routes = {
@@ -15,7 +15,7 @@ define(['quark', 'knockout'], function($$, ko) {
     }
 
     var params = {
-        'main/library/modules/module':          { id: '' }
+        'main/library/modules':          { id: '' }
     }
 
     $$.routing.pages(pages, params);

@@ -19,6 +19,4 @@ define(['quark'], function($$) {
 
     $$.onNamespace('pages')
         .register('home', 'pages/home')
-        .namespace('library')
-            .register('finder', 'pages/library/finder');
 });

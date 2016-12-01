@@ -1,20 +1,30 @@
 <quark-component>
-    <h1>Alchemy</h1>
-
-    <bt-modal data-bind="import: 'modal'">
-        <modal-heading>
-            Heading
-        </modal-heading>
-        <modal-body>
-            <p>Body</p>
-            <button class="btn btn-default" data-bind="click: $container.hide">Ocultar</button>
-            <input type="checkbox" data-bind="checked: $container.backdrop" />
-            <input type="checkbox" data-bind="checked: $container.keyboard" />
-        </modal-body>
-        <modal-footer>
-            Footer
-        </modal-footer>
-    </bt-modal>
-
-    <button class="btn btn-default" data-bind="click: show">Mostrar</button>
+    <!-- ko with: model.module -->
+        <h1>
+            <span data-bind="text: name"></span>
+            <small>(<span data-bind="text: version"></span>)</small>
+        </h1>
+        <p>
+            <small>
+                <span class="pull-right">
+                    <strong>Author:</strong>
+                    <span data-bind="text: author"></span>
+                </span>
+                <strong>Tags:</strong>
+                <!-- ko foreach: tags -->
+                    <span class="label label-primary" data-bind="text: $data"></span>
+                <!-- /ko -->
+            </small>
+        </p>
+        <hr/>
+        <p>
+            <span data-bind="text: description"></span>
+        </p>
+        <!-- ko if: components -->
+        <h2>Components</h2>
+        <ul data-bind="foreach: components">
+            <li data-bind="">Some</li>
+        </ul>
+        <!-- /ko -->
+    <!-- /ko -->
 </quark-component>

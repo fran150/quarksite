@@ -2,7 +2,8 @@ define(['quark',
        './pages/pages',
        './pages/pages-docs',
        './pages/pages-docs-basics',
-       './pages/pages-docs-refs'
+       './pages/pages-docs-refs',
+       './pages/pages-library'
        ], function($$) {
 
     $$.onNamespace('library')

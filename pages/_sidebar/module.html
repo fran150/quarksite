@@ -1,6 +1,6 @@
 <quark-component>
     <al-layout-sidebar params="marginTop: 10, minSidebarSize: 250">
-        <!-- ko if: ajaxMessage -->
+        <!-- ko if: model.ajaxMessage -->
             <al-layout-sidebar-title params="text: 'Cargando'">
             </al-layout-sidebar-title>
         <!-- /ko -->
@@ -10,8 +10,8 @@
                                         iconFont: 'fa fa-cubes',
                                         opened: true">
             <!-- submenu -->
-                <!-- ko foreach: model.components -->
-                    <al-layout-sidebar-link params="text: name,
+                <!-- ko foreach: componentNames -->
+                    <al-layout-sidebar-link params="text: $data,
                                                     iconFont: 'fa fa-cube'">
                     </al-layout-sidebar-link>
                 <!-- /ko -->

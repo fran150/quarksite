@@ -1,25 +1,24 @@
-define(['quark', 'knockout', 'data/modules', 'text!./module.html'], function($$, ko, ModulesData, template) {
+define(['quark', 'knockout', 'text!./module.html'], function($$, ko, template) {
     function ModuleSidebar(params, $scope, $imports) {
         var self = this;
 
-        var dataSource = new ModulesData();
-
         $$.parameters({
-            moduleName: ko.observable(),
-            dataSource: dataSource,
-            components: ko.observableArray()
+            ajaxMessage: ko.observable(),
+            module: ko.observable()
         }, params, this);
 
-        $scope.ajaxMessage = ko.observable();
+        $scope.componentNames = ko.pureComputed(function() {
+            var module = self.module();
+            var result = new Array();
 
-        $imports.initComponent = function() {
-            debugger;
-            self.dataSource.read(self.moduleName(), function(data) {
-                if (data.components) {
-                    self.components(data.components);
+            if (module && module.components) {
+                for (var name in module.components) {
+                    result.push(name);
                 }
-            });
-        }
+            }
+
+            return result;
+        })
     }
 
     return $$.component(ModuleSidebar, template);
