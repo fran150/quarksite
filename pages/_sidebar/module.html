@@ -5,6 +5,13 @@
             </al-layout-sidebar-title>
         <!-- /ko -->
 
+        <!-- ko if: model.module -->
+            <al-layout-sidebar-link params="text: model.module().name,
+                                            pageName: 'main/library/modules/module',
+                                            pageParams: { id: model.module().bowerId },
+                                            iconFont: 'fa fa-cog'">
+            </al-layout-sidebar-link>
+        <!-- /ko -->
 
         <al-layout-sidebar-link params="text: 'Components',
                                         iconFont: 'fa fa-cubes',
@@ -12,6 +19,8 @@
             <!-- submenu -->
                 <!-- ko foreach: componentNames -->
                     <al-layout-sidebar-link params="text: $data,
+                                                    pageName: 'main/library/modules/component',
+                                                    pageParams: { component: $data, id: $parent.model.module().bowerId },
                                                     iconFont: 'fa fa-cube'">
                     </al-layout-sidebar-link>
                 <!-- /ko -->

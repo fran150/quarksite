@@ -2,29 +2,30 @@
     <!-- ko with: model.module -->
         <h1>
             <span data-bind="text: name"></span>
-            <small>(<span data-bind="text: version"></span>)</small>
         </h1>
-        <p>
+        <hr/>
+        <span data-bind="text: description"></span>
+        <div class="col-sm-4 well pull-right">
             <small>
-                <span class="pull-right">
+                <p>
+                    <strong>Version:</strong>
+                    <span data-bind="text: version"></span>
+                </p>
+                <p>
+                    <strong>Prefix:</strong>
+                    <span data-bind="text: prefix"></span>
+                </p>
+                <p>
                     <strong>Author:</strong>
                     <span data-bind="text: author"></span>
-                </span>
-                <strong>Tags:</strong>
-                <!-- ko foreach: tags -->
-                    <span class="label label-primary" data-bind="text: $data"></span>
-                <!-- /ko -->
+                </p>
+                <p>
+                    <strong>Tags:</strong>
+                    <!-- ko foreach: tags -->
+                        <span class="label label-primary" data-bind="text: $data"></span>
+                    <!-- /ko -->
+                </p>
             </small>
-        </p>
-        <hr/>
-        <p>
-            <span data-bind="text: description"></span>
-        </p>
-        <!-- ko if: components -->
-        <h2>Components</h2>
-        <ul data-bind="foreach: components">
-            <li data-bind="">Some</li>
-        </ul>
-        <!-- /ko -->
+        </div>
     <!-- /ko -->
 </quark-component>

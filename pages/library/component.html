@@ -1,0 +1,167 @@
+<quark-component>
+    <div class="docs">
+        <small class="pull-right" data-bind="with: model.module">
+            <strong>Módulo:</strong>
+            <span data-bind="text: name"></span>
+            <br/>
+            <strong>Versión:</strong>
+            <span data-bind="text: version"></span>
+            <br/>
+            <strong>Prefijo:</strong>
+            <span data-bind="text: prefix"></span>
+        </small>
+
+        <h1 data-bind="text: model.componentName"></h1>
+        <hr />
+
+        <!-- ko if: model.component -->
+            <!-- ko if: model.component().allowContent -->
+                <div class="label label-primary pull-right">
+                    Admite Contenido
+                </div>
+            <!-- /ko -->
+
+            <p data-bind="text: model.component().description">
+            </p>
+        <!-- /ko -->
+
+        <!-- ko if: model.properties().length > 0 -->
+            <h2>Propiedades</h2>
+            <hr/>
+            <table class="table table-condensed table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Tipo
+                        </th>
+                        <th>
+                            Observable
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: model.properties">
+                    <tr>
+                        <td>
+                            <code data-bind="text: name"></code>
+                        </td>
+                        <td>
+                            <em data-bind="text: type"></em>
+                        </td>
+                        <td>
+                            <!-- ko if: observable -->
+                            Si
+                            <!-- /ko -->
+                            <!-- ko ifnot: observable -->
+                            No
+                            <!-- /ko -->
+                        </td>
+                        <td data-bind="text: description"></td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- /ko -->
+
+        <!-- ko if: model.parameters().length > 0 -->
+            <h2>Parámetros</h2>
+            <hr/>
+            <table class="table table-condensed table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Tipo
+                        </th>
+                        <th>
+                            Observable
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: model.parameters">
+                    <tr>
+                        <td>
+                            <code data-bind="text: name"></code>
+                        </td>
+                        <td>
+                            <em data-bind="text: type"></em>
+                        </td>
+                        <td>
+                            <!-- ko if: observable -->
+                            Si
+                            <!-- /ko -->
+                            <!-- ko ifnot: observable -->
+                            No
+                            <!-- /ko -->
+                        </td>
+                        <td data-bind="text: description"></td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- /ko -->
+
+        <!-- ko if: model.methods().length > 0 -->
+            <h2>Métodos</h2>
+            <hr/>
+
+            <div data-bind="foreach: model.methods">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <code class="lead" data-bind="text: signature"></code>
+
+                    <h3>Descripción</h3>
+                    <p data-bind="text: description">
+                    </p>
+
+                    <!-- ko if: parameters.length > 0 -->
+                        <h3>Parámetros</h3>
+                        <table class="table table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Tipo
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: parameters">
+                                <tr>
+                                    <td>
+                                        <code data-bind="text: name"></code>
+                                    </td>
+                                    <td>
+                                        <em data-bind="text: type"></em>
+                                    </td>
+                                    <td data-bind="text: description"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- /ko -->
+
+
+                    <h3>Devuelve</h3>
+                    <small>
+                        <strong>Tipo</strong>: <code data-bind="text: returns.type"></code>
+                    </small>
+                    <br/>
+                    <p data-bind="text: returns.description"></p>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+    </div>
+</quark-component>

@@ -18,15 +18,14 @@
                 <p>
                     <small>
                         <em>
-                            Latest Version
+                            Version
                             <span data-bind="text: version"></span>
                         </em>
                     </small>
                 </p>
-                <p>
-                    <span class="label label-default">Quark</span>
-                    <span class="label label-default">Components</span>
-                    <span class="label label-default">Quark</span>
+                <p data-bind="foreach: tags">
+                    <span class="label label-default" data-bind="text: $data">
+                    </span>
                 </p>
             </div>
         </div>

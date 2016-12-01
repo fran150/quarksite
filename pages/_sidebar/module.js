@@ -18,7 +18,7 @@ define(['quark', 'knockout', 'text!./module.html'], function($$, ko, template) {
             }
 
             return result;
-        })
+        });
     }
 
     return $$.component(ModuleSidebar, template);

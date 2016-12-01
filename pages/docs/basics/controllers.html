@@ -171,6 +171,11 @@ define(['quark', 'knockout'], function($$, ko) {
             <code>language</code> de la página, que a su vez lo toma del parametro de la ruta.
         </p>
         <p>
+            Se puede definir un método <code>init</code> en el controlador que <em>Quark.js</em> invocará al finalizar el ruteo,
+            cuando ya este cargado todo el arbol de controladores, creados los parametros y seteado su valor.
+            <span class="text-danger">Cuidado que esto no implica que el controlador este "Listo".</span>
+        </p>
+        <p>
             Finalmente se puede definir un método <code>dispose</code> que se ejecutará cuando se descarga el controlador
             al cambiar de página permitiendo liberar los recursos utilizados en dicho controlador.
         </p>

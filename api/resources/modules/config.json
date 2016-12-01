@@ -9,13 +9,21 @@
 			"id": "bowerId",
 			"order": 0
 		},
+		"prefix": {
+			"name": "prefix",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "prefix",
+			"order": 1
+		},
 		"name": {
 			"name": "name",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "name",
-			"order": 1
+			"order": 2
 		},
 		"author": {
 			"name": "author",
@@ -23,7 +31,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "author",
-			"order": 2
+			"order": 3
 		},
 		"description": {
 			"name": "description",
@@ -31,7 +39,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "description",
-			"order": 3
+			"order": 4
 		},
 		"version": {
 			"name": "version",
@@ -39,7 +47,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "version",
-			"order": 4
+			"order": 5
 		},
 		"tags": {
 			"name": "tags",
@@ -47,7 +55,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "tags",
-			"order": 5
+			"order": 6
 		},
 		"components": {
 			"name": "components",
@@ -55,7 +63,7 @@
 			"typeLabel": "object",
 			"required": false,
 			"id": "components",
-			"order": 6
+			"order": 7
 		},
 		"behaviours": {
 			"name": "behaviours",
@@ -63,7 +71,7 @@
 			"typeLabel": "object",
 			"required": false,
 			"id": "behaviours",
-			"order": 7
+			"order": 8
 		}
 	}
 }
