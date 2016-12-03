@@ -147,6 +147,7 @@ define(['quark'], function($$) {
                     .register('namespace', 'pages/docs/refs/core/namespace')
                     .register('virtual', 'pages/docs/refs/core/virtual')
                     .register('onbind', 'pages/docs/refs/core/onbind')
+                    .register('controllerprovider', 'pages/docs/refs/core/controllerprovider')
                 .endNamespace()
 
                 .namespace('bootstraping')

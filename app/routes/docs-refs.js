@@ -122,6 +122,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-namespace':               { 'main': 'pages-docs-refs-core-namespace' },
         'main/docs/refs-core-onbind':                  { 'main': 'pages-docs-refs-core-onbind' },
         'main/docs/refs-core-virtual':                 { 'main': 'pages-docs-refs-core-virtual' },
+        'main/docs/refs-core-controllerprovider':      { 'main': 'pages-docs-refs-core-controllerprovider' },
 
         'main/docs/refs-bootstraping-requireconfigure':     { 'main': 'pages-docs-refs-bootstraping-requireconfigure' },
         'main/docs/refs-bootstraping-quarkrequireconf':     { 'main': 'pages-docs-refs-bootstraping-quarkrequireconf' }
@@ -251,6 +252,7 @@ define(['quark', 'knockout'], function($$, ko) {
         'main/docs/refs-core-namespace':               'docs/refs/core/namespace',
         'main/docs/refs-core-virtual':                 'docs/refs/core/virtual',
         'main/docs/refs-core-onbind':                  'docs/refs/core/onbind',
+        'main/docs/refs-core-controllerprovider':      'docs/refs/core/controllerprovider',
 
         'main/docs/refs-bootstraping-requireconfigure':     'docs/refs/bootstraping/requireconfigure',
         'main/docs/refs-bootstraping-quarkrequireconf':     'docs/refs/bootstraping/quarkrequireconf',
