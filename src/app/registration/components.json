@@ -1,0 +1,22 @@
+{
+    "library": {
+        "finder": {
+            "form": "components/library/finder/form",
+            "results": "components/library/finder/results"
+        }
+    },
+    "code": {
+        "highlight": "components/code/highlight"
+    },
+    "nav": {
+        "next-prev": "components/nav/next-prev"
+    },
+    "example": {
+        "component": "components/example/component",
+        "other": "components/example/other",
+        "scope": "components/example/scope",
+        "validation": "components/example/validation",
+        "content-no-params": "components/example/content-no-params",
+        "content-params": "components/example/content-params"
+    }
+}

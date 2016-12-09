@@ -1,26 +1,27 @@
 {
-    "name": "QuarkSite",
-    "authors": [
-        "fran150 <panchi150@gmail.com>"
-    ],
-    "description": "Quark's main site",
-    "main": "index.html",
-    "keywords": [
-        "quark"
-    ],
-    "license": "MIT",
-    "homepage": "http://www.quark.com.ar",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "font-awesome": "^4.7.0",
-        "prism": "^1.5.1",
-        "quark": "*"
-    }
+  "name": "QuarkSite",
+  "authors": [
+    "fran150 <panchi150@gmail.com>"
+  ],
+  "description": "Quark's main site",
+  "main": "index.html",
+  "keywords": [
+    "quark"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.quark.com.ar",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "prism": "^1.5.1",
+    "quark": "*",
+    "requirejs-plugins": "^1.0.3"
+  }
 }

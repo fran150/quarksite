@@ -3,8 +3,9 @@ define(['quark',
     'css!bootstrap/css',
     'css!font-awesome/css',
     'qk-alchemy/main',
+    './controllerProvider',
     './components',
-    './routes',
+    './routing',
     './validator'],
     function($$) {
 
