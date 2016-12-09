@@ -1,4 +1,8 @@
-define(['quark', 'knockout', 'text!./highlight.html', 'prism'], function($$, ko, template) {
+define(['quark', 'knockout', 'text!./highlight.html',
+    'prism',
+    'css!prism/themes/prism'],
+    function($$, ko, template) {
+
     function CodeHighlight(params, $scope, $imports) {
         var self = this;
 
@@ -15,8 +19,6 @@ define(['quark', 'knockout', 'text!./highlight.html', 'prism'], function($$, ko,
         }
 
     }
-
-    $$.loadCss('bower_components/prism/themes/prism.css');
 
     return $$.component(CodeHighlight, template);
 });

@@ -9,7 +9,7 @@
         "quark"
     ],
     "license": "MIT",
-    "homepage": "www.quark.com.ar",
+    "homepage": "http://www.quark.com.ar",
     "private": true,
     "ignore": [
         "**/.*",
@@ -19,10 +19,8 @@
         "tests"
     ],
     "dependencies": {
-        "qk-bootstrap": "*",
-        "font-awesome": "^4.6.3",
+        "font-awesome": "^4.7.0",
         "prism": "^1.5.1",
-        "qk-alchemy": "~1.0.0",
-        "quark": "~1.1.0"
+        "quark": "*"
     }
 }
