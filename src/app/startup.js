@@ -12,5 +12,5 @@ define(['quark',
     $$.loadCss('css/main.css');
 
     $$.routing.activateHasher();
-    $$.start();
+    $$.routing.routed.add($$.start);
 });

@@ -18,5 +18,8 @@
         "validation": "components/example/validation",
         "content-no-params": "components/example/content-no-params",
         "content-params": "components/example/content-params"
+    },
+    "static": {
+        "content": "components/static/content"
     }
 }

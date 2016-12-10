@@ -3,7 +3,9 @@ define(['quark'], function($$) {
 
     $$.controllerProvider = function(page, success, error) {
         if (page.startsWith('main/docs/')) {
-            success(function() {});
+            require(['../controllers/static'], function(StaticController) {
+                success(StaticController);
+            }, error);
         } else {
             defaultProvider(page, success, error);
         }
