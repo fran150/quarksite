@@ -1,0 +1,111 @@
+
+    <span class="docs">
+        <h1>Imports</h1>
+        <hr />
+        <p>
+            Como se describió anteriormente, una forma de comunicar dos componentes es a través de un observable
+            compartido que se envía por parámetro a dichos componentes. Pero, ¿Como ejecutar métodos o acceder al modelo
+            de otro componente se esta reutilizando dentro del propio?. La respuesta a esto es utilizando los imports.
+        </p>
+        <p>
+            Es posible "importar" el modelo de un componente que se esta utilizando al modelo del propio componente. Para esto
+            se debe utilizar el binding "imports" en el tag del componente a importar proporcionando el nombre con el que
+            luego se desea acceder al mismo.
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            <em>Quark.js</em> envía como tercer parámetro al modelo del componente un objeto denominado <code>tracker</code>
+            que permite acceder a los modelos de todos los componentes importados.
+            Sin embargo, la forma en que se carga y se realiza el binding de los componentes presenta un problema de
+            sincronización a la hora de obtener el modelo de componentes "hijos".
+        </p>
+        <p>
+            Cuando <em>Quark.js</em> detecta un tag
+            no estandar verifica si tiene un componente registrado relacionado con dicho tag, si lo tiene, carga y ejecuta
+            el modelo de dicho componente y luego procede a cargar y realizar el binding de la vista repitiendo este proceso.
+            Debido a esto, el modelo de un componente "hijo" no estará disponible cuando <em>Quark.js</em> ejecute el modelo del
+            componente padre, sino que recién se cargará al realizar el binding de la vista.
+        </p>
+        <p>
+            Afortunadamente <em>Quark.js</em>, a través de los <code>tracker</code> provee una manera de sincronizar los
+            componentes. Se definen entonces dos estados para los componentes:
+            <ul>
+                <li>
+                    <strong>Cargado:</strong> Cuando el modelo del componente se ha cargado y ejecutado.
+                </li>
+                <li>
+                    <strong>Listo:</strong> Si el componente no tiene dependencias (o sea no realiza import de ningún componente
+                    hijo), el estado listo es igual a cargado. Pero, si el componente depende de otros, solo se considerará
+                    listo cuando todas las dependencias estén cargadas y listas.
+                </li>
+            </ul>
+        </p>
+        <p>
+            El tracker que envía <em>Quark.js</em> permite interceptar estos estados para los componentes importados a través
+            de 3 propiedades:
+            <ul>
+                <li>
+                    <code>loaded</code>: es una señal que se invocará cada vez que se haya cargado el modelo de una dependencia
+                    (que no necesariamente estará "Listo"). Las funciones que se suscriban a la señal recibirán como parametro
+                    el nombre con el que se importó el componente y el modelo.
+                </li>
+                <li>
+                    <code>readied</code>: es una señal que se invocará cada vez que una dependencia pase a estado "Listo", esto
+                    asegura que la dependencia esta completamente cargada y lista para usarse. Las funciones que se suscriban a la señal recibirán como parametro
+                    el nombre con el que se importó el componente y el modelo.
+                </li>
+                <li>
+                    <code>ready</code>: es un lock que se liberará cuando todas las dependencias del componente esten cargadas
+                    y listas. Similar al <code>$(document).ready</code> de <em>JQuery</em> permite asegurar que se puede hacer
+                    referencia en el codigo a todas las dependencias sin problemas.
+                </li>
+            </ul>
+        </p>
+        <p>
+            El <code>tracker</code> cuenta además con los siguientes métodos:
+            <ul>
+                <li>
+                    <code>isReady</code>: Es una función que devuelve un boolean que indica si el componente está en estado
+                    "Listo".
+                </li>
+                <li>
+                    <code>get</code>: Esta función recibe como parámetro el nombre con el que se importó un componente y devuelve
+                    el modelo de dicho componente.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Entonces, siguiendo con el ejemplo anterior, se puede escribir el modelo como:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var child = $imports.get('example');
+            child.someMethod();
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+        </p>
+        <nav-next-prev params="previousText: 'Scope', previousPage: 'main/docs/basics-scope',
+                               nextText: 'Páginas', nextPage: 'main/docs/basics-pages'">
+
+        </nav-next-prev>
+    </span>
+

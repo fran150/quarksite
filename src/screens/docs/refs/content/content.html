@@ -1,0 +1,193 @@
+
+    <span class="docs">
+        <h1>content <small>binding</small></h1>
+        <hr/>
+        <p>
+            Permite al desarrollador del componente especificar donde mostrar el contenido definido por quién utiliza
+            el componente.
+        </p>
+        <p>
+            Tiene 3 formas de uso:
+        </p>
+        <h2>
+            <code>
+                content
+            </code>
+        </h2>
+        <p>
+            Inserta todo el contenido especificado por usuario del componente.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <p>
+            Ninguno.
+        </p>
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr/>
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="alert alert-danger" data-bind="content"&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+            Este componente muestra todo lo que se envíe como contenido dentro de un alert de <em>Bootstrap</em>. Por ejemplo,
+            si se registra con el nombre <code>bootstrap-alert</code> se puede utilizar asi:
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-alert&gt;
+    Alerta! Esto es una prueba
+&lt;/bootstrap-alert&gt;
+        </code-highlight>
+
+
+        <hr />
+
+        <h2>
+            <code>
+                content: &lt;selector&gt;
+            </code>
+        </h2>
+        <p>
+            Inserta la parte del contenido especificado por el usuario que corresponda al selector jQuery especificado.
+            Se puede utilizar para dividir el contenido en varias zonas como puede ser el encabezado y cuerpo de un panel.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>selector</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Selector de jQuery que indica que parte del contenido especificado por el usuario del componente
+                        se debe insertar por el binding <code>content</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Ejemplo</h3>
+        <hr/>
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="panel panel-primary"&gt;
+        &lt;div class="panel-heading" data-bind="content: 'bt-heading'"&gt;
+        &lt;/div&gt;
+        &lt;div class="panel-body" data-bind="content: 'bt-body'"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        Este componente utiliza el binding <code>content</code> para dividir el contenido utilizando selectores
+        <em>JQuery</em>. El primer <code>content</code> selecciona todos los nodos que se encuentran dentro del tag
+        <code>bt-heading</code> y lo muestra dentro del titulo de un panel <em>Bootstrap</em>, el segundo hace exactamente
+        lo mismo pero el contenido del tag <code>bt-body</code> lo muestra en el cuerpo del panel.
+        Por ejemplo, si se registra con el nombre <code>bootstrap-panel</code> se puede utilizar asi:
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-panel&gt;
+    &lt;bt-heading&gt;
+        Titulo de ejemplo
+    &lt;/bt-heading&gt;
+    &lt;bt-body&gt;
+        Lorem Ipsum?
+    &lt;/bt-body&gt;
+&lt;/bootstrap-panel&gt;
+        </code-highlight>
+
+        <hr />
+
+        <h2>
+            <code>
+                content: &lt;name&gt;, virtual: true
+            </code>
+        </h2>
+        <p>
+            Buscará dentro del contenido especificado y se mostrarán solo los nodos que esten contenidos dentro de un tag virtual
+            con el nombre especificado.
+        </p>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del elemento virtual que contiene los nodos a insertar.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Ejemplo</h3>
+        <hr/>
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="panel panel-primary"&gt;
+        &lt;div class="panel-heading" data-bind="content: 'bt-heading', virtual: true"&gt;
+        &lt;/div&gt;
+        &lt;div class="panel-body" data-bind="content: 'bt-body', virtual: true"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        <p>
+            Este componente utiliza el binding <code>content</code> para dividir el contenido utilizando selectores
+            <em>JQuery</em>. El primer <code>content</code> selecciona todos los nodos que se encuentran dentro del tag
+            <code>bt-heading</code> y lo muestra dentro del titulo de un panel <em>Bootstrap</em>, el segundo hace exactamente
+            lo mismo pero el contenido del tag <code>bt-body</code> lo muestra en el cuerpo del panel.
+            Por ejemplo, si se registra con el nombre <code>bootstrap-panel</code> se puede utilizar asi:
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-panel&gt;
+    &lt;!-- bt-heading --&gt;
+        Titulo de ejemplo
+    &lt;!-- /bt-heading --&gt;
+    &lt;!-- bt-body --&gt;
+        Lorem Ipsum?
+    &lt;!-- /bt-body --&gt;
+&lt;/bootstrap-panel&gt;
+        </code-highlight>
+
+
+    </span>
+

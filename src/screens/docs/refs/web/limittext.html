@@ -1,0 +1,68 @@
+
+    <span class="docs">
+        <h1>$$.limitText <small>Método</small></h1>
+        <hr/>
+        <p>
+            Corta la cadena en la cantidad de caracteres especificados, si el texto original es mas largo muestra puntos
+            suspensivos al final del texto. Esta función es util para mostrar el resumen de un texto indicando que el
+            mismo es mas largo. Se debe proporcionar al usuario alguna forma de poder ver el resto.
+        </p>
+        <h2>
+            <code>
+                limitText(value, limit)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>value</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        String al que se quiere limitar el largo.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>limit</code>
+                    </td>
+                    <td>
+                        <em>int</em>
+                    </td>
+                    <td>
+                        Limite de caracteres de la cadena. Si el largo de la original excede este limite se
+                        reemplazarán los ultimos 3 por puntos suspensivos.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            String cortado en el maximo de caracteres especificados.
+        </p>
+    </span>
+

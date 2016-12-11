@@ -1,16 +1,29 @@
-define(['quark',
+define([
+    'knockout',
+    'quark',
+    'json!./config/components/components.config.json',
+    'json!./config/components/screens.config.json',
+    'json!./config/routing/pages.config.json',
+    'json!./config/routing/params.config.json',
+    'json!./config/routing/routes.config.json',
+    './providers/controller.provider',
+    './validators/required.validator',
     'bootstrap',
-    'css!bootstrap/css',
-    'css!font-awesome/css',
     'qk-alchemy/main',
-    './controllerProvider',
-    './components',
-    './routing',
-    './validator'],
-    function($$) {
-
+    'css!font-awesome/css',
+    'css!bootstrap/css'
+], function(ko, $$, components, screens, pages, params, routes) {
     $$.loadCss('css/main.css');
 
+    // Register all components and screens
+    $$.registerComponents(components);
+    $$.registerComponents(screens);
+
+    // Configure the routing system
+    $$.routing.pages(pages, params);
+    $$.routing.mapRoute(routes);
+
+    // Start Quark Application
     $$.routing.activateHasher();
-    $$.routing.routed.add($$.start);
+    $$.start();
 });

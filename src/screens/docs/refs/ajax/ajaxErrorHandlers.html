@@ -1,0 +1,80 @@
+
+    <span class="docs">
+        <h1>$$.ajaxErrorHandlers <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            Permite definir manejadores de error por defecto para los errores que se produzcan al invocar a la función
+            <a data-bind="href: 'main/docs/refs-ajax'">ajax</a>. Cuando se produce un error en un servicio, la función verificará
+            si tiene un manejador definido en la propiedad <code>onError</code> del parámetro <code>callbacks</code> y en
+            caso afirmativo invocará esa función. Si dicha función no maneja correctamente el error o no está definida, iterará
+            las funciones definidas en <code>ajaxErrorHandlers</code> invocando una por una hasta que alguna devuelva
+            <code>true</code> indicando que pudo manejar la excepción.
+        </p>
+        <p>
+            Se pueden incorporar tantos manejadores por defecto como sea necesario agregando propiedades al objeto
+            <code>ajaxErrorHandlers</code>, cada propiedad debe ser una funcion con la siguiente firma:
+        </p>
+        <code>function(url, jqXHR, textStatus, errorThrown)</code>
+        <p>
+            <ul>
+                <li>
+                    <strong>url:</strong> Es la URL que se invocó cuando se produjo el error.
+                </li>
+                <li>
+                    <strong>jqXHR:</strong> Objeto <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">jqXHR</a> con datos
+                    importantes acerca del error y el propio Request. Es importante analizar este objeto para distinguir
+                    el tipo de error que se produjo. Por ejemplo, en el campo <code>status</code> se almacena el codigo de
+                    respuesta HTTP, por lo que se puede distinguir entre errores en el servidor, de permisos, o de red.
+                    El campo <code>responseJSON</code> devuelve un objeto <em>Javascript</em> con la respuesta si la misma
+                    vino en formato JSON, de la misma forma el campo <code>responseText</code> contiene el dato en formato
+                    string.
+                </li>
+                <li>
+                    <strong>textStatus:</strong> Tipo de error producido en formato string. Los valores posibles son (además
+                    de null si no se produjo ningún error), "timeout", "error", "abort", and "parsererror"
+                </li>
+                <li>
+                    <strong>errorThrown</strong>: Se envía la parte de texto del status HTTP, por ejemplo "Not Found" o
+                    "Internal Server Error".
+                </li>
+            </ul>
+        </p>
+        <p>
+            <em>Quark.js</em> llamará estos manejadores en el orden en que se definieron hasta que alguno devuelva true
+            indicando que pudo manejar el error.
+        </p>
+        <h3>Ejemplo</h3>
+        <hr/>
+        <p>
+            El siguiente ejemplo muestra dos manejadores de errores. El primero verifica en base al estado HTTP si es un error
+            del servidor, en tal caso, verifica en la respuesta si el error es solucionable por el usuario, si lo es,
+            muestra un popup y sino loguea el error y genera una excepción.
+            El otro manejador se encarga de loguear cualquier otro error que se produzca y mostrar un alerta al usuario.
+        </p>
+        <code-highlight>
+$$.ajaxErrorHandlers.server = function(url, jqXHR, textStatus, errorThrown) {
+    if (jqXHR.status &gt;= 500 && jqXHR.status &lt;= 599) {
+        if (jqXHR.responseJSON && jqXHR.responseJSON.userFixable) {
+            showPopup(jqXHR.responseJSON.text);
+        } else {
+            log(jqXHR.responseJSON);
+            throw new Error('Unhandled error');
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+$$.ajaxErrorHandlers.client = function(url, jqXHR, textStatus, errorThrown) {
+    if (jqXHR.status &lt; 500 && jqXHR.status &gt;= 600) {
+        log(jqXHR);
+        alert('An error has ocurred. Check your internet connection or contact support');
+    }
+
+    return false;
+}
+        </code-highlight>
+    </span>
+

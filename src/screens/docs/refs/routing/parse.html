@@ -1,0 +1,85 @@
+
+    <span class="docs">
+        <h1>$$.routing.parse <small>Método</small></h1>
+        <hr/>
+        <p>
+            Parsea la ruta especificada y cambia a la pagina correspondiente seteando ademas el valor de las variables de dicha
+            página. Puede ser invocado desde cualquier objeto pero su uso mas común es dentro de la función customizada
+            que se puede pasar al método <a data-bind="href: 'main/docs/refs-routing-activatehasher'">activateHasher</a>
+            para disparar el tratamiento por parte de <em>Quark.js</em> de la nueva ruta.
+        </p>
+        <h2>
+            <code>
+                parse(hash)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>hash</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Hash que se debe parsear.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Para mas información ingrese a <a data-bind="href: 'main/docs/basics-routes'">este articulo</a>
+        </p>
+
+        <h3>
+            Ejemplo
+        </h3>
+        <hr />
+        <p>
+            El siguiente ejemplo extrae del hash especificado por el usuario la primer parte y asume que es el lenguaje,
+            luego parsea el resto del hash.
+        </p>
+        <code-highlight>
+$$.routing.activateHasher(function(oldHash, newHash) {
+    var index = newHash.indexOf('/');
+    var language = newHash.substring(0, index);
+    var hash = newHash.substring(index + 1);
+
+    setLanguage(language);
+
+    $$.routing.parse(newHash);
+});
+        </code-highlight>
+    </span>
+

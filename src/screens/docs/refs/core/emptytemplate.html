@@ -1,0 +1,48 @@
+
+    <span class="docs">
+        <h1>$$.emptyTemplate <small>Método</small></h1>
+        <hr/>
+        <p>
+            Devuelve un template vacío. Util para definir componentes que son invisibles en el navegador como por ejemplo un
+            origen de datos.
+        </p>
+        <h2>
+            <code>
+                emptyTemplate()
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <p>
+            Ninguno.
+        </p>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Un template de componente <em>Quark.js</em> vacío.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+// The component doesn't load a template
+define(['quark', 'knockout'], function($$, ko) {
+    function ExampleComponent(params, $scope, $imports) {
+        var self = this;
+
+        // Do something
+    }
+
+    // Pass the emptyTemplate
+    return $$.component(ExampleComponent, $$.emptyTemplate());
+});
+        </code-highlight>
+    </span>
+

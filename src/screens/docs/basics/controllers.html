@@ -1,0 +1,189 @@
+
+    <span class="docs">
+        <h1>Controladores</h1>
+        <hr />
+        <p>
+            Los controladores permiten enlazar y coordinar todos los componentes que se hayan definido en los segmentos de la
+            pagina cargada en el navegador.
+        </p>
+        <p>
+            Un controlador es, básicamente, un modulo web que debe devolver la clase del controlador. <em>Quark.js</em>
+            utiliza un <a data-bind="href: 'main/docs/refs-core-controllerprovider'">proveedor</a> que por defecto intenta
+            cargar el controlador de un módulo buscándolo dentro de la carpeta <code>controller</code> del sitio y tomando
+            el nombre de la ruta como path al módulo.
+        </p>
+        <p>
+            Por ejemplo, si la ruta es <code>main/customer/editor</code>, <em>Quark.js</em> intentará cargar 3 controladores:<br/>
+            <div class="well">
+                <p>
+                    <code>controller/main.js</code><br/>
+                    <code>controller/main/customer.js</code><br/>
+                    <code>controller/main/customer/editor.js</code><br/>
+                </p>
+            </div>
+        </p>
+        <p>
+            Los controladores siguen la misma lógica que los componentes cuando se navega entre las
+            <a data-bind="href: 'main/docs/basics-pages'">páginas</a>.
+            Sólo los controladores de los segmentos que difieren entre la página anterior y la nueva son modificados al cambiar
+            de página.
+        </p>
+        <p>
+            Si desde el ejemplo anterior se navega a la ruta <code>main/customer/viewer</code>, <em>Quark.js</em> sólo intentará
+            cargar el controlador <code>controller/main/customer/viewer.js</code>.
+        </p>
+        <p>
+            Si el controlador para un segmento específico no se encuentra definido <em>Quark.js</em> crea uno por defecto.
+        </p>
+        <p>
+            <em>Quark.js</em> envía al constructor del controlador como parámetro la referencia al controlador padre. Si el
+            controlador es el raíz, se envía <code>undefined</code>.
+        </p>
+        <p>
+            Una vez que <em>Quark.js</em> creó y ejecutó el controlador, crea 3 propiedades en el controller:
+            <ul>
+                <li>
+                    <code>parent</code> esta propiedad contendrá la referencia al controlador padre (el mismo objeto que se envía
+                    como primer parametro al constructor del controlador). Si el controlador es el raíz, esta propiedad directamente
+                    no se crea.
+                </li>
+                <li>
+                    <code>outlets</code> es un objeto con una propiedad por cada <code>outlet</code> definido en el segmento
+                    de la página correspondiente al controlador. El nombre de la propiedad es igual al nombre del
+                    <code>outlet</code> y el valor es el nombre del tag del componente que se está mostrando en dicho
+                    <code>outlet</code>.
+                </li>
+                <li>
+                    <code>params</code> es un objeto con una propiedad por cada parametro definido en el segmento de la página
+                    correspondiente al controlador. El nombre de la propiedad es igual al nombre del parametro de la pagina
+                    y la propiedad apunta al observable definido como parámetro en la configuración del página.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Los componentes definidos en cada segmento de la página se importan automáticamente con el nombre del <code>outlet</code>
+            al controlador correspondiente, <em>Quark.js</em> envía como segundo parámetro al controlador
+            el <a data-bind="href: 'main/docs/basics-imports'">tracker</a> para acceder a estos modelos.
+        </p>
+        <p>
+            Por ejemplo, teniendo en cuenta esta configuración:
+            <code-highlight>
+define(['quark'], function($$) {
+    var config = {
+        'main':             { navbar:   'navbar-component' },
+        'main/home':        { body:     'main-home' },
+        'main/about':       { body:     'main-about' },
+        'docs':             { navbar:   'docs-navbar-component' },
+        'docs/home':        { body:     'docs-home' },
+        'docs/basics':      { navbar:   'alt-navbar',
+                              body:     'docs-basics' }
+    };
+
+    var params = {
+        'main/home':        { language: 'es' },
+        'main/about':       [ 'param1', 'param2' ]
+    }
+
+    var routes = {
+        'main/home':                ':language:',
+        'main/about':               'about',
+        'docs/about':               'docs',
+        'docs/basics':              'docs/basics'
+    }
+
+    $$.routing.pages(config, params);
+    $$.routing.mapRoute(routes);
+});
+            </code-highlight>
+            Se puede definir un controlador en <code>controller/main/home.js</code> como:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function MainHomeController(parent, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var homeModel = $imports.get('body');
+        });
+    }
+});
+            </code-highlight>
+            En <code>homeModel</code> se almacenará el modelo del componente <code>main-home</code>
+        </p>
+        <p>
+            Se puede utilizar los controladores enviar parámetros a los componentes que se
+            definieron para los <code>outlet</code> del segmento al que corresponden. Para esto, <em>Quark.js</em>
+            busca si en el controlador hay definido un método <code>sendParameters</code>, si es así, lo ejecuta
+            enviando el nombre del outlet y el nombre del tag del componente como parámetros, esta función debe
+            devolver un objeto con el nombre y valor de los parámetros que se deben enviar el componente.
+        </p>
+        <p>
+            Por ejemplo, agregando la función al ejemplo anterior:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function MainHomeController(parent, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var homeModel = $imports.get('body');
+        });
+
+        this.color = ko.observable('red');
+
+        this.sendParameters = function(name) {
+            switch(name) {
+                case 'body':
+                    return { text: 'test', headerColor: self.color };
+            }
+        }
+    }
+});
+            </code-highlight>
+            Ahora se envía dos parámetros al componente <code>main-home</code>, <code>text</code> con el literal "test" y
+            <code>headerColor</code> con el observable <code>color</code> del controlador.
+            Esto permite utilizar variables y observables del controlador para controlar y coordinar los componentes de la
+            página.
+        </p>
+        <p>
+            La propiedad params se puede utilizar para reenviar los parametros de la página a un componente permitiendo que
+            el componente reacciones a dichos parametros y a su vez al hash especififcado en la ruta.
+        </p>
+        <p>
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function MainHomeController(parent, $imports) {
+        var self = this;
+
+        $$.wait($imports.ready, function() {
+            var homeModel = $imports.get('body');
+        });
+
+        this.color = ko.observable('red');
+
+        this.sendParameters = function(name) {
+            switch(name) {
+                case 'body':
+                    return { text: self.params['language'], headerColor: self.color };
+            }
+        }
+    }
+});
+            </code-highlight>
+            Aquí se modificó el ejemplo anterior para que como parámetro <code>text</code> se envíe el parametro
+            <code>language</code> de la página, que a su vez lo toma del parametro de la ruta.
+        </p>
+        <p>
+            Se puede definir un método <code>init</code> en el controlador que <em>Quark.js</em> invocará al finalizar el ruteo,
+            cuando ya este cargado todo el arbol de controladores, creados los parametros y seteado su valor.
+            <span class="text-danger">Cuidado que esto no implica que el controlador este "Listo".</span>
+        </p>
+        <p>
+            Finalmente se puede definir un método <code>dispose</code> que se ejecutará cuando se descarga el controlador
+            al cambiar de página permitiendo liberar los recursos utilizados en dicho controlador.
+        </p>
+
+        <nav-next-prev params="previousText: 'Rutas', previousPage: 'main/docs/basics-routes',
+                               nextText: 'Sincronización', nextPage: 'main/docs/basics-sync'">
+
+        </nav-next-prev>
+    </span>
+

@@ -1,0 +1,117 @@
+
+    <span class="docs">
+        <h1>$$.behaviours.define <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite definir y registrar un nuevo <a data-bind="href: 'main/docs/basics/behaviours'">behaviour</a>.
+        </p>
+        <h2>
+            <code>
+                define(name, behaviour [, dispose])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del behaviour
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>behaviour</code>
+                    </td>
+                    <td>
+                        <em>Función</em>
+                    </td>
+                    <td>
+                        Función que debe tener la siguiente firma:<br />
+                        <code>function(target, config)</code><br />
+                        La función debe crear en el objeto <code>target</code> todas las propiedades y métodos asociadas
+                        al behaviour basandose en la configuración del behaviour enviada en el parámetro <code>config</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>dispose</code>
+                    </td>
+                    <td>
+                        <em>Función</em>
+                    </td>
+                    <td>
+                        Función que debe tener la siguiente firma:<br />
+                        <code>function(target)</code><br />
+                        Esta función se invoca al llamar a la función
+                        <a data-bind="href: 'main/docs/refs-behaviours-dispose'">dispose</a> y debe liberar los recursos
+                        tomados por el behaviour del objeto que se pasa como parámetro en <code>target</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    $$.behaviour.define('alert-model', function(target, config) {
+        var default = config.type || 'info';
+        var prefix = config.prefix || 'text';
+
+        target.title = ko.observable();
+        target.text = ko.observable();
+        target.type = ko.observable(default);
+
+        target.style = ko.computed(function() {
+            var type = target.type();
+
+            switch(type) {
+                case 'default':
+                case 'primary':
+                case 'info':
+                case 'warning':
+                case 'danger':
+                    return prefix + '-' + type;
+                default:
+                    return prefix + '-default';
+            }
+        });
+    }, function(target) {
+        target.style.dispose();
+    });
+});
+        </code-highlight>
+    </span>
+

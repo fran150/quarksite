@@ -1,0 +1,44 @@
+
+    <span class="docs">
+        <h1>$$.signal <small>Método</small></h1>
+        <hr/>
+        <p>
+            Genera y devuelve una señal que permite suscribir y ejecutar funciones cada vez que se produce un evento.
+            <em>Quark.js</em> utiliza la librería <a href="https://millermedeiros.github.io/js-signals/">signals.js</a>
+            de <a href="http://blog.millermedeiros.com/">Miller Medeiros</a>.
+            Para mas documentación acerca de las señales consulte el <a href="https://millermedeiros.github.io/js-signals">sitio</a>
+            o la página de  <a href="https://millermedeiros.github.io/js-signals/docs/index.html">documentación</a>
+        </p>
+        <h2>
+            <code>
+                signal()
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <p>
+            Ninguno.
+        </p>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Objeto <a href="https://millermedeiros.github.io/js-signals/docs/symbols/Signal.html">Signal</a>.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Las funciones suscriptas a la señal se ejecutarán cada vez que se dispare el evento. Para evitar leaks de memoria
+            es conveniente eliminar todas las suscripciones de la señal cuando el objeto en el que se encuentra se este
+            eliminando. Para esto se puede usar la función <a data-bind="href: 'main/docs/refs-signalclear'">signalClear</a>
+            que es un wrapper de <a href="https://millermedeiros.github.io/js-signals/docs/symbols/Signal.html#removeAll">removeAll</a>
+        </p>
+    </span>
+

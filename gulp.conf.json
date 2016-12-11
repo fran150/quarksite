@@ -1,0 +1,46 @@
+{
+    "uglify": true,
+    "include": [
+        "screens/_layout/main.screen",
+        "screens/_navbar/main/left.screen",
+        "screens/_navbar/main/right.screen",
+        "screens/_sidebar/docs.screen",
+        "screens/_sidebar/module.screen",
+        "screens/_container/simple.screen",
+        "screens/_container/sidebar.screen",
+        "screens/home.screen",
+        "controllers/main.controller",
+        "controllers/main/home.controller"
+    ],
+    "externals": [
+        "qk-alchemy"
+    ],
+    "bundles": {
+        "docs": [
+            "components/code/highlight.component",
+            "components/nav/next-prev.component",
+            "components/example/component.component",
+            "components/example/other.component",
+            "components/example/scope.component",
+            "components/example/validation.component",
+            "components/example/content-no-params.component",
+            "components/example/content-params.component",
+            "components/static/content.component",
+            "controllers/main/docs.controller",
+            "controllers/main/docs/static.controller"
+        ],
+        "library": [
+            "components/library/finder/form.component",
+            "components/library/finder/results.component",
+            "screens/library/finder.screen",
+            "screens/library/module.screen",
+            "screens/library/component.screen",
+            "controllers/main/library.controller",
+            "controllers/main/library/finder.controller",
+            "controllers/main/library/modules.controller",
+            "controllers/main/library/modules/component.controller",
+            "controllers/main/library/modules/module.controller",
+            "services/modules.service"
+        ]
+    }
+}

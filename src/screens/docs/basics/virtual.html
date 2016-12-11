@@ -1,0 +1,133 @@
+
+    <span class="docs">
+        <h1>Componentes virtuales</h1>
+        <hr />
+        <p>
+            Muchas veces se desarrollan componentes que requieren una estructura bien definida en el HTML para que tomen estilos
+            o funcionalidad, sobre todo cuando se utilizan librerías de terceros como pueden ser componentes de <em>JQuery</em>
+            o <em>Bootstrap</em>.
+        </p>
+        <p>
+            Por ejemplo, considere los siguientes ejemplos que encapsulan en componentes las partes de un
+            <a href="http://getbootstrap.com/components/#dropdowns-example">Dropdown</a> de <em>Bootstrap</em>:
+        </p>
+        Componente "bootstrap-dropdown":
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="dropdown"&gt;
+        &lt;button class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bind="text: model.text"&gt;
+            &lt;span class="caret"&gt;&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;ul class="dropdown-menu" data-bind="content"&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        Componente "bootstrap-dropdown-item":
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;li data-bind="css: active, text: model.text"&gt;
+        &lt;a href="#" data-bind="click: onClick"&gt;&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        Componente "bootstrap-dropdown-separator":
+        <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;li class="divider"&gt;
+    &lt;/li&gt;
+&lt;/quark-component&gt;
+        </code-highlight>
+        <p>
+            El binding <code>content</code> se utiliza para llenar el contenido de la lista de elementos del desplegable
+            dentro del tag <code>ul</code>. Por lo que :
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-dropdown&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 1', active: true"&gt;&lt;/bootstrap-dropdown-item&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 2'"&gt;&lt;/bootstrap-dropdown-item&gt;
+    &lt;bootstrap-dropdown-separator&gt;&lt;/bootstrap-dropdown-separator&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 3'"&gt;&lt;/bootstrap-dropdown-item&gt;
+&lt;/bootstrap-dropdown&gt;
+        </code-highlight>
+        <p>
+            Y sin embargo asi no funcionaría, debido a que tanto los tags custom de los componentes, como los tags
+            <code>quark-component</code> iterrumpirían en los <code>ul > li</code> y <em>Bootstrap</em> no les aplicaría
+            correctamente el estilo.
+        </p>
+        <p>
+            Para esto <em>Quark.js</em> y <em>Knockout.js</em> permite definir estos elementos como Tags virtuales.
+            Para transformar el tag <code>quark-component</code> en virtual se debe utilizar como si fuera un comentario
+            HTML:
+            <code-highlight params="language: 'html'">
+&lt;!-- quark-component --&gt;
+    &lt;li data-bind="css: active, text: model.text"&gt;
+        &lt;a href="#" data-bind="click: onClick"&gt;&lt;/a&gt;
+    &lt;/li&gt;
+&lt;!-- /quark-component --&gt;
+            </code-highlight>
+            <code-highlight params="language: 'html'">
+&lt;!-- quark-component --&gt;
+    &lt;li class="divider"&gt;
+    &lt;/li&gt;
+&lt;!-- /quark-component --&gt;
+            </code-highlight>
+        </p>
+        <p>
+            <em>Knockout</em> permite definir bindings utilizando tags virtuales, por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;!-- ko if: visible --&gt;
+    &lt;h1&gt;Listado&lt;/h1&gt;
+
+    &lt;ul&gt;
+        &lt;!-- ko foreach: items --&gt;
+            &lt;li data-bind="text: nombre"&gt;&lt;/li&gt;
+        &lt;!-- /ko --&gt;
+    &lt;/ul&gt;
+&lt;!-- /ko --&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Con esto en mente, se puede utilizar el binding <code>component</code> para mostrar un componente utilizando
+            tags virtuales, por ejemplo:
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-dropdown&gt;
+    &lt;!-- ko component: { name: 'bootstrap-dropdown-item', params: { text: 'Opcion 1', active: true } --&gt;&lt;!-- /ko --&gt;
+    &lt;!-- ko component: { name: 'bootstrap-dropdown-item', params: { text: 'Opcion 2' } --&gt;&lt;!-- /ko --&gt;
+    &lt;!-- ko component: { name: 'bootstrap-dropdown-separator' } --&gt;&lt;!-- /ko --&gt;
+    &lt;!-- ko component: { name: 'bootstrap-dropdown-item', params: { text: 'Opcion 3' } --&gt;&lt;!-- /ko --&gt;
+&lt;/bootstrap-dropdown&gt;
+        </code-highlight>
+        <p>
+            Esto hará que <em>Quark.js</em> interprete correctamente estos elementos, pero para bootstrap los tags de los
+            componentes y los <code>quark-componentes</code> serán simples comentarios por lo que verá correctamente
+            los <code>li</code> dentro de los <code>ul</code> y aplicará correctamente el estilo.
+        </p>
+        <p>
+            Finalmente, <em>Quark.js</em> ofrece una forma de convertir el tag de un componente común en virtual. Esto se
+            logra facilmente seteando el atributo virtual en los componentes, por ejemplo:
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-dropdown&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 1', active: true" virtual&gt;&lt;/bootstrap-dropdown-item&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 2'" virtual&gt;&lt;/bootstrap-dropdown-item&gt;
+    &lt;bootstrap-dropdown-separator virtual&gt;&lt;/bootstrap-dropdown-separator&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 3'" virtual&gt;&lt;/bootstrap-dropdown-item&gt;
+&lt;/bootstrap-dropdown&gt;
+        </code-highlight>
+        <p>
+            Cuando <em>Quark.js</em> detecta el atributo <code>virtual</code> en el tag custom de un componente transforma
+            automáticamente el tag a la notación con el binding virtual <code>component</code>.
+        </p>
+        <div class="alert alert-danger">
+            <strong>Cuidado!</strong> Los tags virtuales son mas dificiles de procesar por lo que se debe minimizar su uso
+            a donde sean estrictamente necesarios.
+        </div>
+        <nav-next-prev params="previousText: 'Content', previousPage: 'main/docs/basics-content',
+                               nextText: 'AJAX', nextPage: 'main/docs/basics-ajax'">
+
+        </nav-next-prev>
+
+    </span>
+

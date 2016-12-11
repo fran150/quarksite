@@ -1,0 +1,162 @@
+    <span class="docs">
+        <h1>Behaviours</h1>
+        <hr />
+        <p>
+            Los behaviours o comportamientos permiten ejecutar código para crear propiedades, métodos y agregar funcionalidad
+            a un objeto Javascript. De esta forma se pueden crear objetos y aplicarles un behaviour en particular para darle el
+            comportamiento deseado. De forma similar a las clases y objetos en otros lenguajes de programación, los objetos que
+            tengan un comportamiento aplicado tendrán todas las propiedades y métodos que ese comportamiento define.
+        </p>
+        <p>
+            Se pueden aplicar multiples comportamientos a un objeto, y se puede además verificar que comportamientos tiene
+            aplicado un determinado objeto, de forma que por ejemplo una función puede validar si un objeto que le llega por
+            parametro tiene un behaviour especifico y con esto se asegura que el objeto poseerá una serie de métodos y
+            propiedades definidos por dicho behaviour, de forma muy similar a lo que sería una interfase.
+        </p>
+        <p>
+            Para definir un behaviour se debe utilizar la función <code>behaviour.define</code> de <em>Quark.js</em>. Esta
+            función admite tres parámetros.
+            <ul>
+                <li>
+                    Un string con el nombre del behaviour
+                </li>
+                <li>
+                    Una función que recibe dos parámetros, el objeto destino y la configuración del behaviour. Esta función
+                    debe, en base a la configuración del behaviour, crear sobre el objeto destino todas las propiedades
+                    y métodos correspondientes.
+                </li>
+                <li>
+                    Una función que toma el objeto destino y libera los recursos tomados por el behaviour.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    $$.behaviour.define('alert-model', function(target, config) {
+        var default = config.type || 'info';
+        var prefix = config.prefix || 'text';
+
+        target.title = ko.observable();
+        target.text = ko.observable();
+        target.type = ko.observable(default);
+
+        target.style = ko.computed(function() {
+            var type = target.type();
+
+            switch(type) {
+                case 'default':
+                case 'primary':
+                case 'info':
+                case 'warning':
+                case 'danger':
+                    return prefix + '-' + type;
+                default:
+                    return prefix + '-default';
+            }
+        });
+    }, function(target) {
+        target.style.dispose();
+    });
+});
+            </code-highlight>
+            En el ejemplo anterior se define un comportamiento llamado <code>alert-model</code>, dicho comportamiento crea
+            cuatro propiedades en el objeto destino:
+            <ul>
+                <li>
+                    Tres observables <code>title</code>, <code>text</code> y <code>type</code>
+                </li>
+                <li>
+                    Un computed observable <code>style</code> que devuelve un estilo bootstrap en base a la propiedad
+                    <code>type</code>
+                </li>
+            </ul>
+        </p>
+        <p>
+            También se puede especificar en la configuración del behaviour el valor por defecto para la propiedad
+            <code>type</code>. Por ultimo se especifica una función que al eliminar el behaviour realiza el dispose
+            del computed observable.
+        </p>
+        <p>
+            Para aplicar el comportamiento a un objeto se debe primero cargar el modulo que lo contiene y luego
+            utilizar la función <code>behaviour.apply</code> especificando el nombre del behaviour, el objeto destino y la
+            configuración.
+        </p>
+        <p>
+            Si se guardó el behaviour del ejemplo anterior en el archivo <code>behaviours/alert-model.js</code>, se puede
+            escribir un componente que aplique dicho behaviour:
+            <code-highlight>
+define(['quark', 'knockout', 'behaviours/alert-model', 'text!./component-example'], function($$, ko, template) {
+    function ComponentExample(params, $scope, $imports) {
+        var self = this;
+
+        $$.behaviour.apply('alert-model', self, { type: 'danger', prefix: 'panel' });
+
+        this.dispose = function() {
+            $$.behaviours.dispose(self);
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Una vez aplicado el behaviour al modelo del componente, dicho componente contará con las propiedades y métodos
+            definidos en el behaviour. Por lo que se puede escribir la vista para el componente teniendo en cuenta esto.
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="panel" data-bind="css: model.style"&gt;
+        &lt;div class="panel-heading" data-bind="text: model.title"&gt;
+        &lt;/div&gt;
+        &lt;div class="panel-body" data-bind="text: model.text"&gt;
+        &lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Una de las ventajas de esto es que, por ejemplo, se puede crear otro componente con la misma "interfaz" pero
+            distinta vista aplicando en su modelo el mismo comportamiento. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'behaviours/alert-model', 'text!./component-example2'], function($$, ko, template) {
+    function ComponentExample2(params, $scope, $imports) {
+        var self = this;
+
+        $$.behaviour.apply('alert-model', self, { type: 'danger', prefix: 'alert' });
+
+        this.dispose = function() {
+            $$.behaviours.dispose(self);
+        }
+    }
+
+    return $$.component(ComponentExample2, template);
+});
+            </code-highlight>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;div class="alert" data-bind="css: model.style"&gt;
+        &lt;strong data-bind="text: model.title"&gt;&lt;/strong&gt;
+        &lt;span data-bind="text: model.text"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Se pueden aplicar varios comportamientos al mismo objeto para dotarlo fácilmente de funcionalidad. Además esto
+            permite que cualquier modificación en el funcionamiento de un behaviour, ya sea por un cambio de
+            requerimiento o ajustes de bugs, impacta automáticamente en todos los objetos que lo utilicen.
+        </p>
+        <p>
+            Finalmente, se debe utilizar el método <code>behaviour.dipose</code> de <em>Quark.js</em> para eliminar el
+            behaviour del objeto permitiendo liberar recursos.
+        </p>
+
+        <nav-next-prev params="previousText: 'Sincronización', previousPage: 'main/docs/basics-sync',
+                               nextText: 'Namespaces', nextPage: 'main/docs/basics-namespaces'">
+
+        </nav-next-prev>
+
+    </span>
+

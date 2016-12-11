@@ -1,0 +1,80 @@
+
+    <span class="docs">
+        <h1>$$.registerComponent <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite registrar un componente. <em>Quark.js</em> asocia el Tag HTML con el que se utilizará el componente con el
+            modelo del mismo.
+        </p>
+        <h2>
+            <code>
+                registerComponent(tag, url)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>tag</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del tag con el que se registrará el componente.,
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>url</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Url en donde se debe obtener el modelo del componente.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            <code-highlight>
+define(['quark'], function($$) {
+    $$.registerComponent('component-example', 'components/component-example');
+});
+            </code-highlight>
+            En el ejemplo anterior se define un modulo que registra el tag <code>component-example</code> con el componente
+            ubicado en <code>./components/component-example.js</code>.
+        </p>
+    </span>
+

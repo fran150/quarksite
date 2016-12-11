@@ -2,3 +2,5 @@
 # https://help.github.com/articles/ignoring-files
 # Example .gitignore files: https://github.com/github/gitignore
 /src/bower_modules/
+/node_modules
+/dist/bower_modules

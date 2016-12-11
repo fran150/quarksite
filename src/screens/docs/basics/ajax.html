@@ -1,0 +1,237 @@
+    <span class="docs">
+        <h1>AJAX</h1>
+        <hr />
+        <p>
+            Para el acceso a datos a través de servicios web <em>Quark.js</em> proporciona un wrapper de la función
+            <a href="http://api.jquery.com/jquery.ajax/">ajax</a> de <em>JQuery</em>.
+            Se puede, además, definir una configuración por defecto, configurar un manejo de errores centralizado
+            y un flujo de autorización para aquellos request que requieran autenticación.
+        </p>
+        <p>
+            El método <code>ajax</code> de <em>Quark.js</em> permite invocar una URL con AJAX, esta función admite los
+            siguientes parametros:
+            <ul>
+                <li>
+                    <code>url</code>: Url a invocar.
+                </li>
+                <li>
+                    <code>method</code>: Método HTTP de invocación (GET, POST, PUT, DELETE)
+                </li>
+                <li>
+                    <code>data</code>: Objeto JSON con los datos a enviar
+                </li>
+                <li>
+                    <code>callbacks</code>: Función a invocarse cuando el Request finaliza. Se puede pasar una función
+                    o un objeto.
+                    <ul>
+                        <li>
+                            Si se especifica una función la misma se invocará si el Request finaliza correctamente y se pasará
+                            como parametros los datos recibidos.
+                        </li>
+                        <li>
+                            Si se especifica un objeto, el mismo puede poseer los siguientes métodos:
+                            <ul>
+                                <li>
+                                    <code>onSuccess</code>: que se invocará cuando el Request finalizó correctamente pasando
+                                    los datos recibidos como parámetros.
+                                </li>
+                                <li>
+                                    <code>onError</code>: que se invocará si el Request dio error pasando el objeto
+                                    <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">XHR</a>, el texto del status y el error generado.
+                                    Esta función debe intentar manejar el error y en caso de éxito devolver true, si no puede manejar
+                                    el error y devuelve false el error se pasará a los manejadores por defecto (como se verá mas adelante).
+                                </li>
+                                <li>
+                                    <code>onComplete</code>: que se invocará siempre que finalice el Request no importa si
+                                    lo hizo correctamente o con error.
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <code>auth</code>: Boolean que permite especificar si se debe autenticar el request (como se verá mas
+                    adelante).
+                </li>
+                <li>
+                    <code>options</code>: Conjunto de pares clave / valor que sobreescriben la configuración por defecto.
+                    Es un wrapper del parámetro <a href="http://api.jquery.com/jquery.ajax/">settings</a> de la función
+                    <code>ajax</code> de <em>JQuery</em>.
+                </li>
+            </ul>
+        </p>
+        <h2>Configuración por Defecto</h2>
+        <hr/>
+        <p>
+            Utilizando el objeto <code>ajaxConfig</code> de <em>Quark.js</em> se puede definir una configuración por defecto
+            para todos los Request realizados con la funcion <code>ajax</code>. La configuración es la misma que la del
+            parámetro <a href="http://api.jquery.com/jquery.ajax/">settings</a> de la función de <em>JQuery</em>
+        </p>
+        <p>
+            <em>Quark.js</em> define los siguientes parámetros por defecto:
+            <code-highlight>
+$$.ajaxConfig = {
+    contentType: 'application/json',
+    dataType : 'json',
+    async: true,
+    cache: false
+}
+            </code-highlight>
+        </p>
+        <h2>Flujo de Autorización</h2>
+        <hr/>
+        <p>
+            Si se invoca a la función <code>ajax</code> con el parámetro <code>auth</code> en <code>true</code>,
+            <em>Quark.js</em> utilizará el flujo de autenticación para tratar de validar el Request enviando las credenciales
+            al servidor. Para esto se invocan tres funciones que pueden ser modificadas a través de la propiedad
+            <code>authorization</code> de <code>ajaxConfig</code>.
+        </p>
+        <p>
+            <ul>
+                <li>
+                    El método <code>authorization.has</code> debe verificar si se cuentan con credenciales válidas para
+                    envíar con el Request y devolver <code>true</code>, o <code>false</code> en caso contrario.
+                </li>
+                <li>
+                    El método <code>configAuthorization</code> recibe como parametro un objeto con la configuración para
+                    el Request que se va a realizar, debe modificarlo y devolverlo incluyendo lo necesario para que el
+                    servidor pueda válidar dicho Request.
+                </li>
+                <li>
+                    El método <code>authorize</code> se invoca cuando no se cuentan con credenciales para autenticar
+                    correctamente el Request. Recibe como parámetro un objeto con la configuración para
+                    el Request que se va a realizar y un callback para indicar cuando terminó.
+                    Debe realizar lo necesario para obtener las credenciales de autenticación, por ejemplo invocar a
+                    un servicio para obtener un Token, o mostrar un Popup al usuario que le permita ingresar nombre de usuario
+                    y contraseña. Una vez obtenidas las credenciales las debe almacenar de tal forma que
+                    la función <code>has</code> pueda validarlas, y la función <code>configAuthorization</code> pueda leerlas
+                    posteriormente. Finalmente debe invocar al callback indicando que termino y pasando como parámetro un
+                    boolean indicando si pudo obtener correctamente dichas credenciales. Cualquier Request AJAX que se haga
+                    dentro de esta función <u>no</u> ejecutará el flujo de Autorización.
+                </li>
+            </ul>
+        </p>
+        <p>
+            El siguiente ejemplo muestra la configuración del flujo de autorización en un esquema con
+            <a href="http://jwt.io/">JWT</a> y Windows Authetication:
+            <code-highlight>
+define(["knockout", "quark"], function(ko, $$) {
+    $$.ajaxConfig.authorization = {
+        // Verifies if there's a JWT in session storage
+        has: function() {
+            var token = sessionStorage.getItem("token");
+
+            return ($$.isDefined(token) && token);
+        },
+
+        // Configures request to send token as header
+        configAuthorization: function(opts) {
+            // Gets the token from session storage
+            var token = sessionStorage.getItem("token");
+
+            // Adds it as a header of the request
+            opts.headers = {
+                token: token
+            };
+
+            // Returns the customized ajax config for this request
+            return opts;
+        },
+
+        // Tries to get token from a server using windows authentication
+        authorize: function(callback) {
+            // Configs XHR to send windows credentials
+            var opts = {
+                xhrFields: {
+                    withCredentials: true
+                }
+            };
+
+            // Invokes the service passing windows credentials
+            $$.ajax('http://some-url-to-get-token.com/auth', 'GET', {}, {
+                onSuccess: function(data) {
+                    // If Ok set the new token on session storage
+                    sessionStorage.setItem("token", data);
+
+                    // Invokes the callback to resume normal flow
+                    callback(true);
+                },
+                onError: function(jqxhr, textStatus, errorThrown) {
+                    // Throw error to the user
+                    alert('Error When Trying to Authenticate on Server');
+
+                    // Invokes the callback to finish authorization
+                    callback(false);
+                }
+            }, false, opts);
+        }
+    }
+            </code-highlight>
+        </p>
+        <h2>Manejo de errores</h2>
+        <hr/>
+        <p>
+            <em>Quark.js</em> permite definir manejadores de error por defecto para los Request ajax. Para esto define la
+            colección <code>ajaxErrorHandlers</code> donde cada propiedad es un método que recibe como parámetros:
+            <ul>
+                <li>
+                    <code>url</code>: La url que se invocó al momento del error.
+                </li>
+                <li>
+                    <code>jqXHR</code>: El objeto <a href="http://api.jquery.com/jQuery.ajax/#jqXHR">XHR</a> de <em>JQuery</em>.
+                    A través de este objeto se puede evaluar el codigo de respuesta HTTP y obtener el JSON o texto si el error
+                    se produjo en el servidor.
+                </li>
+                <li>
+                    <code>textStatus</code>: Un string describiendo el tipo de error. Los valores posibles son (además de null
+                    si no se produjo ningún error), "timeout", "error", "abort", and "parsererror"
+                </li>
+                <li>
+                    <code>errorThrown</code>: Recibe la parte de texto del status HTTP, por ejemplo "Not Found" o "Internal
+                    Server Error".
+                </li>
+            </ul>
+        </p>
+        <p>
+            Cuando se produce un error invocando a una URL vía el método <code>ajax</code>, <em>Quark.js</em> verifica si se
+            especificó un método <code>onError</code> en el parámetro <code>callbacks</code>, si existe lo invoca para
+            intentar manejar el error. Si el método devuelve algo distinto de <code>true</code> asume que no se pudo manejar
+            el error y comienza a recorrer los manejadores invocando en orden a cada uno hasta que uno indique
+            que pudo manejar el error correctamente.
+        </p>
+        <p>
+            El siguiente ejemplo muestra dos manejadores de errores. El primero verifica en base al estado HTTP si es un error
+            del servidor, en tal caso, verifica en la respuesta si el error es solucionable por el usuario, si lo es
+            muestra un popup y sino loguea el error y genera una excepción.
+            El otro manejador se encarga de loguear cualquier otro error que se produzca y mostrar un alerta al usuario.
+            <code-highlight>
+$$.ajaxErrorHandlers.server = function(url, jqXHR, textStatus, errorThrown) {
+    if (jqXHR.status &gt;= 500 && jqXHR.status &lt;= 599) {
+        if (jqXHR.responseJSON && jqXHR.responseJSON.userFixable) {
+            showPopup(jqXHR.responseJSON.text);
+        } else {
+            log(jqXHR.responseJSON);
+            throw new Error('Unhandled error');
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+$$.ajaxErrorHandlers.client = function(url, jqXHR, textStatus, errorThrown) {
+    if (jqXHR.status &lt; 500 && jqXHR.status &gt;= 600) {
+        log(jqXHR);
+        alert('An error has ocurred. Check your internet connection or contact support');
+    }
+
+    return false;
+}
+            </code-highlight>
+        </p>
+        <nav-next-prev params="previousText: 'Virtual', previousPage: 'main/docs/basics-virtual',
+                               nextText: 'Módulos', nextPage: 'main/docs/basics-modules'">
+
+        </nav-next-prev>
+    </span>

@@ -1,0 +1,25 @@
+{
+    "main":                                 {
+                                                "layout": "layout-main",
+                                                "navbar-left": "navbar-main-left",
+                                                "navbar-right": "navbar-main-right",
+                                                "container": "container-simple"
+                                            },
+
+    "main/home":                            { "main": "screens-home" },
+
+    "main/docs":                            {
+                                                "sidebar": "sidebar-docs",
+                                                "container": "container-sidebar",
+                                                "main": "static-content"
+                                            },
+
+    "main/library/finder":                  { "main": "screens-library-finder" },
+
+    "main/library/modules":                 {
+                                                "sidebar": "sidebar-module",
+                                                "container": "container-sidebar"
+                                            },
+    "main/library/modules/module":          { "main": "screens-library-module" },
+    "main/library/modules/component":       { "main": "screens-library-component" }
+}

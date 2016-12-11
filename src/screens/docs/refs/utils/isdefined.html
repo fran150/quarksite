@@ -1,0 +1,77 @@
+
+    <span class="docs">
+        <h1>$$.isDefined <small>Método</small></h1>
+        <hr/>
+        <p>
+            Devuelve verdadero si la variable especificada está definida. Util para diferenciar entre un valor falso,
+            (como puede ser 0, <code>false</code> o un string vacío) de un valor que realmente no está definido.
+        </p>
+        <h2>
+            <code>
+                isDefined(variable)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>variable</code>
+                    </td>
+                    <td>
+                        <em>Cualquiera</em>
+                    </td>
+                    <td>
+                        Variable que se desea verificar si está definida.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Verdadero si la variable especificada esta definida, falso en caso contrario.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ExampleComponent(params, $scope, $imports) {
+        var self = this;
+
+        var notDefined;
+        var empty = '';
+        var unTrue = false;
+
+        alert($$.isDefined(notDefined)); // Returns false
+        alert($$.isDefined(empty)); // Returns true
+        alert($$.isDefined(unTrue)); // Returns true
+    }
+
+    return $$.component(ExampleComponent, template);
+});
+        </code-highlight>
+    </span>
+

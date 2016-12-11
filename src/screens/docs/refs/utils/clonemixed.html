@@ -1,0 +1,65 @@
+
+    <span class="docs">
+        <h1>$$.cloneMixed <small>Método</small></h1>
+        <hr/>
+        <p>
+            Genera una copia del objeto especificado. Genera una copia de los observables en el objeto destino (no copia los
+            observables por referencia).
+        </p>
+        <h2>
+            <code>
+                cloneMixed(source)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>source</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto del que se debe generar la copia
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Copia del objeto especificado.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            A diferencia del método <a data-bind="href: 'main/docs/refs-utils-clone'">clone</a> que copia los observables
+            por referencia, este metodo genera un observable en el objeto clonado y le asigna el valor que contiene el
+            observable en el objeto origen.
+        </p>
+    </span>
+

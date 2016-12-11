@@ -1,0 +1,70 @@
+
+    <span class="docs">
+        <h1>outlet <small>binding</small></h1>
+        <hr/>
+        <p>
+            Permite definir un outlet, las páginas pueden definir un conjunto de componentes que se deben mostrar en cada
+            segmento, el outlet permite indicar donde se debe mostrar dicho segmento. Cada outlet tiene un nombre y se debe
+            definir en la configuración de la página el nombre del outlet y el tag del componente que se debe mostrar, como
+            puede verse en la definición del método <a data-bind="href: 'main/docs/refs-routing.pages'">routing.pages</a>.
+        </p>
+        <h2>
+            <code>
+                outlet: &lt;name&gt; [, resetScroll: &lt;reset&gt;]
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>name</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del outlet, debe corresponder con un outlet definido el algun segmento de la página.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>reset</code>
+                    </td>
+                    <td>
+                        <em>boolean</em>
+                    </td>
+                    <td>
+                        Indica si se debe resetear cualquier scroll realizado al cambiar el componente que se muestra en el
+                        outlet. Por defecto es true.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Si dos segmentos de la misma página definen distintos valores para el mismo outlet, <em>Quark.js</em> siempre
+            mostrará el componente definido en el ultimo segmento.
+        </p>
+    </span>
+

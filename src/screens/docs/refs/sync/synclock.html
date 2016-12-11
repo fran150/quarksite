@@ -1,0 +1,64 @@
+
+    <span class="docs">
+        <h1>SyncLock <small>Objeto</small></h1>
+        <hr/>
+        <p>
+            Este objeto es generado por la función <a data-bind="href: 'main/docs/refs-lock'">lock</a> de <em>Quark.js</em>.
+            Permite sincronizar la ejecución de una o varias funciones con la ocurrencia de un evento.
+            El objeto tiene dos estados, abierto y cerrado.
+            Cuando se encuentra abierto las funciones que se suscriben se ejecutan inmediatamente, cuando está cerrado las
+            funciones quedarán suscriptas y se ejecutarán en cuanto se abra.
+        </p>
+        <h3>
+            Métodos
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code><a data-bind="href: 'main/docs/refs-synclock-lock'">lock</a></code>
+                    </td>
+                    <td>
+                        Cierra el <code>lock</code> bloqueando la ejecución inmediata de las funciones que se suscriben.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><a data-bind="href: 'main/docs/refs-synclock-unlock'">unlock</a></code>
+                    </td>
+                    <td>
+                        Abre el <code>lock</code> permitiendo la ejecución inmediata de las funciones que se suscriben y
+                        ejecutando las que se habian suscripto y estaban esperando la apertura.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><a data-bind="href: 'main/docs/refs-synclock-islocked'">isLocked</a></code>
+                    </td>
+                    <td>
+                        Devuelve <code>false</code> si el objeto está abierto, <code>true</code> en caso contrario.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><a data-bind="href: 'main/docs/refs-synclock-force'">force</a></code>
+                    </td>
+                    <td>
+                        Fuerza la apertura del objeto (lo abre sin disparar la ejecución de las funciones previamente suscriptas).
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </span>
+

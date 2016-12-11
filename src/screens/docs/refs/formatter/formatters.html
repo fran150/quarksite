@@ -1,0 +1,61 @@
+
+    <span class="docs">
+        <h1>$$.formatters <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            Permite definir una serie de <code>formatters</code> que transforman un valor tanto al leer como al escribir de
+            un observable. Se puede aplicar un <code>formatter</code> a cualquier campo a través del binding
+            <a data-bind="href: 'main/docs/refs-format'">format</a>.
+        </p>
+        <p>
+            Se pueden definir tantos <code>formatter</code> como sean necesarios, cada uno debe ser una propiedad del objeto
+            <code>formatters</code> y se puede definir como un objeto o una función. Si se define como función la misma se
+            ejecutará pasando como parámetro el valor a transformar y debe devolver el valor transformado aplicandose este
+            formato en la lectura del campo.
+        </p>
+        <p>
+            <code>function(value)</code>
+        </p>
+        <p>
+            Si se define un objeto se puede definir el formato a aplicar al leer o al escribir en el campo. Para esto
+            el objeto puede contener las siguientes propiedades:
+            <ul>
+                <li>
+                    <code>read: function(value)</code>: Debe tomar el valor especificado en el parámetro <code>value</code>
+                    y devolverlo aplicando previamente el formato de lectura deseado. Esta función se ejecutará al leer el valor
+                    del binding. Se puede utilizar para, por ejemplo, formatear el valor a mostrar en pantalla.
+                </li>
+                <li>
+                    <code>write: function(value)</code>: Debe tomar el valor especificado en el parámetro <code>value</code>
+                    y devolverlo aplicando previamente el formato de escritura deseado. Esta función se ejecutará antes de
+                    escribir el valor del binding. Se puede utilizar para, por ejemplo, formatear el valor capturado en un
+                    input antes de enviarlo a un servicio.
+                </li>
+            </ul>
+        </p>
+        <h2>Ejemplo</h2>
+        <hr/>
+        <p>
+            <code-highlight>
+$$.formatters.moneySymbol = {
+    read: function(value) {
+        switch(value) {
+            case "EUR":
+                return "€";
+            case "USD":
+                return "$";
+        }
+    },
+    write: function(value) {
+        switch(value) {
+            case "€":
+                return "EUR";
+            case "$":
+                return "USD";
+        }
+    }
+}
+            </code-highlight>
+        </p>
+    </span>
+

@@ -1,0 +1,70 @@
+
+    <span class="docs">
+        <h1>$$.controllerProvider <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            Esta función es la que se encarga de, en base a la ruta, cargar el controlador correspondiente a la misma.
+            La firma de la función es:
+            <h3><code>function(page, successCallback, errorCallback)</code></h3>
+        </p>
+        <br />
+        <p>
+            Cuando se rutea una página <em>Quark.js</em> invocará esta función con el nombre completo de cada segmento nuevo
+            de dicha página, la función deberá obtener la clase del controlador e invocar a la funcion <code>successCallback</code>
+            pasandole dicha clase como parámetro. En caso de no poder cargar el controlador deberá invocar a la función
+            <code>errorCallback</code> y <em>Quark.js</em> creará un controlador por vacío para el segmento especificado.
+        </p>
+        <p>
+            La función por defecto, busca en la carpeta controllers un archivo <em>javascript</em> con el mismo nombre del
+            segmento de la página especificado.
+        </p>
+        <p>
+            Por ejemplo para la ruta <code>docs/references/controller/provider</code>, se intentarán cargar los archivos:
+            <ul>
+                <li>controllers/docs.js</li>
+                <li>controllers/docs/references.js</li>
+                <li>controllers/docs/references/controller.js</li>
+                <li>controllers/docs/references/controller/provider.js</li>
+            </ul>
+        </p>
+        <p>
+            El proveedor por defecto además posee una propiedad que permite modificar la carpeta base en donde se buscan los
+            controladores por defecto llamada <code>controllersBase</code>. Por ejemplo, si se quiere buscar todos los controladores
+            en la carpeta <code>ctrls</code> en vez de <code>controllers</code> se puede modificar asi:
+        </p>
+        <code-highlight>
+$$.controllerProvider.controllersBase = 'ctrls';
+        </code-highlight>
+        <p>
+            Si se quiere modificar completamente la forma en que se cargan los controladores se puede sobreescribir la función.
+            Por ejemplo:
+        </p>
+        <code-highlight>
+$$.controllerProvider = function(page, successClbk, errorClbk) {
+    // Check if there's a config defined
+    if ($$.controllersConfig) {
+        // Get the controller path of the specified page
+        var path = $$.controllersConfig[page];
+
+        // If the path is defined load the file and send the controller
+        if (path) {
+            require([path], function(ControllerClass) {
+                successClbk(ControllerClass);
+            }, function(error) {
+                errorClbk();
+            })
+        } else {
+            errorClbk();
+        }
+    } else {
+        errorClbck();
+    }
+}
+        </code-highlight>
+        <p>
+            Este proveedor busca en un objeto de configuración una propiedad con el nombre de la pagina y obtiene del valor
+            de la misma el path al controlador que carga y devuelve. Esto permitiría definir la ubicación de los controladores
+            arbitrariamente para cada pagina.
+        </p>
+    </span>
+

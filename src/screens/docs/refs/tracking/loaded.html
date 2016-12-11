@@ -1,0 +1,42 @@
+
+    <span class="docs">
+        <h1>Tracker.loaded <small>Propiedad</small></h1>
+        <hr/>
+        <p>
+            <a data-bind="href: 'main/docs/refs-sync-signal'">Señal</a> que se dispara cada vez que se terminó de cargar
+            una dependencia. Debe tenerse cuidado ya que el hecho de que una dependencia se haya cargado no quiere decir que
+            esté lista.
+        </p>
+        <h3>Ejemplo</h3>
+        <hr/>
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Componente Padre&lt;/h1&gt;
+
+    &lt;component-example data-bind="import: 'example'"&gt;
+    &lt;/component-example&gt;
+
+    &lt;/component-example&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+
+            <code-highlight>
+define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, template) {
+    function OtherExample(params, $scope, $imports) {
+        var self = this;
+
+        $imports.loaded.add(function(name, model) {
+            alert('Se ha cargado al dependencia ' + name);
+
+            if (name == 'example') {
+                model.someMethod();
+            }
+        });
+    }
+
+    return $$.component(OtherExample, template);
+});
+            </code-highlight>
+
+    </span>
+

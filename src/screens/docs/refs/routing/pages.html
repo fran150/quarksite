@@ -1,0 +1,83 @@
+
+    <span class="docs">
+        <h1>$$.routing.pages <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite definir las páginas del aplicativo y sus correspondientes variables.
+        </p>
+        <h2>
+            <code>
+                pages(pagesConfig [, paramsConfig])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>pagesConfig</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad es el nombre de una página del aplicativo y el valor es a su vez un objeto
+                        donde cada propiedad es el nombre de un outlet y el valor el nombre del tag del componente que debe
+                        mostrarse en dicho outlet.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>paramsConfig</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad es el nombre de una página del aplicativo y el valor puede ser:
+                        <ul>
+                            <li>
+                                Un Array con el nombre de todas las variables que posee la página.
+                            </li>
+                            <li>
+                                Un objeto donde cada propiedad es el nombre de la variable de la página y su valor inicial.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Para mas información ingrese a <a data-bind="href: 'main/docs/basics-routes'">este articulo</a>
+        </p>
+    </span>
+

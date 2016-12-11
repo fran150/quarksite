@@ -1,0 +1,103 @@
+
+    <span class="docs">
+        <h1>Componentes Web</h1>
+        <hr />
+        <p>
+            Los componentes web permiten la creación de elementos que pueden utilizarse en una pagina web
+            para crear la interfaz de usuario o brindar alguna funcionalidad especifica como por ejemplo un origen de datos
+            o logs.
+            Cada componente se asocia a un tag HTML, permitiendo agregar nuevos elementos personalizados a los que ya
+            ofrecen por defecto los navegadores.
+        </p>
+        <p>
+            En <em>Quark.js</em> un componente web es básicamente un <a data-bind="href: 'main/docs/basics-web-modules'">Modulo Web</a>
+            que combina un objeto <em>Javascript</em> que define la funcionalidad de dicho componente (llamado modelo) y una vista
+            con el codigo HTML que se debe mostrar al usuario en el navegador. El modelo del componente y su respectiva vista
+            se enlazan entre sí utilizando el patrón
+            <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a>
+        </p>
+        <p>
+            Para la definición y administración de componentes web, sus correspondientes modelos y vistas,
+            y el <a data-bind="href: 'main/docs/basics-bindings'">binding bidireccional</a> de la vista con el modelo
+            <em>Quark.js</em> utiliza <a href="http://knockoutjs.com">Knockout.js</a>
+        </p>
+        <p>
+            Entonces, para definir un componente, se debe crear un modulo web que devuelva el resultado de la ejecución de
+            la funcion <code>component</code>. Esta función recibe dos parámetros, el modelo del componente y un string con
+            el HTML de la vista. La vista de los componentes debe ir dentro de un tag <code>quark-component</code>:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function ComponentExample() {
+        var self = this;
+    }
+
+    return $$.component(ComponentExample, '&lt;quark-component&gt;&lt;h1&gt;Component Example&lt;/h1&gt;&lt;/quark-component&gt');
+});
+            </code-highlight>
+        </p>
+        <p>
+            En el ejemplo define un componente que mostrará el titulo "Component Example" en el navegador.
+        </p>
+        <p>
+            Puede resultar bastante engorroso definir todo el HTML con la vista del componente como string en el
+            propio javascript del modulo. Para evitar esto, lo mejor (y la práctica recomendada) es definir la vista en un
+            archivo HTML aparte y cargarlo como dependencia del componente web.
+            Para esto se debe especificar a <em>Require</em> que la dependencia no es un archivo <em>Javascript</em>
+            que se debe ejecutar sino que es un archivo que se debe tratar como texto plano. Esto se logra anteponiendo
+            <code>text!</code> a la referencia al HTML que contiene la vista.
+        </p>
+        <p>
+            Reescribiendo el ejemplo anterior, la vista quedaría como:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;h1&gt;Component Example&lt;/h1&gt;
+&lt;/quark-component&gt
+            </code-highlight>
+            Y si se graba la vista en el archivo example.html, se puede reescribir el modulo del componente web como:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample() {
+        var self = this;
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Una vez definido el modelo y la vista lo que resta es registrar el componente, esto asocia un nuevo <em>tag</em>
+            HTML con el componente web.
+        </p>
+        <p>
+            Para registrar un componente web se debe utilizar la funcion <code>registerComponent</code> de <em>Quark.js</em>.
+            Como parametros se deben especificar: el nombre del tag y la ruta al modelo del componente.
+        </p>
+        <p>
+            <code-highlight>
+define(['quark'], function($$) {
+    $$.registerComponent('component-example', 'components/component-example');
+});
+            </code-highlight>
+            En el ejemplo anterior se define un modulo que registra el tag <code>component-example</code> con el componente
+            ubicado en <code>./components/component-example.js</code>.
+        </p>
+        <p>
+            Una vez registrado se puede utilizar como cualquier otro tag HTML:
+            <code-highlight params="language: 'html'">
+&lt;component-example&gt;
+&lt;/component-example&gt;
+            </code-highlight>
+        </p>
+        <p>
+            <span class="text-danger">Cuidado!</span> <em>Quark.js</em> no soporta los tag que se auto-cierran:
+            <code-highlight params="language: 'html'">
+&lt;component-example /&gt;
+            </code-highlight>
+            Utilizado asi este componente no funcionará
+        </p>
+        <nav-next-prev params="previousText: 'Módulos Web', previousPage: 'main/docs/basics-web-modules',
+                               nextText: 'Bindings', nextPage: 'main/docs/basics-bindings'">
+
+        </nav-next-prev>
+    </span>
+

@@ -1,0 +1,27 @@
+{
+    "layout": {
+        "main": "screens/_layout/main.screen"
+    },
+    "navbar": {
+        "main": {
+            "left": "screens/_navbar/main/left.screen",
+            "right": "screens/_navbar/main/right.screen"
+        }
+    },
+    "sidebar": {
+        "docs": "screens/_sidebar/docs.screen",
+        "module": "screens/_sidebar/module.screen"
+    },
+    "container": {
+        "simple": "screens/_container/simple.screen",
+        "sidebar": "screens/_container/sidebar.screen"
+    },
+    "screens": {
+        "home": "screens/home.screen",
+        "library": {
+            "finder": "screens/library/finder.screen",
+            "module": "screens/library/module.screen",
+            "component": "screens/library/component.screen"
+        }
+    }
+}

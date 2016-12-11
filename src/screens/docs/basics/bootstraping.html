@@ -1,0 +1,82 @@
+
+    <span class="docs">
+        <h1>Bootstraping</h1>
+        <hr />
+        <p>
+            En los sistemas operativos el <code>bootstraper</code> es la primer porción de código que se ejecuta y es el encargado
+            de cargar el resto del sistema operativo. En el caso de una aplicación web hecha con <em>Quark.js</em> es también
+            la primer porción de código que se ejecuta y se encarga de cargar <em>Quark.js</em> y sus dependencias y otorgarle
+            el control de la página.
+        </p>
+        <p>
+            Como se vió anteriormente, <em>Quark.js</em> está basado en módulos, (el propio <em>Quark.js</em> es un módulo),
+            por lo que el <code>bootstraping</code> consiste en configurar <em>Require</em> para que cargue <em>Quark.js</em>,
+            sus dependencias y ejecute el <code>script</code> de inicialización.
+        </p>
+        <p>
+            Para esto se deben insertar las siguientes lineas de código en la página principal:
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;script src="bower_components/quark/dist/require.configurator.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/quark/dist/quark.require.conf.js"&gt;&lt;/script&gt;
+        </code-highlight>
+        <p>
+            La primera carga el configurador de <em>Quark.js</em> y el siguiente <code>script</code> contiene una función que
+            devuelve la configuración de <em>Quark.js</em> que se debe aplicar a <em>Require</em>.
+        </p>
+        <p>
+            Una vez insertados estos dos elementos se debe utilizarlos para configurar <em>Quark.js</em>, esto se puede hacer en
+            un <code>script</code> aparte e incluirlo en la pagina principal junto a los dos anteriores.
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;script src="bower_components/quark/dist/require.configurator.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/quark/dist/quark.require.conf.js"&gt;&lt;/script&gt;
+&lt;script src="app/require.config.js"&gt;&lt;/script&gt;
+        </code-highlight>
+        <p>
+            En su forma mas básica este <code>script</code> debe ejecutar la función <code>requireConfigure</code>, (que es la
+            que se incluyó en el primer script) pasandole la configuración de <em>Quark.js</em> que es el resultado de la
+            ejecución de la función que se cargó segundo script. El resultado de todo debe asignarse a una variable global
+            <code>require</code>. El código de <code>app/require.config.js</code> puede ser:
+        </p>
+        <code-highlight>
+var require;
+require = requireConfigure(QuarkRequireConf());
+        </code-highlight>
+        <p>
+            La función <code>requireConfigure</code> se puede utilizar para combinar la configuración de <em>Quark.js</em>
+            con otra configuración que se necesite para agregar mas módulos a la aplicación.
+        </p>
+        <p>
+            Por ejemplo:
+        </p>
+        <code-highlight>
+var require;
+require = requireConfigure(QuarkRequireConf());
+require = requireConfigure(require, {
+    paths: {
+        'bootstrap':        'bower_components/bootstrap/dist/js/bootstrap.min',
+    },
+    shim: {
+        bootstrap: ['jquery']
+    }
+});
+        </code-highlight>
+        <p>
+            El código anterior agrega <a href="http://getbootstrap.com/">Bootstrap</a> a la aplicación.
+        </p>
+        <p>
+            Finalmente, una vez configurado <em>Require</em> se debe indicar la ubicación del script de dicho framework, y el
+            módulo inicial a ejecutar, quedando:
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;script src="bower_components/quark/dist/require.configurator.js"&gt;&lt;/script&gt;
+&lt;script src="bower_components/quark/dist/quark.require.conf.js"&gt;&lt;/script&gt;
+&lt;script src="app/require.config.js"&gt;&lt;/script&gt;
+&lt;script data-main="app/startup" src="bower_components/requirejs/require.js"&gt;&lt;/script&gt;
+        </code-highlight>
+        <p>
+            El archivo <code>app/startup.js</code> es el primer módulo de la aplicación que se ejecutará.
+        </p>
+    </span>
+

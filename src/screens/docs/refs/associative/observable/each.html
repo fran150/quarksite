@@ -1,0 +1,72 @@
+
+    <span class="docs">
+        <h1>ko.associativeObservable.each <small>Método</small></h1>
+        <hr/>
+        <p>
+            Por cada elemento en el associativeObservable ejecuta la función especificada pasando como parámetros la clave y
+            el valor de cada uno.
+        <h2>
+            <code>
+                each(callback)
+            </code>
+        </h2>
+
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>callback</code>
+                    </td>
+                    <td>
+                        <em>función</em>
+                    </td>
+                    <td>
+                        Por cada elemento contenido se invocará a esta función pasando clave y valor. La firma de la funcion es:<br />
+                        <code>function(key, value)</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Permite recorrer un associativeArray.
+            <code-highlight>
+var example = ko.associativeObservable({ 'id': 5, 'name': 'Paul', 'age': 30 });
+
+example.each(function(key, value) {
+    alert('The value of ' + key + ' is ' + value);
+});
+            </code-highlight>
+        </p>
+
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+    </span>
+

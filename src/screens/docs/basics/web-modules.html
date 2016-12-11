@@ -1,0 +1,99 @@
+
+    <span class="docs">
+        <h1>Modulos Web</h1>
+        <hr />
+        <p>
+            El bloque fundamental de Quark.js son los modulos web. Estos permiten encapsular una porción de código
+            con una funcionalidad específica y exponerla para que otros módulos puedan utilizarla.
+        </p>
+        <p>
+            Todas las porciones de código en Quark.js se implementan como modulos web. Para la definición, administración
+            y carga de estos modulos Quark utiliza <a href="http://requirejs.org">Require.js</a>. Además de permitir
+            definir modulos web, <em>Require.js</em> carga de forma asincronica el modulo y sus dependencias en el navegador
+            (esto se conoce como <a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition">AMD</a>).
+            El hecho de que se permita a un modulo definir sus dependencias y sea el propio <em>Require.js</em>
+            quien se encarga de cargar y proveer las mismas, implementa los patrones de
+            <a href="https://en.wikipedia.org/wiki/Dependency_injection">Inyección de dependencias</a>
+            e <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversión de control</a> permitiendo minimizar el
+            acoplamiento entre los distintos modulos.
+        </p>
+        <p>
+            Para definir un modulo se utiliza la función <code>define</code>, el primer parametro debe ser una matriz con los nombres
+            de las dependencias y el segundo una función que se invocará una vez que se hayan cargado las mismas:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function ModuloDePrueba() {
+    }
+
+    return ModuloDePrueba;
+});
+            </code-highlight>
+        </p>
+        <p>
+            En el ejemplo anterior se define un modulo que depende de <em>Quark</em> y de <em>Knockout</em> y devuelve
+            una función llamada <code>ModuloDePrueba</code>. Require.js realizará un request HTTP para cargar cada dependencia;
+            una vez cargados, invocará a la funcion especificada pasando como parametro lo que obtuvo de la carga y ejecución de
+            cada una de dichas dependencias.
+            Entonces, en <code>$$</code> estará el objeto principal de <em>Quark.js</em> y en <code>ko</code> el de <em>Knockout</em>.
+        </p>
+        <p>
+            Como dependencia se puede especificar el path al archivo que contiene el modulo (omitiendo la extensión js) o un alias.
+            Los alias deben definirse en la configuración de require indicando a que path del servidor apuntan,
+            ya sea un archivo especifico o una carpeta.
+        </p>
+        <p>
+            Suponiendo que se guarda el modulo anterior con el nombre <em>modulo.js</em> se puede utilizar como dependencia
+            de otro modulo web:
+            <code-highlight>
+define(['quark', './modulo'], function($$, modulo) {
+    function OtroModulo() {
+        var mod = new Modulo();
+    }
+
+    return OtroModulo;
+});
+            </code-highlight>
+            En este ejemplo, se define otro modulo que tiene dos dependencias, <em>Quark.js</em> y el modulo anterior. <em>Require.js</em>
+            injectará el valor de los modulos en los parametros correspondientes e invocará a la funcion
+            donde se asigna a la variable <code>mod</code> un objeto de tipo <code>ModuloDePrueba</code>.
+        </p>
+        <p>
+            Otra forma de usarlo es directamente dentro del código, utilizando la funcion <code>require</code>:
+            <code-highlight>
+.
+.
+require(['quark', './modulo'], function($$, Modulo) {
+    var mod = new Modulo();
+});
+.
+.
+            </code-highlight>
+            El funcionamiento es similar al anterior, cargará <em>Quark.js</em> y <code>ModuloDePrueba</code> e invocará a la
+            función pasando las dependencias como parámetros. Dentro de la función se crea un objeto de tipo <code>ModuloDePrueba</code>
+            y se lo asigna en la variable <code>mod</code>, obteniendo el mismo resultado que en el punto anterior.
+        </p>
+        <p>
+            Cabe destacar que el módulo <u>solo se cargará y ejecutará una vez</u>, devolviendo el resultado de la ejecución cada vez
+            que se solicite dicho modulo. Las implicaciones de esto son, por ejemplo:
+            <ul>
+                <li>
+                    Si el modulo devuelve un función, cada vez que se solicite el modulo, <em>Require</em> entregará dicha función
+                    que bien se podrá ejecutar o usar para crear un objeto.
+                </li>
+                <li>
+                    Si el modulo devuelve un objeto, cada que vez que se solicite el modulo <em>Require</em> entregará el mismo
+                    objeto.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Puedes encontrar mas información acerca de como y porque utilizar modulos web y AMD en <a href="http://requirejs.org/docs/why.html">este articulo</a>
+            y <a href="http://requirejs.org/docs/whyamd.html">este otro</a> de la página de Require.
+        </p>
+    </span>
+
+    <nav-next-prev params="previousText: 'Introducción', previousPage: 'main/docs/basics-intro',
+                           nextText: 'Componentes Web', nextPage: 'main/docs/basics-web-components'">
+
+    </nav-next-prev>
+

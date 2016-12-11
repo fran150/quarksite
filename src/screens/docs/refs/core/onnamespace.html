@@ -1,0 +1,184 @@
+
+    <span class="docs">
+        <h1>$$.onNamespace <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite registrar los componentes agrupandolos por namespaces para facilitar la lectura de los mismos.
+        </p>
+        <h2>
+            <code>
+                onNamespace(namespace)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>namespace</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del namespace
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Puede encadenarse con los metodos:
+            <ul>
+                <li><code>namespace</code> (para definir un nuevo namespace) dentro del actual,</li>
+                <li>con <code>register</code> para registrar un componente dentro del namespace actual,</li>
+                <li>con <code>endNamespace</code> para volver al namespace anterior</li>
+            </ul>
+        </p>
+
+        <h2>
+            <code>
+                namespace(namespace)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>namespace</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del namespace a definir dentro del actual
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>
+            <code>
+                register(componentName, path)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>componentName</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del componente a registrar dentro del namespace actual
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>path</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Path al modulo web que define el componente.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>
+            <code>
+                endNamespace()
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <p>
+            Ninguno
+        </p>
+
+        <h3>
+            Ejemplo
+        </h3>
+        <hr/>
+        <p>
+            Por ejemplo:
+            <code-highlight>
+$$.onNamespace('pages')
+    .register('home', 'pages/home')
+    .namespace('library')
+        .register('finder', 'pages/library/finder')
+        .register('details', 'pages/library/details')
+    .endNamespace()
+    .namespace('docs')
+        .register('home', 'pages/docs/home')
+        .register('installing', 'pages/docs/installing');
+            </code-highlight>
+            En este ejemplo se registran los componentes:
+            <div class="well">
+                <code>pages-home</code><br />
+                <code>pages-library-finder</code><br />
+                <code>pages-library-details</code><br />
+                <code>pages-docs-home</code><br />
+                <code>pages-docs-installing</code><br />
+            </div>
+        </p>
+    </span>
+

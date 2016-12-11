@@ -1,0 +1,78 @@
+
+    <span class="docs">
+        <h1>$$.redirectHash <small>Método</small></h1>
+        <hr/>
+        <p>
+            Redirige el navegador al hash correspondiente a la página de <em>Quark.js</em> con el nombre especificado.
+        </p>
+        <h2>
+            <code>
+                redirectHash(page [, config])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>page</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre completo de la página a donde se quiere redirigir el navegador.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>config</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad corresponde con el nombre de una variable, y el valor de la propiedad
+                        corresponde con el valor que se debe dar a dicha variable al generar la redirección.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            El uso de este método permite referenciar las páginas por su nombre interno facilitando la administración de
+            los hash que componen las rutas de acceso a cada pagina o estado de la aplicación.
+            En las aplicaciones <em>Quark.js</em>, este método es recomendado utilizarlo para los enlaces entre paginas
+            internas de la aplicación. Para los enlaces externos se recomienda utilizar el método
+            <a data-bind="href: 'main/docs/refs-web-redirect'">redirect</a>.
+        </p>
+    </span>
+

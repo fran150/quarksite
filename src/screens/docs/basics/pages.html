@@ -1,0 +1,154 @@
+
+    <span class="docs">
+        <h1>Páginas</h1>
+        <hr />
+        <p>
+            Las paginas en <em>Quark.js</em> permiten definir un conjunto de componentes que deben mostrarse en un momento dado
+            al usuario.
+        </p>
+        <p>
+            En la vista de cualquier componente se puede usar el binding <code>outlet</code> para especificar
+            el lugar donde se debe mostrar un componente va a ser definido por la pagina. Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;div data-bind="outlet: 'navbar'"&gt;
+&lt;/div&gt;
+&lt;div data-bind="outlet: 'body'"&gt;
+&lt;/div&gt;
+            </code-highlight>
+            Aquí se usan dos <code>div</code> en donde se va a mostrar el componente que se defina en la página para
+            los <code>outlets</code> "navbar" y "body"
+        </p>
+        <p>
+            Las páginas se definen en segmentos organizados jerárquicamente. Para referirse a un segmento en particular
+            se debe especificar el nombre de todos los segmentos separados por <code>/</code> partiendo desde el raiz.
+            Por ejemplo:<br />
+            <code>main</code><br />
+            <code>main/docs</code><br />
+            <code>main/docs/basics</code>
+        </p>
+        <p>
+            Utilizando la función <code>pages</code> del objeto <code>routing</code> de <em>Quark.js</em> se definen las páginas que conformarán la aplicación.
+            Esta función recibe un objeto donde cada propiedad tiene el nombre de un segmento, y el valor de dicha propiedad
+            es a su vez otro objeto donde cada propiedad corresponde con el nombre de un <code>outlet</code> y su valor es
+            un string con el tag del componente que se debe mostrar en el <code>outlet</code> correspondiente.
+            Al cambiar de página sólo se actualizarán los componentes definidos en los segmentos que no son compartidos por ambas
+            páginas.
+        </p>
+        <p>
+            Siguiendo el ejemplo anterior, considere la siguiente configuración de páginas:
+
+            <code-highlight>
+define(['quark'], function($$) {
+    var config = {
+        'main':             { navbar:   'navbar-component' },
+        'main/home':        { body:     'main-home' },
+        'main/about':       { body:     'main-about' },
+        'docs':             { navbar:   'docs-navbar-component' },
+        'docs/home':        { body:     'docs-home' },
+        'docs/basics':      { navbar:   'alt-navbar',
+                              body:     'docs-basics' }
+    };
+
+    $$.routing.pages(config);
+});
+            </code-highlight>
+        </p>
+        <p>
+            <ul>
+                <li>
+                    Al mostrar la pagina <code>main/home</code>:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>navbar-component</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>main-home</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Si se cambia la pagina por <code>main/about</code>:
+                    <ul>
+                        <li>
+                            solo se actualizará el <code>div</code> body mostrando el componente <code>main-about</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Al cambiar a <code>docs/home</code> se cambiaran ambos componentes:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>docs-navbar-component</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>docs-home</code>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Finalmente, los outlet definidos en segmentos hijos tienen mayor prioridad que los definidos en segmentos
+                    superiores, por lo que al navegar a la pagina <code>docs/basics</code> se modificarán ambos <code>div</code>
+                    mostrando:
+                    <ul>
+                        <li>
+                            en el <code>div</code> navbar se mostrará el componente <code>alt-navbar</code>
+                        </li>
+                        <li>
+                            en el <code>div</code> body se mostrará el componente <code>docs-basics</code>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>
+            Como segundo parametro de la misma función <code>pages</code> se pueden definir parámetros para las páginas.
+            La definición de los parámetros es un objeto donde cada propiedad corresponde con el nombre de un segmento y
+            el valor de dicha propiedad puede ser un array o un objeto.
+            <ul>
+                <li>
+                    Si se especifica un array, debe ser un conjunto de strings con los nombres de los parametros definidos
+                    para el segmento. <em>Quark.js</em> creará un observable por cada item inicializandolo vacío.
+                </li>
+                <li>
+                    Si se especifica un objeto, <em>Quark.js</em> creará un observable con el nombre de cada propiedad
+                    de dicho objeto y lo inicializará con el valor de dicha propiedad.
+                </li>
+            </ul>
+        </p>
+        <p>
+            Completando el ejemplo anterior:
+            <code-highlight>
+define(['quark'], function($$) {
+    var config = {
+        'main':             { navbar:   'navbar-component' },
+        'main/home':        { body:     'main-home' },
+        'main/about':       { body:     'main-about' },
+        'docs':             { navbar:   'docs-navbar-component' },
+        'docs/home':        { body:     'docs-home' },
+        'docs/basics':      { navbar:   'alt-navbar',
+                              body:     'docs-basics' }
+    };
+
+    var params = {
+        'main/home':        { language: 'es' },
+        'main/about':       [ 'param1', 'param2' ]
+    }
+
+    $$.routing.pages(config, params);
+});
+            </code-highlight>
+            En el ejemplo anterior, se define el parámetro <code>language</code> inicializado con el string <code>es</code>,
+            para la ruta <code>main/home</code> y los parametros <code>param1</code> y <code>param2</code> sin valor inicial
+            para la ruta <code>main/about</code>.
+        </p>
+        <p>
+            Los valores de los parámetros se pueden obtener de la URL definida en la
+            <a data-bind="href: 'main/docs/basics-routes'">ruta</a> como veremos a continuación.
+        </p>
+        <nav-next-prev params="previousText: 'Imports', previousPage: 'main/docs/basics-imports',
+                               nextText: 'Rutas', nextPage: 'main/docs/basics-routes'">
+
+        </nav-next-prev>
+
+    </span>
+

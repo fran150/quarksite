@@ -1,0 +1,65 @@
+
+    <span class="docs">
+        <h1>$$.behaviours.dispose <small>Método</small></h1>
+        <hr/>
+        <p>
+            Liberar en el objeto los recursos utilizados por el comportamiento.
+        </p>
+        <h2>
+            <code>
+                dispose(object)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>object</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto del que se desea limpiar los recursos ocupados por el comportamiento.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Los comportamientos pueden crear campos computed, timers, o cualquier otro elemento que si no es eliminado
+            correctamente pueden generar leaks de memoria. Normalmente los comportamientos que crean estos elementos
+            poseen funciones que limpian los objetos antes de eliminarse, por lo que es conveniente antes de eliminar
+            un objeto que posee comportamientos invocar a este metodo sobre el objeto para liberar los recursos.
+        </p>
+    </span>
+

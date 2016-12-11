@@ -1,0 +1,186 @@
+
+    <span class="docs">
+        <h1>$$.module <small>Método</small></h1>
+        <hr/>
+        <p>
+            Define un modulo de <em>Quark.js</em>. Un módulo permite agrupar componentes, librerías <em>Javascript</em>,
+            hojas de estilo, páginas y rutas asociadas en un módulo o paquete que puede configurarse fácilmente
+            en cualquier aplicación que necesite utilizarlo.
+        </p>
+        <p>
+            Esto puede utilizarse para crear librerías reutilizables con componentes relacionados, secciones de una aplicación
+            o cualquier otra división que resulte conveniente.
+        </p>
+        <h2>
+            <code>
+                module(moduleInfo, config [, mainConstructor])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>moduleInfo</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Los modulos de <em>Quark.js</em> necesitan información acerca del módulo web en
+                        el que están alojados, para esto se debe agregar como dependencia a <code>'module'</code>, esto hace que
+                        <em>Require</em> injecte en la variable correspondiente a esta dependencia un objeto con todos los datos
+                        del modulo actual, este objeto es el que se debe pasar como parámetro a la función <code>module</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>config</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Configuración del módulo.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>mainConstructor</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Permite especificar una funcion que se utilizará para construir
+                        un objeto que será considerado el objeto principal del modulo.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            La configuración del módulo es un objeto en cuyas propiedades se deben configurar los componentes, librerías
+            <em>Javascript</em>, hojas de estilo, páginas y rutas que contendrá el módulo.
+            Las propiedades que se pueden configurar son:
+            <ul>
+                <li>
+                    <code>require</code>: Permite modificar la configuración de <em>Require</em>, se puede modificar
+                    cualquier parámetro de <a href="http://requirejs.org/docs/api.html#config">la configuración</a>, pero el
+                    uso mas común es agregar los path y referencias a librerías <em>Javascript</em> que se utilicen en el módulo.
+                    Los path deberán ser relativos al modulo ya que quark les concatenará el nombre de dicho módulo al principio
+                    antes de registrarlos.
+                </li>
+                <li>
+                    <code>prefix</code>: Permite especificar un string que se utilizará como prefijo para los tags de todos los
+                    componentes del modulo. Esto permite definir prefijos únicos para todos los modulos y evitar la colisión de
+                    nombres entre módulos. Por ejemplo, si se define el prefijo <code>bt</code> y el componente se llama
+                    <code>modal</code>, se deberá utilizar con el tag <code>&lt;bt-modal&gt;&lt;/bt-modal&gt;</code>
+                </li>
+                <li>
+                    <code>components</code>: Permite registrar los componentes del modulo. Se debe especificar un objeto donde
+                    cada propiedad es el nombre del tag y el valor de la propiedad es el path al modulo web del componente.
+                </li>
+                <li>
+                    <code>namespaces</code>: De forma similar a <code>components</code> permite registrar los componentes del
+                    modulo utilizando namespaces. Se debe especificar un objeto donde cada propiedad es el nombre del namespace
+                    o tag y el valor de la propiedad es un string con el path al módulo web del componente o un objeto con esta
+                    misma estructura que define los componentes o namespaces hijos. (Ver ejemplo mas adelante).
+                </li>
+                <li>
+                    <code>css</code>: Es un array donde cada elemento es el path a un css que se debe cargar en la página.
+                </li>
+                <li>
+                    <code>pages</code>: Permite especificar la configuración de las páginas de la misma forma que con la función
+                    <a data-bind="href: 'main/docs/basics-pages'">routing.pages</a>
+                </li>
+                <li>
+                    <code>params</code>: Permite especificar la configuración de los parámetros de las páginas de la misma forma
+                    que con la función <a data-bind="href: 'main/docs/basics-pages'">routing.pages</a>
+                </li>
+                <li>
+                    <code>routes</code>: Permite especificar la configuración de las rutas de la misma forma
+                    que con la función <a data-bind="href: 'main/docs/basics-pages'">routing.mapRoute</a>
+                </li>
+            </ul>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+            <code-highlight>
+define(['module', 'knockout', 'jquery', 'quark'], function(mod, ko, $, $$) {
+    return $$.module(mod, {
+        prefix: 'al',
+        components: {
+            "pager": "components/pager/pager",
+            "panel-collapsable": "components/panel/collapsable"
+        },
+        namespaces: {
+            "layout": {
+                "": "components/layout/layout",
+                "container": "components/layout/container",
+                "sidebar": {
+                    "": "components/layout/sidebar/sidebar",
+                    "imagebutton": "components/layout/sidebar/controls/imageButton",
+                    "link": "components/layout/sidebar/controls/link",
+                    "search": "components/layout/sidebar/controls/search",
+                    "title": "components/layout/sidebar/controls/title"
+                },
+                "navbar": {
+                    "": "components/layout/navbar/navbar",
+                    "button": "components/layout/navbar/controls/button",
+                    "link": "components/layout/navbar/controls/link",
+                    "dropdown": {
+                        "": "components/layout/navbar/controls/dropdown",
+                        "link": "components/layout/navbar/controls/dropdown-items/link",
+                        "divider": "components/layout/navbar/controls/dropdown-items/divider",
+                        "header": "components/layout/navbar/controls/dropdown-items/header"
+                    }
+                }
+            }
+        },
+        css: [
+            "bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css",
+            "css/sidebar.css",
+            "css/navbar.css"
+        ],
+        require: {
+            paths: {
+                "bootstrap-switch": "bower_components/bootstrap-switch/dist/js/bootstrap-switch.min"
+            }
+        }
+    });
+});
+            </code-highlight>
+    </span>
+

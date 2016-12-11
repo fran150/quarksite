@@ -1,0 +1,77 @@
+
+    <span class="docs">
+        <h1>waitReady <small>binding</small></h1>
+        <hr/>
+        <p>
+            Bloquea el binding del contenido del elemento hasta que la dependencia con el nombre especificado
+            este "lista". Se debe especificar el nombre con el que se "importó" la dependencia. <em>Quark.js</em>
+            esperará para realizar el binding hasta que dicha dependencia se marque como "lista".
+        </p>
+        <h2>
+            <code>
+                waitReady: &lt;dependency&gt;
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>dependency</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre con el que se importó la dependencia.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Observaciones:
+        </h3>
+        <hr />
+        <p>
+            Este binding se suscribe a la señal <code>readied</code> del tracker asociado al componente y espera la llegada
+            de un evento indicando que la dependencia con el nombre especificado está lista. Una vez marcado como "listo"
+            procede a realizar el binding del contenido del elemento y se desuscribe de la señal.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            Este ejemplo espera a que el componente <code>employee-display</code> este listo antes de mostrar la botonera
+            para grabar o cancelar.
+        </p>
+        <code-highlight params="language: 'html'">
+&lt;h1&gt;Employee Data&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;employee-display data-bind="import: 'data'"&gt;
+&lt;/employee-display&gt;
+&lt;div data-bind="waitFor: 'data'"&gt;
+    &lt;button type="submit" data-bind="click: save"&gt;Save&lt;/button&gt;
+    &lt;button data-bind="click: cancel"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;
+    </code-highlight>
+    </span>
+

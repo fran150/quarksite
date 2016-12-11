@@ -1,0 +1,354 @@
+
+    <span class="docs">
+        <h1>Sincronización</h1>
+        <hr />
+        <p>
+            El proposito de este capitulo es presentar algunas herramientas que permiten sincronizar la ejecución
+            del código cuando sea necesario y luego describir el orden de carga y ejecución de los distintos elementos que forman
+            una aplicación en <em>Quark.js</em>.
+        </p>
+
+        <h2>Herramientas de Sincronización</h2>
+        <hr />
+        <p>
+            <em>Quark.js</em> provee de dos elementos que permiten sincronizar eventos dentro de la aplicación, las señales y
+            los locks.
+        </p>
+        <h3>Señales</h3>
+        <p>
+            Las señales en <em>Quark.js</em> son un wrapper de las <a href="https://millermedeiros.github.io/js-signals/">js-signals</a>
+            de <a href="http://blog.millermedeiros.com/">Miller Medeiros</a>. Estas permiten definir un evento y adjuntarle funciones,
+            luego desde el codigo se puede "disparar" la señal lo que ejecutará todas las funciones adjuntadas.
+            Por ejemplo, los <code>tracker</code> cuentan con dos señales a las que se puede adjuntar funciones para detectar
+            cuando una dependencia se cargó o está lista, dichas señales son las propiedades <code>loaded</code> y <code>readied</code>
+            respectivamente.
+        </p>
+        <p>
+            Otra señal nativa de <em>Quark.js</em> es <code>routing.routed</code> que se dispara cuando se termina de rutear
+            a una nueva pagina.
+        </p>
+        <p>
+            Para definir una señal en un componente que se esté desarrollando se debe utilizar el metodo <code>signal</code>
+            de <em>Quark.js</em>. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params) {
+        var self = this;
+
+        this.clicked = $$.signal();
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            Esto crea una señal en la propiedad <code>clicked</code> del modelo.
+        </p>
+        <p>
+            Para adjuntar una función que se ejecute cuando la señal se dispare, se debe usar el método <code>add</code> de la
+            señal pasandole la función a ejecutar. Por ejemplo:
+            <code-highlight>
+model.clicked.add(function(buttonName) {
+    alert(buttonName);
+});
+
+model.clicked.add(function(buttonName) {
+    console.log(buttonName);
+});
+            </code-highlight>
+            Esto agrega dos funciones que se ejecutarán cuando se dispare el evento.
+        </p>
+        <p>
+            Para disparar el evento se debe utilizar el método <code>dispatch</code> de la señal pasándole los parámetros
+            que se debe enviar a cada función. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params) {
+        var self = this;
+
+        this.clicked = $$.signal();
+
+        $scope.saveClick = function() {
+            self.clicked.dispatch('save');
+        }
+
+        $scope.deleteClick = function() {
+            self.clicked.dispatch('delete');
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            En el ejemplo anterior si se ejecuta la funcion <code>saveClick</code> del scope se dispara el evento pasando como
+            parámetro el texto "save" esto hará que se ejecuten todas las funciones adjuntas pasandoles el parametro. Si por otro
+            lado se ejecuta la funcion <code>deleteClick</code> se disparará el evento pasando el texto "delete".
+        </p>
+        <p>
+            Para asegurarse de liberar correctamente la memoria se debe ejecutar la función <code>signalClear</code> de
+            <em>Quark.js</em> pasando como parámetro la señal cuando dicha señal no se utilice mas, esto hará que se elimine
+            la referencia a todas las funciones adjuntas y se liberen los recursos correctamente. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params) {
+        var self = this;
+
+        this.clicked = $$.signal();
+
+        $scope.saveClick = function() {
+            self.clicked.dispatch('save');
+        }
+
+        $scope.deleteClick = function() {
+            self.clicked.dispatch('delete');
+        }
+
+        this.dispose = function() {
+            $$.signalClear(self.clicked);
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+        </p>
+        <h3>Locks</h3>
+        <p>
+            Los locks permiten retrasar la ejecución del código hasta la ocurrencia de un evento. Cuando se produce dicho
+            evento y el lock "se abre" todas las funciones adjuntas se ejecutarán una sola vez.
+            Por ejemplo, los <code>tracker</code> cuentan con un lock en la propiedad <code>ready</code> al que se puede
+            adjuntar funciones para detectar cuando el componente web pasa al estado "Listo". Todas las funciones se ejecutarán
+            una vez que se "abra" el lock, o sea que el componente pase al estado "Listo".
+        </p>
+        <p>
+            Para definir un lock en un componente que se esté desarrollando se debe utilizar el metodo <code>lock</code>
+            de <em>Quark.js</em>. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params) {
+        var self = this;
+
+        this.initialized = $$.lock();
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            Esto crea un lock en la propiedad <code>initialized</code> del modelo.
+        </p>
+        <p>
+            Para adjuntar una función para ser ejecutada cuando el lock "se abra" se debe utilizar la funcion <code>wait</code>
+            de <em>Quark.js</em> a la que se debe pasar el lock y la función a ejecutar. Por ejemplo:
+            <code-highlight>
+$$.wait(model.initialized, function() {
+    alert('The component has been initialized');
+});
+            </code-highlight>
+            Ejecutará la función cuando se abra el lock <code>initialized</code>
+        </p>
+        <p>
+            Finalmente para abrir un lock se debe ejecutar la función <code>unlock</code> del mismo. Por ejemplo:
+            <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ComponentExample(params) {
+        var self = this;
+
+        this.initialized = $$.lock();
+
+        $scope.onBind = function() {
+            self.initialized.unlock();
+        }
+    }
+
+    return $$.component(ComponentExample, template);
+});
+            </code-highlight>
+            Ejecutando la funcion <code>onBind</code> del scope se abre el lock ejecutando todas las funciones que se
+            hayan adjuntado al mismo.
+        </p>
+
+
+        <h2>Secuencias de Carga y Ejecución</h2>
+        <hr />
+        <p>
+            A continuación se describe la secuencia de eventos que se disparan en distintas situaciones con el objetivo
+            de entender el orden de carga de los componentes y poder sincronizar la aplicación:
+        </p>
+        <p>
+            <h3>Al iniciar la aplicación:</h3>
+            <ol>
+                <li>
+                    Se carga la página principal y punto de entrada. El navegador al detectar los tags
+                    script que incluyen <em>Quark.js</em> y <em>Require</em> carga y ejecuta esos scripts.
+                </li>
+                <li>
+                    Entre los script de inicio se ejecuta el que configura <em>Require.js</em> con todos los modulos de <em>Quark.js</em>
+                    y luego se ejecuta el modulo inicial de la aplicación.
+                </li>
+                <li>
+                    En el modulo inicial se deben registrar todos los componentes, configurar las páginas y rutas. Luego se debe
+                    ejecutar la función <code>activateHasher</code> del objeto <code>routing</code> de <em>Quark.js</em> para iniciar el
+                    sistema de ruteo y <code>start</code> para iniciar la aplicación.
+                </li>
+                <li>
+                    Si se especificó una función custom al activar el sistema de ruteo con la función <code>activateHasher</code>
+                    se ejecuta dicha función que finalmente deberá invocar a la función <code>routing.parse</code> pasándole el hash
+                    de la ruta a evaluar.
+                </li>
+                <li>
+                    <em>Quark.js</em> parsea el hash y busca la página con la que coincide.
+                </li>
+                <li>
+                    Una vez encontrada la página a la que corresponde el hash especificado, procesa en forma asincronica cada segmento
+                    y por cada uno:
+                    <ol>
+                        <li>
+                            Carga y ejecuta el controlador correspondiente pasando como parámetro el
+                            padre y el <code>tracker</code> asociado.
+                        </li>
+                        <li>
+                            Una vez que se crea el controlador crea la propiedad parent y le asigna el controlador padre.
+                        </li>
+                        <li>
+                            Crea la propiedad outlets en el controlador con una propiedad con el nombre de cada outlet definido
+                            en el segmento y asignandole un string con el <em>tag</em> del componente a mostrar.
+                        </li>
+                        <li>
+                            Crea la propiedad <code>params</code> en el controlador creando por cada parámetro definido en el segmento de la
+                            página una propiedad y asginandole un observable inicializado al valor definido.
+                        </li>
+                        <li>
+                            Se evalúa el valor de cada parámetro de la ruta y se le asigna al parametro con el mismo nombre
+                            que se haya definido en el controlador.
+                        </li>
+                        <li>
+                            Al finalizar la carga y configuración de todos los controladores se setea el observable
+                            <code>routing.current</code> con el nombre de la página actual.
+                        </li>
+                        <li>
+                            Se dispara la señal <code>routing.routed</code> pasando como parámetro la nueva página.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Al ejecutarse <code>start</code>, si se especificó un modelo se ejecuta dicho modelo y se procede a
+                    realizar el binding del mismo con la página principal.
+                </li>
+                <li>
+                    Al realizarse el binding de cada <code>outlet</code>:
+                    <ol>
+                        <li>
+                            Busca en el arbol de controladores el último que contenga en el objeto
+                            <code>outlets</code> una propiedad con el mismo nombre del outlet y obtiene el tag del componente
+                            que se debe mostrar. Si no se encuentra ninguna se utiliza el componente "empty" que
+                            es un componente vacío.
+                        </li>
+                        <li>
+                            Verifica si el controlador contiene un método <code>sendParameters</code> y en tal caso lo
+                            invoca para obtener los parametros del componente asociado al outlet.
+                        </li>
+                        <li>
+                            Realiza el binding del componente pasándole los parametros obtenidos.
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+
+            <h3>Al cambiar de página</h3>
+            Al cambiar de página, <em>Quark.js</em> primero intentará limpiar los objetos de la ruta anterior (tanto los
+            componentes como los controladores):
+            <ol>
+                <li>
+                    Compara la ruta anterior con la nueva y por cada segmento distinto recorre los controladores de la ruta
+                    anterior y:
+                    <ol>
+                        <li>
+                            Setea el componente genérico <code>empty</code> en la propiedad <code>outlets</code> de
+                            cada controlador, permitiendo que se descargue el componente que se encontraba cargado en dicho
+                            outlet.
+                        </li>
+                        <li>
+                            Si el controlador tiene un método <code>dispose</code> lo ejecuta permitiendo que libere todos los
+                            recursos que tenga tomados.
+                        </li>
+                        <li>
+                            Finalmente, elimina la referencia al controlador.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Una vez que se eliminaron los componentes y controladores anteriores, <em>Quark.js</em> utiliza el procedimiento
+                    descripto anteriormente en el punto 6 para procesar los segmentos nuevos, cargando y configurando los controladores.
+                </li>
+                <li>
+                    Luego procede a realizar el binding de los nuevos componentes procesando cualquier modificación a un outlet
+                    existente o nuevos outlets como se describe anteriormente en el punto 8.
+                </li>
+            </ol>
+
+            <h3>Al cargar un componente</h3>
+            Cuando se está realizando el binding de un elemento y se detecta un <em>tag</em> customizado:
+            <ol>
+                <li>
+                    <em>Knockout</em> verifica entre los componentes que tiene registrados a ver si alguno corresponde
+                    con el <em>tag</em> encontrado.
+                </li>
+                <li>
+                    Si se encontró un componente con dicho <em>tag</em>, se procede a cargar y ejecutar el modulo web
+                    con el modelo del componente pasandole el valor los parametros definidos para el componente, el
+                    <em>scope</em> y el <code>tracker</code>.
+                </li>
+                <li>
+                    Una vez cargado y ejecutado el modelo, si se definió un método <code>initComponent</code> en el tracker
+                    se ejecuta dicho metodo donde se puede inicializar el componente.
+                </li>
+                <li>
+                    Se crean las propiedades <code>model</code> e <code>imports</code> en el scope, las mismas
+                    contendrán el modelo y el <code>tracker</code> respectivamente.
+                </li>
+                <li>
+                    Se procede a realizar el binding del scope con la vista.
+                </li>
+            </ol>
+
+            <h3>Al importar un componente</h3>
+            Cuando se está realizando el binding de un elemento y se detecta un <em>tag</em> customizado con un binding
+            <code>import</code>:
+
+            <ol>
+                <li>
+                    Se ejecuta el proceso descrito anteriormente para cargar el componente.
+                </li>
+                <li>
+                    Al finalizar la carga y el binding del nuevo componente se dispara la señal
+                    <code>loaded</code> en el <code>tracker</code> del componente padre pasándole el nombre con el que
+                    se importó y el modelo.
+                </li>
+                <li>
+                    Cuando un componente hijo pasa al estado "Listo" se dispara la señal
+                    <code>readied</code> en el <code>tracker</code> padre pasándole el nombre con el que
+                    se importó y el modelo. Luego, se evalúan todas las dependencias en el padre para ver si están listas
+                    y en ese caso:
+                    <ol>
+                        <li>
+                            Se marca el objeto listo en el <code>tracker</code>.
+                        </li>
+                        <li>
+                            Habilita el <code>lock</code> <code>ready</code> indicando que el componente está listo.
+                        </li>
+                        <li>
+                            Si el componente se está a su vez importando, o sea que esta siendo
+                            "trackeado" por el padre, se informa al <code>tracker</code> del padre que este componente ha
+                            pasado al estado "Listo" disparando esta secuencia en dicho componente padre.
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </p>
+
+        <nav-next-prev params="previousText: 'Controladores', previousPage: 'main/docs/basics-controllers',
+                               nextText: 'Behaviours', nextPage: 'main/docs/basics-behaviours'">
+
+        </nav-next-prev>
+
+    </span>
+

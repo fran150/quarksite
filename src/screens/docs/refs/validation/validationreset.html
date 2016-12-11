@@ -1,0 +1,77 @@
+
+    <span class="docs">
+        <h1>ko.validationReset <small>Método</small></h1>
+        <hr/>
+        <p>
+            Resetea todos los errores de validación que se hayan producido en el objeto.
+        </p>
+        <h2>
+            <code>
+                validationReset(object)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>object</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto del que se desea resetear todos los errores de validación.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Al ejecutarse la función <a data-bind="href: 'main/docs/refs-validation-validate'">validate</a>
+            <em>Quark.js</em> recorre todas las propiedades que sean observables con validadores activos ejecutando la validacion
+            en cada uno. Si encuentra un error en el valor de un observable setea la propiedad
+            <a data-bind="href: 'main/docs/refs-validation-observable-haserror'">hasError</a> en <code>true</code>
+            y <a data-bind="href: 'main/docs/refs-validation-observable-validationmessage'">validationMessage</a> con
+            el texto del error.
+        </p>
+        <p>
+            Este método recorre el objeto limpiando estas propiedades, pero <u>no elimina la suscripcion de los validadores
+            por lo que si se modifica el observable asignando un valor inválido se volverán a activar</u>
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        Ver <a data-bind="href: 'main/docs/refs-validation-validate'">ko.validate</a>
+    </span>
+

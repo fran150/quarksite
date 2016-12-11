@@ -1,0 +1,78 @@
+
+    <span class="docs">
+        <h1>$$.routing.hash <small>Método</small></h1>
+        <hr/>
+        <p>
+            Devuelve el hash correspondiente a la pagina. Se debe especificar el nombre de la página y opcionalmente un objeto
+            donde cada propiedad es el nombre de una variable de la pagina con el valor que se le debe asignar a dicha variable.
+        </p>
+        <h2>
+            <code>
+                hash(page [, options])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>page</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre de la página.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>options</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto con el valor que se debe dar a las variables de la pagina.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Hash correspondiente a la pagina y variables especificados.
+        </p>
+
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+// For example, with a page named as main/client/new and route defined as client/{id}/new
+// Calling
+$$.routing.hash('main/client/new', { id: 5 });
+// Will return client/5/new
+        </code-highlight>
+    </span>
+

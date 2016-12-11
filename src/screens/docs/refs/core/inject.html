@@ -1,0 +1,119 @@
+
+    <span class="docs">
+        <h1>$$.inject <small>Método</small></h1>
+        <hr/>
+        <p>
+            Copia las propiedades del mismo nombre del objeto origen al objeto destino. Si la propiedad origen o destino son
+            observables copia el contenido del observable y no el propio observable. Las propiedades cuyos nombres no coinciden
+            son ignoradas.
+        </p>
+        <h2>
+            <code>
+                inject(from, to [, recursively])
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>from</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto de origen de donde se deben tomar los valores.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>to</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto de destino a donde se deben copiar los valores.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>recursively</code>
+                    </td>
+                    <td>
+                        <em>boolean</em>
+                    </td>
+                    <td>
+                        Verdadero si se debe ejecutar esta función recursivamente en cada propiedad que contenga un objeto
+                        copiando todo el grafo a partir del objeto raiz.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada
+        </p>
+
+        <h3>
+            Observaciones
+        </h3>
+        <hr />
+        <p>
+            Si se define un componente que contiene un objeto cuyas propiedades son todos observables con validadores, este
+            método permite por ejemplo poblar dicho objeto con el resultado de la llamada un servicio sin pisar los observables
+            (lo que produciría que se pierdan los validadores).
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <code-highlight>
+define(['quark', 'knockout', 'text!./example.html'], function($$, ko, template) {
+    function ExampleComponent(params, $scope, $imports) {
+        var self = this;
+
+        this.item = {
+            code: ko.observable().validation({
+                required: {}
+            }),
+            name: ko.observable().validation({
+                required: {},
+                length: { min: 5, max: 255 }
+            })
+        };
+
+        this.read = function() {
+            $$.ajax('http://rest.example.com', 'GET', {}, function(data) {
+                $$.inject(data, self.item);
+            });
+        }
+    }
+
+    return $$.component(ExampleComponent, template);
+});
+        </code-highlight>
+    </span>
+

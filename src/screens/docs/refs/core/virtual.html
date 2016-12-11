@@ -1,0 +1,24 @@
+
+    <span class="docs">
+        <h1>virtual <small>Atributo HTML</small></h1>
+        <hr/>
+        <p>
+            Agregando <code>virtual</code> o <code>virtual="true"</code> en el tag de un componente de <em>Quark.js</em>,
+            se reemplazará, en tiempo de ejecución, dicho tag por su versión
+            <a href="http://knockoutjs.com/documentation/custom-bindings-for-virtual-elements.html">virtual</a>
+            utilizando el binding <a href="http://knockoutjs.com/documentation/component-binding.html">component</a>
+        </p>
+        <p>
+            Para mas información sobre esto consulte <a data-bind="href: 'main/docs/basics-virtual'">este articulo</a>
+        </p>
+        <h3>Ejemplo</h3>
+        <hr/>
+        <code-highlight params="language: 'html'">
+&lt;bootstrap-dropdown&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 1', active: true" virtual&gt;&lt;/bootstrap-dropdown-item&gt;
+    &lt;bootstrap-dropdown-item params="text: 'Opcion 2'" virtual="true"&gt;&lt;/bootstrap-dropdown-item&gt;
+&lt;/bootstrap-dropdown&gt;
+        </code-highlight>
+
+    </span>
+

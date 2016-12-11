@@ -1,0 +1,87 @@
+
+    <span class="docs">
+        <h1>ko.validation <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite activar validaciones sobre el observable. Se debe especificar el nombre a mostrar del campo (nombre con el
+            que se muestra el campo al usuario) y la configuración de validación.
+        </p>
+        <p>
+            La configuración de validación consiste en un objeto donde cada propiedad es el nombre de un validador y el valor
+            de la propiedad es la configuración que el validador necesita. Cuando se valida el observable <em>Quark.js</em>
+            ejecutará todos los validadores activos en el observable pasandoles la configuración y si un validador detecta
+            un valor invalido seteará las propiedades
+            <a data-bind="href: 'main/docs/refs-validation-observable-haserror'">hasError</a> y
+            <a data-bind="href: 'main/docs/refs-validation-observable-validationmessage'">validationMessage</a> con los detalles
+            del error.
+        </p>
+        <h2>
+            <code>
+                validation(displayName, validationConfig)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>displayName</code>
+                    </td>
+                    <td>
+                        <em>string</em>
+                    </td>
+                    <td>
+                        Nombre del campo que se muestra al usuario. Se usa para armar el mensaje de error.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>validationConfig</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad es el nombre de un validador y el valor de la propiedad es la
+                        configuración que el validador necesita
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            El propio observable asi se puede definir las validaciones en la propia creación del observable. Por ejemplo:
+            <code-highlight>
+var validableObservable = ko.observable().validation({
+    required: {
+        message: 'El campo no puede ser vacío'
+    },
+    length: {
+        min: 3,
+        max: 20
+    }
+})
+            </code-highlight>
+        </p>
+    </span>
+
