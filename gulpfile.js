@@ -114,7 +114,12 @@ gulp.task('css', function() {
 gulp.task('html', function() {
     return gulp.src('./src/index.html')
         .pipe(htmlreplace({
-            'js': 'scripts.js'
+            'js': [
+                'app/require.configurator.js',
+                'app/quark.require.conf.js',
+                'app/require.config.js',
+                'scripts.js'
+            ]
         }))
         .pipe(gulp.dest('./dist/'));
 });
