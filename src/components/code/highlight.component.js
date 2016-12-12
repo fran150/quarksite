@@ -3,8 +3,8 @@ define([
     'knockout',
     'jquery',
     'text!./highlight.component.html',
-    'prism',
-    'css!prism/themes/prism'
+    'prismjs',
+    'loadCss!prismjs-themes/prism'
 ], function($$, ko, $, template) {
 
     function CodeHighlightComponent(params, $scope, $imports) {

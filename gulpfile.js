@@ -36,12 +36,12 @@ var config = {
     insertRequire: ['app/startup'],
     include: [
         'requireLib'
-    ]
+    ],
+    cssOutDir: './dist'
 }
 
 // Add all included files prefixing the module name
 if (moduleConfig.include) {
-   // config.include = new Array();
     for (var i = 0; i < moduleConfig.include.length; i++) {
         config.include.push(moduleConfig.include[i]);
     }
@@ -78,8 +78,6 @@ if (moduleConfig.externals) {
 // Configure require optimizer
 var requireJsOptimizerConfig = merge(requireJsRuntimeConfig, config);
 
-console.log(requireJsOptimizerConfig);
-
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
 // and writes all files in ./dist.
 gulp.task('js', function () {
@@ -93,23 +91,35 @@ gulp.task('js', function () {
     }
 });
 
-
-gulp.task('bundles', ['js'], function() {
-    return gulp.src('./dist/' + moduleConfig.name + '/*.js')
-                .pipe(clean())
-                .pipe(gulp.dest('./dist'));
+gulp.task('require', function() {
+    gulp.src([
+        './src/app/require.config.js',
+        './src/bower_modules/quark/dist/require.configurator.js',
+        './src/bower_modules/quark/dist/quark.require.conf.js',
+        ])
+        .pipe(gulp.dest('./dist/app'));
 });
 
-gulp.task('cleaning', ['js', 'bundles'], function() {
-    del.sync(['./dist/' + moduleConfig.name]);
+gulp.task('copy', function() {
+    gulp.src(moduleConfig.copy)
+        .pipe(gulp.dest('./dist/'))
 });
 
 gulp.task('css', function() {
-    return gulp.src('./src/css/*.css')
+    return gulp.src('./src/css/**/*')
                 .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('default', ['js', 'bundles', 'css', 'cleaning'], function(callback) {
+// Copies index.html, replacing <script> and <link> tags to reference production URLs
+gulp.task('html', function() {
+    return gulp.src('./src/index.html')
+        .pipe(htmlreplace({
+            'js': 'scripts.js'
+        }))
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('default', ['js', 'css', 'html', 'require'], function(callback) {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.green('dist/\n'));
 });

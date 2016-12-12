@@ -10,11 +10,10 @@ define([
     './validators/required.validator',
     'bootstrap',
     'qk-alchemy/main',
-    'css!font-awesome/css',
-    'css!bootstrap/css'
+    'loadCss!font-awesome/css',
+    'loadCss!bootstrap/css',
+    'loadCss!../css/main'
 ], function(ko, $$, components, screens, pages, params, routes) {
-    $$.loadCss('css/main.css');
-
     // Register all components and screens
     $$.registerComponents(components);
     $$.registerComponents(screens);

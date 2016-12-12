@@ -1,1 +1,1079 @@
-define("text!components/code/highlight.component.html",[],function(){return'<quark-component>\n    <pre><code data-bind="content, css: languageClass, onBind: init"></code></pre>\n</quark-component>\n'});var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,n=0,t=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,t.util.encode(e.content),e.alias):"Array"===t.util.type(e)?e.map(t.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++n}),e.__id},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var a={};for(var o in e)e.hasOwnProperty(o)&&(a[o]=t.util.clone(e[o]));return a;case"Array":return e.map&&e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,n){var a=t.util.clone(t.languages[e]);for(var o in n)a[o]=n[o];return a},insertBefore:function(e,n,a,o){o=o||t.languages;var r=o[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(r[i]=a[i]);return r}var s={};for(var l in r)if(r.hasOwnProperty(l)){if(l==n)for(var i in a)a.hasOwnProperty(i)&&(s[i]=a[i]);s[l]=r[l]}return t.languages.DFS(t.languages,function(n,t){t===o[e]&&n!=e&&(this[n]=s)}),o[e]=s},DFS:function(e,n,a,o){o=o||{};for(var r in e)e.hasOwnProperty(r)&&(n.call(e,r,e[r],a||r),"Object"!==t.util.type(e[r])||o[t.util.objId(e[r])]?"Array"!==t.util.type(e[r])||o[t.util.objId(e[r])]||(o[t.util.objId(e[r])]=!0,t.languages.DFS(e[r],n,r,o)):(o[t.util.objId(e[r])]=!0,t.languages.DFS(e[r],n,null,o)))}},plugins:{},highlightAll:function(e,n){var a={callback:n,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};t.hooks.run("before-highlightall",a);for(var o,r=a.elements||document.querySelectorAll(a.selector),i=0;o=r[i++];)t.highlightElement(o,e===!0,a.callback)},highlightElement:function(n,a,o){for(var r,i,s=n;s&&!e.test(s.className);)s=s.parentNode;s&&(r=(s.className.match(e)||[,""])[1].toLowerCase(),i=t.languages[r]),n.className=n.className.replace(e,"").replace(/\s+/g," ")+" language-"+r,s=n.parentNode,/pre/i.test(s.nodeName)&&(s.className=s.className.replace(e,"").replace(/\s+/g," ")+" language-"+r);var l=n.textContent,c={element:n,language:r,grammar:i,code:l};if(t.hooks.run("before-sanity-check",c),!c.code||!c.grammar)return c.code&&(c.element.textContent=c.code),void t.hooks.run("complete",c);if(t.hooks.run("before-highlight",c),a&&_self.Worker){var u=new Worker(t.filename);u.onmessage=function(e){c.highlightedCode=e.data,t.hooks.run("before-insert",c),c.element.innerHTML=c.highlightedCode,o&&o.call(c.element),t.hooks.run("after-highlight",c),t.hooks.run("complete",c)},u.postMessage(JSON.stringify({language:c.language,code:c.code,immediateClose:!0}))}else c.highlightedCode=t.highlight(c.code,c.grammar,c.language),t.hooks.run("before-insert",c),c.element.innerHTML=c.highlightedCode,o&&o.call(n),t.hooks.run("after-highlight",c),t.hooks.run("complete",c)},highlight:function(e,n,o){var r=t.tokenize(e,n);return a.stringify(t.util.encode(r),o)},tokenize:function(e,n,a){var o=t.Token,r=[e],i=n.rest;if(i){for(var s in i)n[s]=i[s];delete n.rest}e:for(var s in n)if(n.hasOwnProperty(s)&&n[s]){var l=n[s];l="Array"===t.util.type(l)?l:[l];for(var c=0;c<l.length;++c){var u=l[c],m=u.inside,p=!!u.lookbehind,d=!!u.greedy,g=0,f=u.alias;if(d&&!u.pattern.global){var h=u.pattern.toString().match(/[imuy]*$/)[0];u.pattern=RegExp(u.pattern.source,h+"g")}u=u.pattern||u;for(var b=0,v=0;b<r.length;v+=r[b].length,++b){var k=r[b];if(r.length>e.length)break e;if(!(k instanceof o)){u.lastIndex=0;var x=u.exec(k),y=1;if(!x&&d&&b!=r.length-1){if(u.lastIndex=v,x=u.exec(e),!x)break;for(var w=x.index+(p?x[1].length:0),P=x.index+x[0].length,q=b,C=v,A=r.length;q<A&&C<P;++q)C+=r[q].length,w>=C&&(++b,v=C);if(r[b]instanceof o||r[q-1].greedy)continue;y=q-b,k=e.slice(v,C),x.index-=v}if(x){p&&(g=x[1].length);var w=x.index+g,x=x[0].slice(g),P=w+x.length,j=k.slice(0,w),E=k.slice(P),N=[b,y];j&&N.push(j);var _=new o(s,m?t.tokenize(x,m):x,f,x,d);N.push(_),E&&N.push(E),Array.prototype.splice.apply(r,N)}}}}}return r},hooks:{all:{},add:function(e,n){var a=t.hooks.all;a[e]=a[e]||[],a[e].push(n)},run:function(e,n){var a=t.hooks.all[e];if(a&&a.length)for(var o,r=0;o=a[r++];)o(n)}}},a=t.Token=function(e,n,t,a,o){this.type=e,this.content=n,this.alias=t,this.length=0|(a||"").length,this.greedy=!!o};if(a.stringify=function(e,n,o){if("string"==typeof e)return e;if("Array"===t.util.type(e))return e.map(function(t){return a.stringify(t,n,e)}).join("");var r={type:e.type,content:a.stringify(e.content,n,o),tag:"span",classes:["token",e.type],attributes:{},language:n,parent:o};if("comment"==r.type&&(r.attributes.spellcheck="true"),e.alias){var i="Array"===t.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(r.classes,i)}t.hooks.run("wrap",r);var s=Object.keys(r.attributes).map(function(e){return e+'="'+(r.attributes[e]||"").replace(/"/g,"&quot;")+'"'}).join(" ");return"<"+r.tag+' class="'+r.classes.join(" ")+'"'+(s?" "+s:"")+">"+r.content+"</"+r.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var n=JSON.parse(e.data),a=n.language,o=n.code,r=n.immediateClose;_self.postMessage(t.highlight(o,t.languages[a],a)),r&&_self.close()},!1),_self.Prism):_self.Prism;var o=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return o&&(t.filename=o.src,document.addEventListener&&!o.hasAttribute("data-manual")&&("loading"!==document.readyState?window.requestAnimationFrame?window.requestAnimationFrame(t.highlightAll):window.setTimeout(t.highlightAll,16):document.addEventListener("DOMContentLoaded",t.highlightAll))),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism),Prism.languages.markup={comment:/<!--[\w\W]*?-->/,prolog:/<\?[\w\W]+?\?>/,doctype:/<!DOCTYPE[\w\W]+?>/i,cdata:/<!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,inside:{punctuation:/[=>"']/}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},Prism.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),Prism.languages.xml=Prism.languages.markup,Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup,Prism.languages.css={comment:/\/\*[\w\W]*?\*\//,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*\{))/i,inside:{rule:/@[\w-]+/}},url:/url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,selector:/[^\{\}\s][^\{\};]*?(?=\s*\{)/,string:{pattern:/("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,greedy:!0},property:/(\b|\B)[\w-]+(?=\s*:)/i,important:/\B!important\b/i,function:/[-a-z0-9]+(?=\()/i,punctuation:/[(){};:]/},Prism.languages.css.atrule.inside.rest=Prism.util.clone(Prism.languages.css),Prism.languages.markup&&(Prism.languages.insertBefore("markup","tag",{style:{pattern:/(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,lookbehind:!0,inside:Prism.languages.css,alias:"language-css"}}),Prism.languages.insertBefore("inside","attr-value",{"style-attr":{pattern:/\s*style=("|').*?\1/i,inside:{"attr-name":{pattern:/^\s*style/i,inside:Prism.languages.markup.tag.inside},punctuation:/^\s*=\s*['"]|['"]\s*$/,"attr-value":{pattern:/.+/i,inside:Prism.languages.css}},alias:"language-css"}},Prism.languages.markup.tag)),Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:{pattern:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,boolean:/\b(true|false)\b/,function:/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/},Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,number:/\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,function:/[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^\/])\/(?!\/)(\[.+?]|\\.|[^\/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,lookbehind:!0,greedy:!0}}),Prism.languages.insertBefore("javascript","string",{"template-string":{pattern:/`(?:\\\\|\\?[^\\])*?`/,greedy:!0,inside:{interpolation:{pattern:/\$\{[^}]+\}/,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,lookbehind:!0,inside:Prism.languages.javascript,alias:"language-javascript"}}),Prism.languages.js=Prism.languages.javascript,function(){"undefined"!=typeof self&&self.Prism&&self.document&&document.querySelector&&(self.Prism.fileHighlight=function(){var e={js:"javascript",py:"python",rb:"ruby",ps1:"powershell",psm1:"powershell",sh:"bash",bat:"batch",h:"c",tex:"latex"};Array.prototype.forEach&&Array.prototype.slice.call(document.querySelectorAll("pre[data-src]")).forEach(function(n){for(var t,a=n.getAttribute("data-src"),o=n,r=/\blang(?:uage)?-(?!\*)(\w+)\b/i;o&&!r.test(o.className);)o=o.parentNode;if(o&&(t=(n.className.match(r)||[,""])[1]),!t){var i=(a.match(/\.(\w+)$/)||[,""])[1];t=e[i]||i}var s=document.createElement("code");s.className="language-"+t,n.textContent="",s.textContent="Loading…",n.appendChild(s);var l=new XMLHttpRequest;l.open("GET",a,!0),l.onreadystatechange=function(){4==l.readyState&&(l.status<400&&l.responseText?(s.textContent=l.responseText,Prism.highlightElement(s)):l.status>=400?s.textContent="✖ Error "+l.status+" while fetching file: "+l.statusText:s.textContent="✖ Error: File does not exist or is empty")},l.send(null)})},document.addEventListener("DOMContentLoaded",self.Prism.fileHighlight))}(),define("prism",function(){}),define("components/code/highlight.component",["quark","knockout","jquery","text!./highlight.component.html","prism","css!prism/themes/prism"],function(e,n,t,a){function o(t,a,o){var r=this;e.parameters({language:n.observable("javascript")},t,this),a.languageClass=n.pureComputed(function(){return"language-"+r.language()}),a.init=function(e){Prism.highlightElement(e),delete Prism}}return e.component(o,a)}),define("text!components/nav/next-prev.component.html",[],function(){return'<quark-component>\n    <hr />\n    <ul class="pager">\n        <!-- ko if: model.previousPage -->\n            <li class="previous">\n                <a data-bind="href: model.previousPage, vars: model.previousParams">\n                    <span aria-hidden="true">&larr;</span>\n                    <span data-bind="text: model.previousText"></span>\n                </a>\n            </li>\n        <!-- /ko -->\n        <!-- ko if: model.nextPage -->\n            <li class="next">\n                <a data-bind="href: model.nextPage, vars: model.nextParams">\n                    <span data-bind="text: model.nextText"></span>\n                    <span aria-hidden="true">&rarr;</span>\n                </a>\n            </li>\n        <!-- /ko -->\n    </ul>\n</quark-component>\n'}),define("components/nav/next-prev.component",["quark","knockout","text!./next-prev.component.html"],function(e,n,t){function a(t,a,o){e.parameters({previousText:n.observable(),previousPage:n.observable(),previousParams:n.observable(),nextText:n.observable(),nextPage:n.observable(),nextParams:n.observable()},t,this)}return e.component(a,t)}),define("text!components/example/component.component.html",[],function(){return'<quark-component>\n    Valor de obs: <span data-bind="text: model.obs"></span><br />\n    Valor de str: <span data-bind="text: model.str"></span><br />\n    Valor de num: <span data-bind="text: model.num"></span><br />\n</quark-component>\n'}),define("components/example/component.component",["quark","knockout","text!./component.component.html"],function(e,n,t){function a(t){e.parameters({obs:n.observable("Hola"),str:"Mundo",num:2016},t,this)}return e.component(a,t)}),define("text!components/example/other.component.html",[],function(){return'<quark-component>\n    Nombre: <input type="text" data-bind="value: model.nombre" />\n    <br />\n    <br />\n    <example-component params="obs: model.nombre" >\n    </example-component>\n</quark-component>\n'}),define("components/example/other.component",["quark","knockout","text!./other.component.html"],function(e,n,t){function a(e){this.nombre=n.observable("Pedro")}return e.component(a,t)}),define("text!components/example/scope.component.html",[],function(){return'<quark-component>\n    <span data-bind="text: model.texto, css: clase">\n    </span>\n</quark-component>\n'}),define("components/example/scope.component",["quark","knockout","text!./scope.component.html"],function(e,n,t){function a(t,a){var o=this;e.parameters({texto:n.observable(""),largoMaximo:n.observable(20)},t,this),a.clase=n.pureComputed(function(){var n=o.texto(),t=o.largoMaximo();return e.isString(n)&&n.length>t?"text-danger":""})}return e.component(a,t)}),define("text!components/example/validation.component.html",[],function(){return'<quark-component>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.codigo">\n            <label class="control-label">Código</label>\n            <input type="text" class="form-control" data-bind="value: model.item.codigo" />\n            <p data-bind="fieldError: model.item.codigo" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.nombre">\n            <label class="control-label">Nombre</label>\n            <input type="text" class="form-control" data-bind="value: model.item.nombre" />\n            <p data-bind="fieldError: model.item.nombre" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.descripcion">\n            <label class="control-label">Descripción</label>\n            <textarea class="form-control" data-bind="value: model.item.descripcion"></textarea>\n            <p data-bind="fieldError: model.item.descripcion" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12">\n            <button class="btn btn-default" data-bind="click: model.reset">Reset</button>\n            <button class="btn btn-primary" data-bind="click: model.save">Guardar</button>\n        </div>\n    </div>\n</quark-component>\n'}),define("components/example/validation.component",["quark","knockout","text!./validation.component.html"],function(e,n,t){function a(e,t,a){var o=this;this.item={codigo:n.observable().validation("Código",{required:{}}),nombre:n.observable().validation("Nombre Completo",{required:{}}),descripcion:n.observable().validation("Descripción",{required:{message:"Debe especificar una descripción"}})},this.save=function(){n.validate(o.item,!0)&&alert("Saved")},this.reset=function(){n.validationReset(o.item)},this.dispose=function(){n.unsubscribeValidation(o.item)}}return e.component(a,t)}),define("text!components/example/content-no-params.component.html",[],function(){return'<quark-component>\n    <div class="alert alert-danger" data-bind="content">\n    </div>\n</quark-component>\n'}),define("components/example/content-no-params.component",["quark","knockout","text!./content-no-params.component.html"],function(e,n,t){function a(e){}return e.component(a,t)}),define("text!components/example/content-params.component.html",[],function(){return'<quark-component>\n    <div class="panel panel-primary">\n        <div class="panel-heading" data-bind="content: \'bt-heading\'">\n        </div>\n        <div class="panel-body" data-bind="content: \'bt-body\'">\n        </div>\n    </div>\n</quark-component>\n'}),define("components/example/content-params.component",["quark","knockout","text!./content-params.component.html"],function(e,n,t){function a(e){}return e.component(a,t)}),define("text!components/static/content.component.html",[],function(){return'<quark-component>\n    <div class="staticContainer">\n    </div>\n</quark-component>\n'}),define("components/static/content.component",["quark","knockout","text!./content.component.html"],function(e,n,t){function a(t,a,o){function r(n){require(["text!"+n+".html"],function(n){e.replaceAndBind(".staticContainer",n,{}),window.scrollTo(0,0)})}var i=this;e.parameters({view:n.observable()},t,this);var s=i.view.subscribe(function(e){r(e)});o.initComponent=function(){r(i.view())},this.dispose=function(){s.dispose()}}return e.component(a,t)}),define("controllers/main/docs.controller",["quark","knockout"],function(e,n){function t(){var e=this;this.view=n.observable(),this.sendParameters=function(n){switch(n){case"main":return{view:e.view}}}}return t}),define("controllers/main/docs/static.controller",["quark","knockout"],function(e,n){function t(){var e=this;this.init=function(){e.parent.view(e.params.view())}}return t});
+
+define('text!components/code/highlight.component.html',[],function () { return '<quark-component>\n    <pre><code data-bind="content, css: languageClass, onBind: init"></code></pre>\n</quark-component>\n';});
+
+
+/* **********************************************
+     Begin prism-core.js
+********************************************** */
+
+var _self = (typeof window !== 'undefined')
+	? window   // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+		? self // if in worker
+		: {}   // if in node js
+	);
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+
+var Prism = (function(){
+
+// Private helper vars
+var lang = /\blang(?:uage)?-(\w+)\b/i;
+var uniqueId = 0;
+
+var _ = _self.Prism = {
+	util: {
+		encode: function (tokens) {
+			if (tokens instanceof Token) {
+				return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+			} else if (_.util.type(tokens) === 'Array') {
+				return tokens.map(_.util.encode);
+			} else {
+				return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+			}
+		},
+
+		type: function (o) {
+			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+		},
+
+		objId: function (obj) {
+			if (!obj['__id']) {
+				Object.defineProperty(obj, '__id', { value: ++uniqueId });
+			}
+			return obj['__id'];
+		},
+
+		// Deep clone a language definition (e.g. to extend it)
+		clone: function (o) {
+			var type = _.util.type(o);
+
+			switch (type) {
+				case 'Object':
+					var clone = {};
+
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) {
+							clone[key] = _.util.clone(o[key]);
+						}
+					}
+
+					return clone;
+
+				case 'Array':
+					// Check for existence for IE8
+					return o.map && o.map(function(v) { return _.util.clone(v); });
+			}
+
+			return o;
+		}
+	},
+
+	languages: {
+		extend: function (id, redef) {
+			var lang = _.util.clone(_.languages[id]);
+
+			for (var key in redef) {
+				lang[key] = redef[key];
+			}
+
+			return lang;
+		},
+
+		/**
+		 * Insert a token before another token in a language literal
+		 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+		 * we cannot just provide an object, we need anobject and a key.
+		 * @param inside The key (or language id) of the parent
+		 * @param before The key to insert before. If not provided, the function appends instead.
+		 * @param insert Object with the key/value pairs to insert
+		 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+		 */
+		insertBefore: function (inside, before, insert, root) {
+			root = root || _.languages;
+			var grammar = root[inside];
+
+			if (arguments.length == 2) {
+				insert = arguments[1];
+
+				for (var newToken in insert) {
+					if (insert.hasOwnProperty(newToken)) {
+						grammar[newToken] = insert[newToken];
+					}
+				}
+
+				return grammar;
+			}
+
+			var ret = {};
+
+			for (var token in grammar) {
+
+				if (grammar.hasOwnProperty(token)) {
+
+					if (token == before) {
+
+						for (var newToken in insert) {
+
+							if (insert.hasOwnProperty(newToken)) {
+								ret[newToken] = insert[newToken];
+							}
+						}
+					}
+
+					ret[token] = grammar[token];
+				}
+			}
+
+			// Update references in other language definitions
+			_.languages.DFS(_.languages, function(key, value) {
+				if (value === root[inside] && key != inside) {
+					this[key] = ret;
+				}
+			});
+
+			return root[inside] = ret;
+		},
+
+		// Traverse a language definition with Depth First Search
+		DFS: function(o, callback, type, visited) {
+			visited = visited || {};
+			for (var i in o) {
+				if (o.hasOwnProperty(i)) {
+					callback.call(o, i, o[i], type || i);
+
+					if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, null, visited);
+					}
+					else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, i, visited);
+					}
+				}
+			}
+		}
+	},
+	plugins: {},
+
+	highlightAll: function(async, callback) {
+		var env = {
+			callback: callback,
+			selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+		};
+
+		_.hooks.run("before-highlightall", env);
+
+		var elements = env.elements || document.querySelectorAll(env.selector);
+
+		for (var i=0, element; element = elements[i++];) {
+			_.highlightElement(element, async === true, env.callback);
+		}
+	},
+
+	highlightElement: function(element, async, callback) {
+		// Find language
+		var language, grammar, parent = element;
+
+		while (parent && !lang.test(parent.className)) {
+			parent = parent.parentNode;
+		}
+
+		if (parent) {
+			language = (parent.className.match(lang) || [,''])[1].toLowerCase();
+			grammar = _.languages[language];
+		}
+
+		// Set language on the element, if not present
+		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+
+		// Set language on the parent, for styling
+		parent = element.parentNode;
+
+		if (/pre/i.test(parent.nodeName)) {
+			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+		}
+
+		var code = element.textContent;
+
+		var env = {
+			element: element,
+			language: language,
+			grammar: grammar,
+			code: code
+		};
+
+		_.hooks.run('before-sanity-check', env);
+
+		if (!env.code || !env.grammar) {
+			if (env.code) {
+				env.element.textContent = env.code;
+			}
+			_.hooks.run('complete', env);
+			return;
+		}
+
+		_.hooks.run('before-highlight', env);
+
+		if (async && _self.Worker) {
+			var worker = new Worker(_.filename);
+
+			worker.onmessage = function(evt) {
+				env.highlightedCode = evt.data;
+
+				_.hooks.run('before-insert', env);
+
+				env.element.innerHTML = env.highlightedCode;
+
+				callback && callback.call(env.element);
+				_.hooks.run('after-highlight', env);
+				_.hooks.run('complete', env);
+			};
+
+			worker.postMessage(JSON.stringify({
+				language: env.language,
+				code: env.code,
+				immediateClose: true
+			}));
+		}
+		else {
+			env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+
+			_.hooks.run('before-insert', env);
+
+			env.element.innerHTML = env.highlightedCode;
+
+			callback && callback.call(element);
+
+			_.hooks.run('after-highlight', env);
+			_.hooks.run('complete', env);
+		}
+	},
+
+	highlight: function (text, grammar, language) {
+		var tokens = _.tokenize(text, grammar);
+		return Token.stringify(_.util.encode(tokens), language);
+	},
+
+	tokenize: function(text, grammar, language) {
+		var Token = _.Token;
+
+		var strarr = [text];
+
+		var rest = grammar.rest;
+
+		if (rest) {
+			for (var token in rest) {
+				grammar[token] = rest[token];
+			}
+
+			delete grammar.rest;
+		}
+
+		tokenloop: for (var token in grammar) {
+			if(!grammar.hasOwnProperty(token) || !grammar[token]) {
+				continue;
+			}
+
+			var patterns = grammar[token];
+			patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
+
+			for (var j = 0; j < patterns.length; ++j) {
+				var pattern = patterns[j],
+					inside = pattern.inside,
+					lookbehind = !!pattern.lookbehind,
+					greedy = !!pattern.greedy,
+					lookbehindLength = 0,
+					alias = pattern.alias;
+
+				if (greedy && !pattern.pattern.global) {
+					// Without the global flag, lastIndex won't work
+					var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
+					pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
+				}
+
+				pattern = pattern.pattern || pattern;
+
+				// Don’t cache length as it changes during the loop
+				for (var i=0, pos = 0; i<strarr.length; pos += strarr[i].length, ++i) {
+
+					var str = strarr[i];
+
+					if (strarr.length > text.length) {
+						// Something went terribly wrong, ABORT, ABORT!
+						break tokenloop;
+					}
+
+					if (str instanceof Token) {
+						continue;
+					}
+
+					pattern.lastIndex = 0;
+
+					var match = pattern.exec(str),
+					    delNum = 1;
+
+					// Greedy patterns can override/remove up to two previously matched tokens
+					if (!match && greedy && i != strarr.length - 1) {
+						pattern.lastIndex = pos;
+						match = pattern.exec(text);
+						if (!match) {
+							break;
+						}
+
+						var from = match.index + (lookbehind ? match[1].length : 0),
+						    to = match.index + match[0].length,
+						    k = i,
+						    p = pos;
+
+						for (var len = strarr.length; k < len && p < to; ++k) {
+							p += strarr[k].length;
+							// Move the index i to the element in strarr that is closest to from
+							if (from >= p) {
+								++i;
+								pos = p;
+							}
+						}
+
+						/*
+						 * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
+						 * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
+						 */
+						if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
+							continue;
+						}
+
+						// Number of tokens to delete and replace with the new match
+						delNum = k - i;
+						str = text.slice(pos, p);
+						match.index -= pos;
+					}
+
+					if (!match) {
+						continue;
+					}
+
+					if(lookbehind) {
+						lookbehindLength = match[1].length;
+					}
+
+					var from = match.index + lookbehindLength,
+					    match = match[0].slice(lookbehindLength),
+					    to = from + match.length,
+					    before = str.slice(0, from),
+					    after = str.slice(to);
+
+					var args = [i, delNum];
+
+					if (before) {
+						args.push(before);
+					}
+
+					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match, alias, match, greedy);
+
+					args.push(wrapped);
+
+					if (after) {
+						args.push(after);
+					}
+
+					Array.prototype.splice.apply(strarr, args);
+				}
+			}
+		}
+
+		return strarr;
+	},
+
+	hooks: {
+		all: {},
+
+		add: function (name, callback) {
+			var hooks = _.hooks.all;
+
+			hooks[name] = hooks[name] || [];
+
+			hooks[name].push(callback);
+		},
+
+		run: function (name, env) {
+			var callbacks = _.hooks.all[name];
+
+			if (!callbacks || !callbacks.length) {
+				return;
+			}
+
+			for (var i=0, callback; callback = callbacks[i++];) {
+				callback(env);
+			}
+		}
+	}
+};
+
+var Token = _.Token = function(type, content, alias, matchedStr, greedy) {
+	this.type = type;
+	this.content = content;
+	this.alias = alias;
+	// Copy of the full string this token was created from
+	this.length = (matchedStr || "").length|0;
+	this.greedy = !!greedy;
+};
+
+Token.stringify = function(o, language, parent) {
+	if (typeof o == 'string') {
+		return o;
+	}
+
+	if (_.util.type(o) === 'Array') {
+		return o.map(function(element) {
+			return Token.stringify(element, language, o);
+		}).join('');
+	}
+
+	var env = {
+		type: o.type,
+		content: Token.stringify(o.content, language, parent),
+		tag: 'span',
+		classes: ['token', o.type],
+		attributes: {},
+		language: language,
+		parent: parent
+	};
+
+	if (env.type == 'comment') {
+		env.attributes['spellcheck'] = 'true';
+	}
+
+	if (o.alias) {
+		var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
+		Array.prototype.push.apply(env.classes, aliases);
+	}
+
+	_.hooks.run('wrap', env);
+
+	var attributes = Object.keys(env.attributes).map(function(name) {
+		return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+	}).join(' ');
+
+	return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
+
+};
+
+if (!_self.document) {
+	if (!_self.addEventListener) {
+		// in Node.js
+		return _self.Prism;
+	}
+ 	// In worker
+	_self.addEventListener('message', function(evt) {
+		var message = JSON.parse(evt.data),
+		    lang = message.language,
+		    code = message.code,
+		    immediateClose = message.immediateClose;
+
+		_self.postMessage(_.highlight(code, _.languages[lang], lang));
+		if (immediateClose) {
+			_self.close();
+		}
+	}, false);
+
+	return _self.Prism;
+}
+
+//Get current script and highlight
+var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
+
+if (script) {
+	_.filename = script.src;
+
+	if (document.addEventListener && !script.hasAttribute('data-manual')) {
+		if(document.readyState !== "loading") {
+			if (window.requestAnimationFrame) {
+				window.requestAnimationFrame(_.highlightAll);
+			} else {
+				window.setTimeout(_.highlightAll, 16);
+			}
+		}
+		else {
+			document.addEventListener('DOMContentLoaded', _.highlightAll);
+		}
+	}
+}
+
+return _self.Prism;
+
+})();
+
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = Prism;
+}
+
+// hack for components to work correctly in node.js
+if (typeof global !== 'undefined') {
+	global.Prism = Prism;
+}
+
+
+/* **********************************************
+     Begin prism-markup.js
+********************************************** */
+
+Prism.languages.markup = {
+	'comment': /<!--[\w\W]*?-->/,
+	'prolog': /<\?[\w\W]+?\?>/,
+	'doctype': /<!DOCTYPE[\w\W]+?>/i,
+	'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
+	'tag': {
+		pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
+		inside: {
+			'tag': {
+				pattern: /^<\/?[^\s>\/]+/i,
+				inside: {
+					'punctuation': /^<\/?/,
+					'namespace': /^[^\s>\/:]+:/
+				}
+			},
+			'attr-value': {
+				pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
+				inside: {
+					'punctuation': /[=>"']/
+				}
+			},
+			'punctuation': /\/?>/,
+			'attr-name': {
+				pattern: /[^\s>\/]+/,
+				inside: {
+					'namespace': /^[^\s>\/:]+:/
+				}
+			}
+
+		}
+	},
+	'entity': /&#?[\da-z]{1,8};/i
+};
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function(env) {
+
+	if (env.type === 'entity') {
+		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+	}
+});
+
+Prism.languages.xml = Prism.languages.markup;
+Prism.languages.html = Prism.languages.markup;
+Prism.languages.mathml = Prism.languages.markup;
+Prism.languages.svg = Prism.languages.markup;
+
+
+/* **********************************************
+     Begin prism-css.js
+********************************************** */
+
+Prism.languages.css = {
+	'comment': /\/\*[\w\W]*?\*\//,
+	'atrule': {
+		pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i,
+		inside: {
+			'rule': /@[\w-]+/
+			// See rest below
+		}
+	},
+	'url': /url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
+	'selector': /[^\{\}\s][^\{\};]*?(?=\s*\{)/,
+	'string': {
+		pattern: /("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'property': /(\b|\B)[\w-]+(?=\s*:)/i,
+	'important': /\B!important\b/i,
+	'function': /[-a-z0-9]+(?=\()/i,
+	'punctuation': /[(){};:]/
+};
+
+Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'style': {
+			pattern: /(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,
+			lookbehind: true,
+			inside: Prism.languages.css,
+			alias: 'language-css'
+		}
+	});
+
+	Prism.languages.insertBefore('inside', 'attr-value', {
+		'style-attr': {
+			pattern: /\s*style=("|').*?\1/i,
+			inside: {
+				'attr-name': {
+					pattern: /^\s*style/i,
+					inside: Prism.languages.markup.tag.inside
+				},
+				'punctuation': /^\s*=\s*['"]|['"]\s*$/,
+				'attr-value': {
+					pattern: /.+/i,
+					inside: Prism.languages.css
+				}
+			},
+			alias: 'language-css'
+		}
+	}, Prism.languages.markup.tag);
+}
+
+/* **********************************************
+     Begin prism-clike.js
+********************************************** */
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(true|false)\b/,
+	'function': /[a-z0-9_]+(?=\()/i,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+
+/* **********************************************
+     Begin prism-javascript.js
+********************************************** */
+
+Prism.languages.javascript = Prism.languages.extend('clike', {
+	'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
+	'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
+	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+	'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/
+});
+
+Prism.languages.insertBefore('javascript', 'keyword', {
+	'regex': {
+		pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
+		lookbehind: true,
+		greedy: true
+	}
+});
+
+Prism.languages.insertBefore('javascript', 'string', {
+	'template-string': {
+		pattern: /`(?:\\\\|\\?[^\\])*?`/,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				pattern: /\$\{[^}]+\}/,
+				inside: {
+					'interpolation-punctuation': {
+						pattern: /^\$\{|\}$/,
+						alias: 'punctuation'
+					},
+					rest: Prism.languages.javascript
+				}
+			},
+			'string': /[\s\S]+/
+		}
+	}
+});
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'script': {
+			pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
+			lookbehind: true,
+			inside: Prism.languages.javascript,
+			alias: 'language-javascript'
+		}
+	});
+}
+
+Prism.languages.js = Prism.languages.javascript;
+
+/* **********************************************
+     Begin prism-file-highlight.js
+********************************************** */
+
+(function () {
+	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
+		return;
+	}
+
+	self.Prism.fileHighlight = function() {
+
+		var Extensions = {
+			'js': 'javascript',
+			'py': 'python',
+			'rb': 'ruby',
+			'ps1': 'powershell',
+			'psm1': 'powershell',
+			'sh': 'bash',
+			'bat': 'batch',
+			'h': 'c',
+			'tex': 'latex'
+		};
+
+		if(Array.prototype.forEach) { // Check to prevent error in IE8
+			Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+				var src = pre.getAttribute('data-src');
+
+				var language, parent = pre;
+				var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+				while (parent && !lang.test(parent.className)) {
+					parent = parent.parentNode;
+				}
+
+				if (parent) {
+					language = (pre.className.match(lang) || [, ''])[1];
+				}
+
+				if (!language) {
+					var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+					language = Extensions[extension] || extension;
+				}
+
+				var code = document.createElement('code');
+				code.className = 'language-' + language;
+
+				pre.textContent = '';
+
+				code.textContent = 'Loading…';
+
+				pre.appendChild(code);
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open('GET', src, true);
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4) {
+
+						if (xhr.status < 400 && xhr.responseText) {
+							code.textContent = xhr.responseText;
+
+							Prism.highlightElement(code);
+						}
+						else if (xhr.status >= 400) {
+							code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+						}
+						else {
+							code.textContent = '✖ Error: File does not exist or is empty';
+						}
+					}
+				};
+
+				xhr.send(null);
+			});
+		}
+
+	};
+
+	document.addEventListener('DOMContentLoaded', self.Prism.fileHighlight);
+
+})();
+
+define("prismjs", function(){});
+
+define('components/code/highlight.component',[
+    'quark',
+    'knockout',
+    'jquery',
+    'text!./highlight.component.html',
+    'prismjs',
+    'loadCss!prismjs-themes/prism'
+], function($$, ko, $, template) {
+
+    function CodeHighlightComponent(params, $scope, $imports) {
+        var self = this;
+
+        $$.parameters({
+            language: ko.observable('javascript')
+        }, params, this);
+
+        $scope.languageClass = ko.pureComputed(function() {
+            return 'language-' + self.language();
+        });
+
+        $scope.init = function(element) {
+            Prism.highlightElement(element);
+            delete Prism;
+        }
+
+    }
+
+    return $$.component(CodeHighlightComponent, template);
+});
+
+define('text!components/nav/next-prev.component.html',[],function () { return '<quark-component>\n    <hr />\n    <ul class="pager">\n        <!-- ko if: model.previousPage -->\n            <li class="previous">\n                <a data-bind="href: model.previousPage, vars: model.previousParams">\n                    <span aria-hidden="true">&larr;</span>\n                    <span data-bind="text: model.previousText"></span>\n                </a>\n            </li>\n        <!-- /ko -->\n        <!-- ko if: model.nextPage -->\n            <li class="next">\n                <a data-bind="href: model.nextPage, vars: model.nextParams">\n                    <span data-bind="text: model.nextText"></span>\n                    <span aria-hidden="true">&rarr;</span>\n                </a>\n            </li>\n        <!-- /ko -->\n    </ul>\n</quark-component>\n';});
+
+define('components/nav/next-prev.component',[
+    'quark',
+    'knockout',
+    'text!./next-prev.component.html'
+], function($$, ko, template) {
+
+    function NavNextPrevComponent(params, $scope, $imports) {
+        var self = this;
+
+        $$.parameters({
+            previousText: ko.observable(),
+            previousPage: ko.observable(),
+            previousParams: ko.observable(),
+            nextText: ko.observable(),
+            nextPage: ko.observable(),
+            nextParams: ko.observable()
+        }, params, this);
+    }
+
+    return $$.component(NavNextPrevComponent, template);
+})
+;
+define('text!components/example/component.component.html',[],function () { return '<quark-component>\n    Valor de obs: <span data-bind="text: model.obs"></span><br />\n    Valor de str: <span data-bind="text: model.str"></span><br />\n    Valor de num: <span data-bind="text: model.num"></span><br />\n</quark-component>\n';});
+
+define('components/example/component.component',[
+    'quark',
+    'knockout',
+    'text!./component.component.html'
+], function($$, ko, template) {
+
+    function ExampleComponentComponent(params) {
+        var self = this;
+
+        $$.parameters({
+            obs: ko.observable('Hola'),
+            str: 'Mundo',
+            num: 2016
+        }, params, this);
+    }
+
+    return $$.component(ExampleComponentComponent, template);
+});
+
+define('text!components/example/other.component.html',[],function () { return '<quark-component>\n    Nombre: <input type="text" data-bind="value: model.nombre" />\n    <br />\n    <br />\n    <example-component params="obs: model.nombre" >\n    </example-component>\n</quark-component>\n';});
+
+define('components/example/other.component',[
+    'quark',
+    'knockout',
+    'text!./other.component.html'
+], function($$, ko, template) {
+
+    function ExampleOtherComponent(params) {
+        var self = this;
+
+        this.nombre = ko.observable('Pedro');
+    }
+
+    return $$.component(ExampleOtherComponent, template);
+});
+
+define('text!components/example/scope.component.html',[],function () { return '<quark-component>\n    <span data-bind="text: model.texto, css: clase">\n    </span>\n</quark-component>\n';});
+
+define('components/example/scope.component',[
+    'quark',
+    'knockout',
+    'text!./scope.component.html'
+], function($$, ko, template) {
+
+    function ExampleScopeComponent(params, $scope) {
+        var self = this;
+
+        $$.parameters({
+            texto: ko.observable(''),
+            largoMaximo: ko.observable(20)
+        }, params, this);
+
+        $scope.clase = ko.pureComputed(function() {
+            var texto = self.texto();
+            var max = self.largoMaximo();
+
+            if ($$.isString(texto)) {
+                if (texto.length > max) {
+                    return "text-danger";
+                }
+            }
+
+            return "";
+        });
+    }
+
+    return $$.component(ExampleScopeComponent, template);
+});
+
+define('text!components/example/validation.component.html',[],function () { return '<quark-component>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.codigo">\n            <label class="control-label">Código</label>\n            <input type="text" class="form-control" data-bind="value: model.item.codigo" />\n            <p data-bind="fieldError: model.item.codigo" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.nombre">\n            <label class="control-label">Nombre</label>\n            <input type="text" class="form-control" data-bind="value: model.item.nombre" />\n            <p data-bind="fieldError: model.item.nombre" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12 form-group" data-bind="formGroupError: model.item.descripcion">\n            <label class="control-label">Descripción</label>\n            <textarea class="form-control" data-bind="value: model.item.descripcion"></textarea>\n            <p data-bind="fieldError: model.item.descripcion" class="text-danger"></p>\n        </div>\n    </div>\n    <div class="row">\n        <div class="col-sm-12">\n            <button class="btn btn-default" data-bind="click: model.reset">Reset</button>\n            <button class="btn btn-primary" data-bind="click: model.save">Guardar</button>\n        </div>\n    </div>\n</quark-component>\n';});
+
+define('components/example/validation.component',[
+    'quark',
+    'knockout',
+    'text!./validation.component.html'
+], function($$, ko, template) {
+
+    function ExampleValidationComponent(params, $scope, $imports) {
+        var self = this;
+
+        this.item = {
+            codigo: ko.observable().validation('Código', {
+                required: {}
+            }),
+            nombre: ko.observable().validation('Nombre Completo', {
+                required: {}
+            }),
+            descripcion: ko.observable().validation('Descripción', {
+                required: { message: 'Debe especificar una descripción' }
+            })
+        };
+
+        this.save = function() {
+            if (ko.validate(self.item, true)) {
+                alert('Saved');
+            };
+        }
+
+        this.reset = function() {
+            ko.validationReset(self.item);
+        }
+
+        this.dispose = function() {
+            ko.unsubscribeValidation(self.item);
+        }
+    }
+
+    return $$.component(ExampleValidationComponent, template);
+});
+
+define('text!components/example/content-no-params.component.html',[],function () { return '<quark-component>\n    <div class="alert alert-danger" data-bind="content">\n    </div>\n</quark-component>\n';});
+
+define('components/example/content-no-params.component',[
+    'quark',
+    'knockout',
+    'text!./content-no-params.component.html'
+], function($$, ko, template) {
+
+    function ExampleContentNoParamsComponent(params) {
+        var self = this;
+    }
+
+    return $$.component(ExampleContentNoParamsComponent, template);
+});
+
+define('text!components/example/content-params.component.html',[],function () { return '<quark-component>\n    <div class="panel panel-primary">\n        <div class="panel-heading" data-bind="content: \'bt-heading\'">\n        </div>\n        <div class="panel-body" data-bind="content: \'bt-body\'">\n        </div>\n    </div>\n</quark-component>\n';});
+
+define('components/example/content-params.component',[
+    'quark',
+    'knockout',
+    'text!./content-params.component.html'
+], function($$, ko, template) {
+
+    function ExampleContentParamsComponent(params) {
+        var self = this;
+    }
+
+    return $$.component(ExampleContentParamsComponent, template);
+});
+
+define('text!components/static/content.component.html',[],function () { return '<quark-component>\n    <div class="staticContainer">\n    </div>\n</quark-component>\n';});
+
+define('components/static/content.component',[
+    'quark',
+    'knockout',
+    'text!./content.component.html'
+], function($$, ko, template) {
+
+    function StaticContentComponent(params, $scope, $imports) {
+        var self = this;
+
+        var element;
+
+        $$.parameters({
+            view: ko.observable()
+        }, params, this);
+
+        function loadView(view) {
+            require(["text!" + view + ".html"], function(content) {
+                $$.replaceAndBind(".staticContainer", content, {});
+                window.scrollTo(0, 0);
+            });
+        }
+
+        var subscription = self.view.subscribe(function(newValue) {
+            loadView(newValue);
+        });
+
+        $imports.initComponent = function() {
+            loadView(self.view());
+        }
+
+        this.dispose = function() {
+            subscription.dispose();
+        }
+    }
+
+    return $$.component(StaticContentComponent, template);
+});
+
+define('controllers/main/docs.controller',[
+    'quark',
+    'knockout'
+], function($$, ko) {
+
+    function MainDocsController() {
+        var self = this;
+
+        // View to show on static content
+        this.view = ko.observable();
+
+        this.sendParameters = function(name) {
+            switch(name) {
+                case 'main':
+                    return {
+                        view: self.view
+                    }
+                    break;
+            }
+        }
+    }
+
+    return MainDocsController;
+});
+
+define('controllers/main/docs/static.controller',[
+    'quark',
+    'knockout'
+], function($$, ko) {
+
+    function MainDocsStaticController() {
+        var self = this;
+
+        this.init = function() {
+            self.parent.view(self.params.view())
+        }
+
+    }
+
+    return MainDocsStaticController;
+})
+;

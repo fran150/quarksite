@@ -12,9 +12,6 @@
         "controllers/main.controller",
         "controllers/main/home.controller"
     ],
-    "externals": [
-        "qk-alchemy"
-    ],
     "bundles": {
         "docs": [
             "components/code/highlight.component",
@@ -42,5 +39,8 @@
             "controllers/main/library/modules/module.controller",
             "services/modules.service"
         ]
-    }
+    },
+    "externals": [
+        "qk-alchemy"
+    ]
 }
