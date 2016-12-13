@@ -8,7 +8,7 @@ define([
     'json!./config/routing/routes.config.json',
     './providers/controller.provider',
     './validators/required.validator',
-    'bootstrap',
+    'bootstrap/js',
     'qk-alchemy/main',
     'loadCss!font-awesome/css',
     'loadCss!bootstrap/css',
