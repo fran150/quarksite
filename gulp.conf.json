@@ -42,5 +42,9 @@
     },
     "externals": [
         "qk-alchemy"
+    ],
+    "copy": [
+        "src/bower_modules/qk-alchemy/dist/**/*",
+        "src/screens/docs/**/*"
     ]
 }

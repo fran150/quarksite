@@ -101,8 +101,10 @@ gulp.task('require', function() {
 });
 
 gulp.task('copy', function() {
-    gulp.src(moduleConfig.copy)
-        .pipe(gulp.dest('./dist/'))
+    if (moduleConfig.copy) {
+        return gulp.src(moduleConfig.copy, { "base" : "./src" })
+            .pipe(gulp.dest('./dist/'));
+    }
 });
 
 gulp.task('css', function() {
@@ -124,7 +126,7 @@ gulp.task('html', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('default', ['js', 'css', 'html', 'require'], function(callback) {
+gulp.task('default', ['js', 'css', 'html', 'require', 'copy'], function(callback) {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.green('dist/\n'));
 });
