@@ -1,0 +1,86 @@
+
+    <span class="docs">
+        <h1>$$.registerComponents <small>Método</small></h1>
+        <hr/>
+        <p>
+            Permite registrar un conjunto de componentes agrupados en <a data-bind="href: 'main/docs/basics-namespaces'">namespaces</a>.
+        </p>
+        <h2>
+            <code>
+                registerComponents(config)
+            </code>
+        </h2>
+        <h3>
+            Parámetros
+        </h3>
+        <hr />
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>config</code>
+                    </td>
+                    <td>
+                        <em>Objeto</em>
+                    </td>
+                    <td>
+                        Objeto donde cada propiedad es el nombre del namespace o tag y el valor de la propiedad es un string con
+                        el path al módulo web del componente o un objeto con esta misma estructura que define los componentes o
+                        namespaces hijos.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Devuelve
+        </h3>
+        <hr />
+        <p>
+            Nada.
+        </p>
+
+        <h3>
+            Ejemplo:
+        </h3>
+        <hr />
+        <p>
+            <code-highlight>
+$$.registerComponents({
+    "pages": {
+        "home": "pages/home",
+        "library": {
+            "finder": "pages/library/finder",
+            "details": "pages/library/details"
+        },
+        "docs": {
+            "home": "pages/docs/home",
+            "installing": "pages/docs/installing"
+        }
+    }
+});
+            </code-highlight>
+            En este ejemplo se registran los componentes:
+            <div class="well">
+                <code>pages-home</code><br />
+                <code>pages-library-finder</code><br />
+                <code>pages-library-details</code><br />
+                <code>pages-docs-home</code><br />
+                <code>pages-docs-installing</code><br />
+            </div>
+        </p>
+    </span>
+

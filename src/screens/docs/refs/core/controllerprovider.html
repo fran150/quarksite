@@ -16,15 +16,15 @@
         </p>
         <p>
             La función por defecto, busca en la carpeta controllers un archivo <em>javascript</em> con el mismo nombre del
-            segmento de la página especificado.
+            segmento de la página especificado más el texto ".controller".
         </p>
         <p>
             Por ejemplo para la ruta <code>docs/references/controller/provider</code>, se intentarán cargar los archivos:
             <ul>
-                <li>controllers/docs.js</li>
-                <li>controllers/docs/references.js</li>
-                <li>controllers/docs/references/controller.js</li>
-                <li>controllers/docs/references/controller/provider.js</li>
+                <li>controllers/docs.controller.js</li>
+                <li>controllers/docs/references.controller.js</li>
+                <li>controllers/docs/references/controller.controller.js</li>
+                <li>controllers/docs/references/controller/provider.controller.js</li>
             </ul>
         </p>
         <p>

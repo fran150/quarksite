@@ -38,13 +38,6 @@
             Las propiedades que se pueden configurar son:
             <ul>
                 <li>
-                    <code>require</code>: Permite modificar la configuración de <em>Require</em>, se puede modificar
-                    cualquier parámetro de <a href="http://requirejs.org/docs/api.html#config">la configuración</a>, pero el
-                    uso mas común es agregar los path y referencias a librerías <em>Javascript</em> que se utilicen en el módulo.
-                    Los path deberán ser relativos al modulo ya que quark les concatenará el nombre de dicho módulo al principio
-                    antes de registrarlos.
-                </li>
-                <li>
                     <code>prefix</code>: Permite especificar un string que se utilizará como prefijo para los tags de todos los
                     componentes del modulo. Esto permite definir prefijos únicos para todos los modulos y evitar la colisión de
                     nombres entre módulos. Por ejemplo, si se define el prefijo <code>bt</code> y el componente se llama
@@ -74,6 +67,10 @@
                 <li>
                     <code>routes</code>: Permite especificar la configuración de las rutas de la misma forma
                     que con la función <a data-bind="href: 'main/docs/basics-pages'">routing.mapRoute</a>
+                </li>
+                <li>
+                    <code>require</code>: Permite modificar la configuración de <em>Require</em>, se puede modificar
+                    cualquier parámetro de <a href="http://requirejs.org/docs/api.html#config">la configuración</a>
                 </li>
             </ul>
         </p>
