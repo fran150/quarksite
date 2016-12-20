@@ -143,6 +143,7 @@
     "main/docs/refs-core-inject":                  "docs/refs/core/inject",
     "main/docs/refs-core-emptytemplate":           "docs/refs/core/emptytemplate",
     "main/docs/refs-core-registercomponent":       "docs/refs/core/registercomponent",
+    "main/docs/refs-core-registercomponents":      "docs/refs/core/registercomponents",
     "main/docs/refs-core-onnamespace":             "docs/refs/core/onnamespace",
     "main/docs/refs-core-namespace":               "docs/refs/core/namespace",
     "main/docs/refs-core-virtual":                 "docs/refs/core/virtual",

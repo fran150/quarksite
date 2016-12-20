@@ -10,15 +10,15 @@
             Un controlador es, básicamente, un modulo web que debe devolver la clase del controlador. <em>Quark.js</em>
             utiliza un <a data-bind="href: 'main/docs/refs-core-controllerprovider'">proveedor</a> que por defecto intenta
             cargar el controlador de un módulo buscándolo dentro de la carpeta <code>controller</code> del sitio y tomando
-            el nombre de la ruta como path al módulo.
+            el nombre de la ruta como path al módulo mas ".controller".
         </p>
         <p>
             Por ejemplo, si la ruta es <code>main/customer/editor</code>, <em>Quark.js</em> intentará cargar 3 controladores:<br/>
             <div class="well">
                 <p>
-                    <code>controller/main.js</code><br/>
-                    <code>controller/main/customer.js</code><br/>
-                    <code>controller/main/customer/editor.js</code><br/>
+                    <code>controller/main.controller.js</code><br/>
+                    <code>controller/main/customer.controller.js</code><br/>
+                    <code>controller/main/customer/editor.controller.js</code><br/>
                 </p>
             </div>
         </p>
@@ -30,7 +30,7 @@
         </p>
         <p>
             Si desde el ejemplo anterior se navega a la ruta <code>main/customer/viewer</code>, <em>Quark.js</em> sólo intentará
-            cargar el controlador <code>controller/main/customer/viewer.js</code>.
+            cargar el controlador <code>controller/main/customer/viewer.controller.js</code>.
         </p>
         <p>
             Si el controlador para un segmento específico no se encuentra definido <em>Quark.js</em> crea uno por defecto.
@@ -95,7 +95,7 @@ define(['quark'], function($$) {
     $$.routing.mapRoute(routes);
 });
             </code-highlight>
-            Se puede definir un controlador en <code>controller/main/home.js</code> como:
+            Se puede definir un controlador en <code>controller/main/home.controller.js</code> como:
             <code-highlight>
 define(['quark', 'knockout'], function($$, ko) {
     function MainHomeController(parent, $imports) {

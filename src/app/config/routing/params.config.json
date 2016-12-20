@@ -61,6 +61,7 @@
     "main/docs/refs-core-inject":                  { "view": "screens/docs/refs/core/inject" },
     "main/docs/refs-core-emptytemplate":           { "view": "screens/docs/refs/core/emptytemplate" },
     "main/docs/refs-core-registercomponent":       { "view": "screens/docs/refs/core/registercomponent" },
+    "main/docs/refs-core-registercomponents":      { "view": "screens/docs/refs/core/registercomponents" },
     "main/docs/refs-core-onnamespace":             { "view": "screens/docs/refs/core/onnamespace" },
     "main/docs/refs-core-namespace":               { "view": "screens/docs/refs/core/namespace" },
     "main/docs/refs-core-onbind":                  { "view": "screens/docs/refs/core/onbind" },

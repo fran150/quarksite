@@ -85,6 +85,29 @@ $$.onNamespace('pages')
                 <code>pages-docs-installing</code><br />
             </div>
         </p>
+        <p>
+            Finalmente, tambien se puede utilizar la funcion <code>registerComponents</code> pasando un objeto donde cada propiedad
+            es el nombre del namespace o tag y el valor de la propiedad es un string con el path al módulo web del componente o un
+            objeto con esta misma estructura que define los componentes o namespaces hijos.
+        </p>
+        <p>
+            El ejemplo anterior se puede registrar también como:
+        </p>
+        <code-highlight>
+$$.registerComponents({
+    "pages": {
+        "home": "pages/home",
+        "library": {
+            "finder": "pages/library/finder",
+            "details": "pages/library/details"
+        },
+        "docs": {
+            "home": "pages/docs/home",
+            "installing": "pages/docs/installing"
+        }
+    }
+});
+        </code-highlight>
         <nav-next-prev params="previousText: 'Behaviours', previousPage: 'main/docs/basics-behaviours',
                                nextText: 'Content', nextPage: 'main/docs/basics-content'">
 
