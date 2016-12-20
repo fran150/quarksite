@@ -10,15 +10,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'bower_modules/**/*.css', included: false },
-      { pattern: 'bower_modules/**/*.js', included: false },
-      { pattern: 'dist/**/*.css', included: false },
-      { pattern: 'dist/**/*.js', included: false },
-      { pattern: 'dist/**/*.html', included: false },
+      { pattern: 'src/**/*.css', included: false },
+      { pattern: 'src/**/*.js', included: false },
       { pattern: 'tests/**/*.js', included: false },
       { pattern: 'tests/**/*.html', included: false },
-      'bower_modules/quark/dist/require.configurator.js',
-      'bower_modules/quark/dist/quark.require.conf.js',
+      'src/bower_modules/quark/dist/require.configurator.js',
+      'src/bower_modules/quark/dist/quark.require.conf.js',
       'tests/app/require.config.js',
       'tests/karma.js'
     ],
@@ -31,7 +28,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        '**/require.config.js': ['requireglobal']
+        '**/tests/app/require.config.js': ['requireglobal']
     },
 
 
