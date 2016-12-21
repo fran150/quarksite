@@ -1,4 +1,9 @@
-define(['quark', 'jquery', 'quark-testing-helper'], function($$, $, Helper) {
+define([
+    'quark',
+    'jquery',
+    'quark-testing-helper'
+], function($$, $, Helper) {
+
     var helper = new Helper();
 
     describe('al-switch tests', function() {

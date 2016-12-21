@@ -2,8 +2,8 @@
 require = requireConfigure(QuarkRequireConf('bower_modules', false));
 require = requireConfigure(require, {
     paths: {
-        'config':                       'app/config',
-        'services':                     'services',
+        'app/config':                   'app/config',
+        'app/services':                 'services',
         'bootstrap/js':                 'bower_modules/bootstrap/dist/js/bootstrap.min',
         'bootstrap/css':                'bower_modules/bootstrap/dist/css/bootstrap.min',
         'bootstrap-switch/js':          'bower_modules/bootstrap-switch/dist/js/bootstrap-switch.min',
@@ -11,7 +11,7 @@ require = requireConfigure(require, {
         'font-awesome/css':             'bower_modules/font-awesome/css/font-awesome.min',
         'qk-alchemy':                   'bower_modules/qk-alchemy/dist',
         'prismjs':                      'bower_modules/prism/prism',
-        'prismjs-themes':               'bower_modules/prism/themes',
+        'prismjs/themes':               'bower_modules/prism/themes',
         'json':                         'bower_modules/requirejs-plugins/src/json'
     },
     shim: {
@@ -19,7 +19,7 @@ require = requireConfigure(require, {
             "deps": ['jquery']
         },
         "bootstrap-switch/js": {
-            "deps": ['boostrap']
+            "deps": ['bootstrap/js']
         }
     }
 });

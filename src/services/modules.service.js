@@ -1,7 +1,7 @@
 define([
     'quark', 
     'knockout', 
-    'config/services.config'
+    'app/config/services.config'
 ], function($$, ko, config) {
     
     function ModulesService() {

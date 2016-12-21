@@ -1,4 +1,9 @@
-define(['quark', 'knockout', 'quark-testing-helper'], function($$, ko, Helper) {
+define([
+    'quark',
+    'knockout',
+    'quark-testing-helper'
+], function($$, ko, Helper) {
+
     var helper = new Helper({
         withSidebar: ko.observable(true),
         withNavbar: ko.observable(true)

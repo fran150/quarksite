@@ -4,7 +4,7 @@ define([
     'jquery',
     'text!./highlight.component.html',
     'prismjs',
-    'loadCss!prismjs-themes/prism'
+    'loadCss!prismjs/themes/prism'
 ], function($$, ko, $, template) {
 
     function CodeHighlightComponent(params, $scope, $imports) {
