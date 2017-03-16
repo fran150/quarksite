@@ -24,6 +24,7 @@
     "main/docs/basics-virtual":             { "view": "screens/docs/basics/virtual" },
     "main/docs/basics-ajax":                { "view": "screens/docs/basics/ajax" },
     "main/docs/basics-modules":             { "view": "screens/docs/basics/modules" },
+    "main/docs/basics-services":            { "view": "screens/docs/basics/services" },
     "main/docs/basics-validation":          { "view": "screens/docs/basics/validation" },
 
     "main/docs/refs-ajax":                  { "view": "screens/docs/refs/ajax/ajax" },
@@ -152,6 +153,8 @@
     "main/docs/refs-web-setcookie":                { "view": "screens/docs/refs/web/setcookie" },
     "main/docs/refs-web-getcookie":                { "view": "screens/docs/refs/web/getcookie" },
     "main/docs/refs-web-clearcookie":              { "view": "screens/docs/refs/web/clearcookie" },
-    "main/docs/refs-web-loadcss":                  { "view": "screens/docs/refs/web/loadcss" }
+    "main/docs/refs-web-loadcss":                  { "view": "screens/docs/refs/web/loadcss" },
+
+    "main/docs/refs-services-servicecontext":       { "view": "screens/docs/refs/services/servicecontext" }
 
 }

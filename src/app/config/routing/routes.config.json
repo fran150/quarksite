@@ -22,6 +22,7 @@
     "main/docs/basics-virtual":             "docs/basics/virtual",
     "main/docs/basics-ajax":                "docs/basics/ajax",
     "main/docs/basics-modules":             "docs/basics/modules",
+    "main/docs/basics-services":            "docs/basics/services",
     "main/docs/basics-validation":          "docs/basics/validation",
 
     "main/docs/refs-ajax":                  "docs/refs/ajax",
@@ -152,6 +153,8 @@
 
     "main/docs/refs-bootstraping-requireconfigure":     "docs/refs/bootstraping/requireconfigure",
     "main/docs/refs-bootstraping-quarkrequireconf":     "docs/refs/bootstraping/quarkrequireconf",
+
+    "main/docs/refs-services-servicecontext":     "docs/refs/services/servicecontext",
 
     "main/library/finder":                  "lib/finder",
     "main/library/modules/module":          "lib/module/{id}",
