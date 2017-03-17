@@ -1,0 +1,428 @@
+    <span class="docs">
+        <h1>Servicios y Contexto</h1>
+        <hr />
+        <p>
+            Los servicios permiten definir una lógica de negocio para la aplicación. Los contextos permiten compartir estos servicios
+            entre los componentes con el patrón <a href="https://es.wikipedia.org/wiki/Singleton">singleton</a>.
+            Los servicios definidos dentro de un contexto serán siempre un <a href="https://es.wikipedia.org/wiki/Singleton">singleton</a>,
+            por lo que los componentes que compartan contexto estarán compartiendo todos los servicios definidos en él.
+        </p>
+        <p>
+            Todos los componentes aceptan recibir un contexto de servicios como parametro <code>context</code>.
+            Este contexto es recibido en el modelo del componente como un cuarto parametro en el constructor,
+            y se expone automáticamente en la propiedad <code>context</code> del
+            <a data-bind="href: 'main/docs/basics-scope'">scope</a>.
+        </p>
+        <p>
+            Si un componente no recibe un contexto de algun padre automaticamente crea uno propio. El desarrollador puede
+            crear contextos de servicios manualmente utilizando el método
+            <a data-bind="href: 'main/docs/refs-services-servicecontext'">$$.serviceContext</a>.
+            Luego podrá pasar el nuevo contexto a cualquier componente hijo como parametro context.
+        </p>
+        <p>
+            Considere el siguiente componente:
+
+            <code-highlight>
+define(['quark', 'knockout', 'text!select.component.html'], function($$, ko, template) {
+    function PersonsSelectComponent(params, $scope, $imports) {
+        var self = this;
+
+        $$.parameters({
+            value: ko.observable()
+        }, params, this);
+
+        $scope.data = ko.observableArray();
+
+        function read() {
+            $$.ajax('http://example.com/persons', 'GET', {}, {
+                onSuccess: function(data) {
+                    self.data(data);
+                }
+            });
+        }
+
+        $imports.initComponent = function() {
+            read();
+        }
+    }
+
+    return PersonsSelectComponent;
+});
+            </code-highlight>
+        </p>
+        <p>
+            Y la vista:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;select class="form-control"
+               data-bind="options: data,
+                          optionText: 'name',
+                          optionValue: 'id',
+                          value: model.value"&gt;
+
+    &lt;/select&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Dicho componente representa un selector de personas que se obtienen mediante <code>AJAX</code>
+            desde la url <code>http://example.com/persons</code>, el combo muestra el nombre de la persona
+            y en el observable <code>value</code> setea el id de la persona elegida.
+        </p>
+        <p>
+            Se necesita también hacer un listado de personas tomándolas del mismo servicio.
+            Esto se podría implementar como:
+            <code-highlight>
+define(['quark', 'knockout', 'text!list.component.html'], function($$, ko, template) {
+    function ListComponent(params, $scope, $imports) {
+        var self = this;
+
+        $$.parameters({
+            value: ko.observable()
+        }, params, this);
+
+        $scope.data = ko.observableArray();
+
+        function read() {
+            var url = 'http://example.com/persons';
+
+            if ($$.isDefined(genero)) {
+                url += "?genero=" + genero;
+            }
+
+            $$.ajax(url, 'GET', {}, {
+                onSuccess: function(data) {
+                    self.data(data);
+                }
+            });
+        }
+
+        $imports.initComponent = function() {
+            read();
+        }
+    }
+
+    return $$.component(ListComponent, template);
+});
+            </code-highlight>
+        </p>
+        <p>
+            Y la vista:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody data-bind="foreach: data"&gt;
+            &lt;tr&gt;
+                &lt;td data-bind="text: id"&gt;&lt;/td&gt;
+                &lt;td data-bind="text: nombre"&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+    &lt;/table&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Como se puede observar, ambos componentes tienen identico modelo, y
+            ambos invocan a exactamente el mismo servicio obteniendo los mismos datos.
+            Considere lo que sucedería si se adapta el ejemplo del listado para mostrar el componente
+            <code>select-persons</code> en cada fila del listado permitiendo al usuario definir
+            por ejemplo que persona es el padre de cada uno:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+                &lt;th&gt;Padre&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody data-bind="foreach: data"&gt;
+            &lt;tr&gt;
+                &lt;td data-bind="text: id"&gt;&lt;/td&gt;
+                &lt;td data-bind="text: nombre"&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select-persons data-bind="value: father"&gt;
+                    &lt;/select-persons&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+    &lt;/table&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            En este ejemplo, por cada registro que haya en el listado de personas se invocará al
+            servicio REST para llenar cada uno de los combos que se muestre en cada fila con
+            la misma información. Esto puede terminar generando problemas de performance y
+            de consumo de red.
+        </p>
+        <p>
+            Lo mejor en este caso es migrar la lógica de la consulta a un servicio, y luego compartir
+            un contexto de servicios entre todos los componentes.
+        </p>
+        <p>
+            Un servicio es, en definitiva, un modulo web que debe devolver la clase del servicio.
+            Dicha clase recibe como parametro el contexto en donde se creó, por ejemplo, el archivo
+            <code>services/persons.service.js</code> quedaría como:
+            <code-highlight>
+define(['quark', 'knockout'], function($$, ko) {
+    function PersonsService(context) {
+        var self = this;
+
+        this.querying = ko.observable(false);
+        this.data = ko.observableArray();
+
+        this.readPersons = function(genero) {
+
+            var url = 'http://example.com/persons';
+
+            if ($$.isDefined(genero)) {
+                url += "?genero=" + genero;
+            }
+
+            self.querying(true);
+
+            $$.ajax(url, 'GET', {}, {
+                onSuccess: function(data) {
+                    self.data(data);
+                },
+                onComplete: function() {
+                    self.querying(false);
+                }
+            });
+        }
+    }
+
+    return PersonsService;
+});
+            </code-highlight>
+        </p>
+        <p>
+            Como se puede observar se ha migrado la lógica de la consulta REST al servicio.
+            Una vez definido el servicio se debe registrar en <u>Require</u>, por ejemplo,
+            el archivo <a data-bind="href: 'main/docs/basics-bootstraping'">app/require.config.js</a>
+            quedaría así:
+            <code-highlight>
+var require;
+require = requireConfigure(QuarkRequireConf());
+require = requireConfigure(require, {
+    paths: {
+        'bootstrap':        'bower_components/bootstrap/dist/js/bootstrap.min',
+    },
+    shim: {
+        bootstrap: ['jquery']
+    },
+    config: {
+        services: {
+            PersonsService: "services/persons"
+        }
+    }
+});
+            </code-highlight>
+        </p>
+        <p>
+            Notese que se define un nombre para el servicio y se especifica donde se encuentra el
+            archivo sin poner <code>.service.js</code>, <em>Quark.js</em> se lo agregará automáticamente.
+        </p>
+        <p>
+            A continuación, se modifica el modelo del componente <code>persons-combo</code> para utilizar el servicio
+            creado:
+            <code-highlight>
+define([
+    'quark',
+    'knockout',
+    'text!select.component.html',
+    'service!PersonsService'
+], function($$, ko, template) {
+    function PersonsSelectComponent(params, $scope, $imports, context) {
+        var self = this;
+
+        var service = context.get('PersonsService');
+
+        $$.parameters({
+            value: ko.observable()
+        }, params, this);
+
+        $scope.data = service.data;
+
+        $imports.initComponent = function() {
+            if (self.data().length == 0 &amp;&amp; !service.querying()) {
+                service.readPersons();
+            }
+        }
+    }
+
+    return PersonsSelectComponent;
+});
+            </code-highlight>
+        </p>
+        <p>
+            Lo primero que se hace es notificar a <em>Require</em> que se va a utilizar el
+            servicio dentro del componente. Para esto se indica <code>service!</code> y el nombre
+            del componente en la definicion del modulo. Esto hace que se cargue el archivo
+            con la definicion del servicio si no se ha cargado aun.
+        </p>
+        <p>
+            Luego, se extrae el servicio del contexto utilizando la funcion <code>get</code> y
+            especificando el nombre del servicio deseado. Si exsitia en el contexto un servicio
+            con ese nombre devuelve el servicio existente, y sino crea uno nuevo.
+        </p>
+        <p>
+            Como se puede ver, la propiedad del <code>scope</code> donde se almacenaban los datos para mostrar
+            en el combo ahora se toma del servicio, y en el método <code>initComponent</code>
+            se verifica si hay datos cargados o se está consultando el REST y sino se llama al método
+            del servicio para obtener dichos datos. Con esto se logra que cuando un componente invoca al metodo
+            y llena los datos en el servicio, todos los componentes que compartan el servicio
+            a través del contexto utilizarán la misma a información realizando un único Request HTTP.
+        </p>
+        <p>
+            Para completar el ejemplo, restaría modificar la vista del componente lista para
+            compartir su contexto con todos los componentes <code>persons-select</code>:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+                &lt;th&gt;Padre&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody data-bind="foreach: data"&gt;
+            &lt;tr&gt;
+                &lt;td data-bind="text: id"&gt;&lt;/td&gt;
+                &lt;td data-bind="text: nombre"&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select-persons data-bind="value: father, context: context"&gt;
+                    &lt;/select-persons&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+    &lt;/table&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            En el ejemplo puede verse como se pasa la propiedad del scope llamada <code>context</code>
+            (que contiene el contexto del componente <code>persons-list</code>) a los componentes <code>persons-selector</code>
+            a través del parametro del mismo nombre. Esto hace que todas las instancias de
+            <code>persons-select</code> compartan el contexto entre sí y con <code>persons-list</code>
+        </p>
+        <h2>Multiples Contextos</h2>
+        <hr/>
+        <p>
+            Puede haber casos en donde se desee crear mas contextos manualmente, por ejemplo, si se utiliza
+            el mismo servicio para distintos sets de componentes.
+        </p>
+        <p>
+            Considere el caso en que se se desea agregar una columna mas en el componente <code>persons-list</code>
+            para que muestre un select que permita elegir la madre de cada persona además del padre.
+            Suponga ademas que cada los combos de las columnas padre y madre se deben
+            llenar con las personas del genero correspondiente.
+        </p>
+        <p>
+            En este caso, necesitaríamos contar con el mismo servicio pero en tres conjuntos distintos.
+            <ol>
+                <li>
+                    Un set para mostrar todas las personas del listado
+                </li>
+                <li>
+                    Un set para llenar los select de padres
+                </li>
+                <li>
+                    Un set para llenar los select de madres
+                </li>
+            </ol>
+            Se modifica el modelo de <code>persons-list</code> para tener en cuenta esto:
+            <code-highlight>
+define([
+    'quark',
+    'knockout',
+    'text!select.component.html',
+    'service!PersonsService'
+], function($$, ko, template) {
+    function PersonsListComponent(params, $scope, $imports, context) {
+        var self = this;
+
+        var service = context.get('PersonsService');
+
+        $scope.contextPadres = $$.serviceContext();
+        $scope.contextMadres = $$.serviceContext();
+
+        $$.parameters({
+            value: ko.observable()
+        }, params, this);
+
+        $scope.data = service.data;
+
+        $imports.initComponent = function() {
+            if (self.data().length == 0 &and;&and; !service.querying()) {
+                service.readPersons();
+            }
+
+            var servicePadres = $scope.contextPadres.get('PersonsService');
+            var serviceMadres = $scope.contextMadres.get('PersonsService');
+
+            servicePadres.readPersons('M');
+            serviceMadres.readPersons('F');
+        }
+    }
+
+    return PersonsListComponent;
+});
+            </code-highlight>
+        </p>
+        <p>
+            En el ejemplo se crean dos nuevos contextos y dentro de cada uno se obtiene un servicio
+            <code>PersonsService</code> luego se llenan los datos de un servicio con personas del genero
+            masculino y el otro con personas del genero femenino.
+            Solo resta compartir cada contexto con el conjunto de componentes correspondiente,
+            para esto se modifica la vista de la siguiente manera:
+            <code-highlight params="language: 'html'">
+&lt;quark-component&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+                &lt;th&gt;Padre&lt;/th&gt;
+                &lt;th&gt;Madre&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody data-bind="foreach: data"&gt;
+            &lt;tr&gt;
+                &lt;td data-bind="text: id"&gt;&lt;/td&gt;
+                &lt;td data-bind="text: nombre"&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select-persons data-bind="value: father,
+                                                  context: contextPadres"&gt;
+                    &lt;/select-persons&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select-persons data-bind="value: mother,
+                                                  context: contextMadres"&gt;
+                    &lt;/select-persons&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+    &lt;/table&gt;
+&lt;/quark-component&gt;
+            </code-highlight>
+        </p>
+        <p>
+            Como el componente <code>persons-list</code> ya les pasa un contexto que contiene
+            el servicio con los datos precargados, los componentes se llenan con los datos correspondientes
+            de cada contexto sin hacer ningun Request HTTP propio.
+        </p>
+        <nav-next-prev params="previousText: 'Módulos', previousPage: 'main/docs/basics-modules',
+                               nextText: 'Validación', nextPage: 'main/docs/basics-validation'">
+
+        </nav-next-prev>
+    </span>

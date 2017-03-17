@@ -10,7 +10,8 @@
         "screens/_container/sidebar.screen",
         "screens/home.screen",
         "controllers/main.controller",
-        "controllers/main/home.controller"
+        "controllers/main/home.controller",
+        "loading-overlay"
     ],
     "bundles": {
         "docs": [

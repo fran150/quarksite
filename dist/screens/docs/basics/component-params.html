@@ -165,6 +165,20 @@ define(['quark', 'knockout', 'text!./other-example.html'], function($$, ko, temp
             <example-other>
             </example-other>
         </div>
+        <p>
+            <em>Quark.js</em> permite usar una expresion <em>javascript</em> para enviar parametros
+            al componente, para esto se debe utilizar la notación <code>${<i> &lt;expresion&gt; </i> }</code> en el
+            atributo <code>params</code> del componente. Dicha funcion debe devolver un objeto donde cada
+            propiedad contiene el valor de un parametro.
+        </p>
+        <p>
+            Por ejemplo:
+            <code-highlight params="language: 'html'">
+&lt;!-- Envia el objeto data como parametros al objeto --&gt;
+&lt;example-component params="${data}"&gt;
+&lt;/example-component"&gt;
+            </code-highlight>
+        </p>
         <nav-next-prev params="previousText: 'Observables', previousPage: 'main/docs/basics-observables',
                                nextText: 'Scope', nextPage: 'main/docs/basics-scope'">
 

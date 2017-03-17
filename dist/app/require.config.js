@@ -12,7 +12,8 @@ require = requireConfigure(require, {
         'qk-alchemy':                   'bower_modules/qk-alchemy/dist',
         'prismjs':                      'bower_modules/prism/prism',
         'prismjs/themes':               'bower_modules/prism/themes',
-        'json':                         'bower_modules/requirejs-plugins/src/json'
+        'json':                         'bower_modules/requirejs-plugins/src/json',
+        'loading-overlay':              'bower_modules/gasparesganga-jquery-loading-overlay/src/loadingoverlay.min'
     },
     shim: {
         "bootstrap/js": {
