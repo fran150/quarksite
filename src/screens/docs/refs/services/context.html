@@ -1,0 +1,41 @@
+
+<span class="docs">
+    <h1>Contexto de Servicios <small>Objeto</small></h1>
+    <hr/>
+    <p>
+        El contexto de servicios permite crear y compartir servicios entre
+        un componente o controlador y sus hijos.
+        Vea el apartado <a data-bind="href: 'main/docs/basics-services'">Servicios</a>
+        para mayor información.
+    </p>
+    <h3>
+        Métodos
+    </h3>
+    <hr />
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Descripción
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>get</code>
+                </td>
+                <td>
+                    Toma como parámetro el nombre del servicio y devuelve una refencia al mismo.
+                    Si ya existe dentro del contexto un servicio con ese nombre devuelve una referencia al mismo.
+                    Sino crea el objeto y lo devuelve. Esto permite que los servicios dentro de un contexto
+                    sean <a href="https://es.wikipedia.org/wiki/Singleton">singleton</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</span>
+

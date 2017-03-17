@@ -27,5 +27,8 @@
   },
   "devDependencies": {
     "jasmine-core": "jasmine#^2.5.2"
+  },
+  "resolutions": {
+    "jquery": "~2.2.4"
   }
 }

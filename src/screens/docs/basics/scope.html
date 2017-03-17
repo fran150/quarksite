@@ -145,20 +145,16 @@ define(['quark', 'knockout', 'text!./scope.html'], function($$, ko, template) {
 
             Da como resultado:
             <div class="well">
-                <example-scope params="texto: 'Texto Corto'">
-                </example-scope>
-                <br />
-                <br />
-                <example-scope params="texto: 'Texto Excesiva e Incomodamente Largo'">
-                </example-scope>
-                <br />
-                <br />
-                <input type="text" data-bind="textInput: someObservable" />
-                <example-scope params="texto: someObservable">
-                </example-scope>
+                <example-scopes>
+                </example-scopes>
             </div>
         </p>
-
+        <p>
+            El scope posee ademas otra propiedad <code>context</code> que expone el
+            <a data-bind="href: 'main/docs/basics-services'">contexto de servicios</a>
+            del componente permitiendo compartirlo facilmente con componentes hijos como
+            se verá mas adelante.
+        </p>
         <nav-next-prev params="previousText: 'Parámetros de Componentes', previousPage: 'main/docs/basics-component-params',
                                nextText: 'Imports', nextPage: 'main/docs/basics-imports'">
 

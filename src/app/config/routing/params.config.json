@@ -155,6 +155,7 @@
     "main/docs/refs-web-clearcookie":              { "view": "screens/docs/refs/web/clearcookie" },
     "main/docs/refs-web-loadcss":                  { "view": "screens/docs/refs/web/loadcss" },
 
+    "main/docs/refs-services-context":              { "view": "screens/docs/refs/services/context" },
     "main/docs/refs-services-servicecontext":       { "view": "screens/docs/refs/services/servicecontext" }
 
 }

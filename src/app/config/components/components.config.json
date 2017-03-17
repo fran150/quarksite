@@ -15,6 +15,7 @@
         "component": "components/example/component.component",
         "other": "components/example/other.component",
         "scope": "components/example/scope.component",
+        "scopes": "components/example/scopes.component",
         "validation": "components/example/validation.component",
         "content-no-params": "components/example/content-no-params.component",
         "content-params": "components/example/content-params.component"

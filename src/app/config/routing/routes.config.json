@@ -154,6 +154,7 @@
     "main/docs/refs-bootstraping-requireconfigure":     "docs/refs/bootstraping/requireconfigure",
     "main/docs/refs-bootstraping-quarkrequireconf":     "docs/refs/bootstraping/quarkrequireconf",
 
+    "main/docs/refs-services-context":            "docs/refs/services/context",
     "main/docs/refs-services-servicecontext":     "docs/refs/services/servicecontext",
 
     "main/library/finder":                  "lib/finder",
