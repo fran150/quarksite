@@ -1,5 +1,5 @@
 {
-    "uglify": true,
+    "uglify": false,
     "include": [
         "screens/_layout/main.screen",
         "screens/_navbar/main/left.screen",
@@ -10,8 +10,7 @@
         "screens/_container/sidebar.screen",
         "screens/home.screen",
         "controllers/main.controller",
-        "controllers/main/home.controller",
-        "loading-overlay"
+        "controllers/main/home.controller"
     ],
     "bundles": {
         "docs": [
@@ -42,10 +41,11 @@
         ]
     },
     "externals": [
+    ],
+    "quark": [
         "qk-alchemy"
     ],
     "copy": [
-        "src/bower_modules/qk-alchemy/dist/**/*",
         "src/screens/docs/**/*"
     ]
 }

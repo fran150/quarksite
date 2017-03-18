@@ -40,40 +40,59 @@ var config = {
     cssOutDir: './dist'
 }
 
-// Add all included files prefixing the module name
-if (moduleConfig.include) {
-    for (var i = 0; i < moduleConfig.include.length; i++) {
-        config.include.push(moduleConfig.include[i]);
+function processGulpFile(content, filePath, requirePath, noExternals) {
+    filePath = filePath || "";
+    requirePath = requirePath || "";
+
+    // Add all included files prefixing the module name
+    if (content.include) {
+        for (var i = 0; i < content.include.length; i++) {
+            config.include.push(requirePath + content.include[i]);
+        }
     }
-}
 
-// Add all excluded files prefixing the module name
-if (moduleConfig.exclude) {
-    moduleConfig.exclude = new Array();
-    for (var i = 0; i < moduleConfig.exclude.length; i++) {
-        config.exclude.push(moduleConfig.include[i]);
+    // Add all excluded files prefixing the module name
+    if (content.exclude) {
+        content.exclude = new Array();
+        for (var i = 0; i < content.exclude.length; i++) {
+            config.exclude.push(requirePath + content.include[i]);
+        }
     }
-}
 
-// Add all included bundles prefixing the module name
-if (moduleConfig.bundles) {
-    config.bundles = {};
-    for (var name in moduleConfig.bundles) {
-        // Copy bundle config to final config
-        config.bundles[name] = moduleConfig.bundles[name];
+    // Add all included bundles prefixing the module name
+    if (content.bundles) {
+        config.bundles = {};
+        for (var name in content.bundles) {
+            // Copy bundle config to final config
+            config.bundles[name] = content.bundles[name];
 
-        // Prefix all file paths with the bundle new name
-        for (var i = 0; i < config.bundles[name].length; i++) {
-            config.bundles[name][i] = config.bundles[name][i];
+            // Prefix all file paths with the bundle new name
+            for (var i = 0; i < config.bundles[name].length; i++) {
+                config.bundles[name][i] = requirePath + config.bundles[name][i];
+            }
+        }
+    }
+
+    if (!noExternals && content.externals) {
+        for (var i = 0; i < content.externals.length; i++) {
+            config.paths[content.externals[i]] = "empty:";
+        }
+    }
+
+    if (content.quark) {
+        for (var i = 0; i < content.quark.length; i++) {
+            var module = content.quark[i];
+            var path = 'src/bower_modules/' + module;
+
+            var jsonString = fs.readFileSync(path + '/gulp.conf.json');
+            var json = JSON.parse(jsonString);
+
+            processGulpFile(json, path, module + '/', true);
         }
     }
 }
 
-if (moduleConfig.externals) {
-    for (var i = 0; i < moduleConfig.externals.length; i++) {
-        config.paths[moduleConfig.externals[i]] = "empty:";
-    }
-}
+processGulpFile(moduleConfig);
 
 // Configure require optimizer
 var requireJsOptimizerConfig = merge(requireJsRuntimeConfig, config);
