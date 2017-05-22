@@ -9,6 +9,9 @@ define([
 
         this.ajaxMessage = ko.observable();
 
+        this.modules = ko.observableArray();
+        this.module = ko.observable();
+
         this.search = function(search, callback) {
             self.ajaxMessage('Searching...');
 
@@ -16,9 +19,10 @@ define([
                 "name": { "$regex": "[" + search + "]" }
             }
 
-            $$.ajax(config.urls.api.modules, 'GET', JSON.stringify(filter), {
+            $$.ajax(config.urls.api.docs, 'GET', JSON.stringify(filter), {
                 onSuccess: function(data) {
-                    callback(data);
+                    self.modules(data);
+                    $$.call(callback);
                 },
                 onComplete: function() {
                     self.ajaxMessage('');
@@ -26,17 +30,19 @@ define([
             }, false, { cache: true });
         }
 
-        this.read = function(bowerId, callback) {
+        this.read = function(name, callback) {
             self.ajaxMessage('Loading...');
 
-            var query = config.urls.api.modules + "?bowerId=" + bowerId;
+            var query = config.urls.api.docs + "?name=" + name;
 
             $$.ajax(query, 'GET', {}, {
                 onSuccess: function(data) {
                     if ($$.isArray(data)) {
-                        callback(data[0]);
+                        self.module(data[0]);
+                        $$.call(callback);
                     } else {
-                        callback();
+                        $$.undefine(self.module);
+                        $$.call(callback);
                     }
                 },
                 onComplete: function() {
@@ -49,9 +55,10 @@ define([
         this.list = function(callback) {
             self.ajaxMessage('Loading...');
 
-            $$.ajax(config.urls.api.modules, 'GET', {}, {
+            $$.ajax(config.urls.api.docs, 'GET', {}, {
                 onSuccess: function(data) {
-                    callback(data);
+                    self.modules(data);
+                    $$.call(callback);
                 },
                 onComplete: function() {
                     self.ajaxMessage('');

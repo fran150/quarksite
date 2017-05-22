@@ -1,14 +1,14 @@
 <quark-component>
     <al-layout-sidebar params="marginTop: 10, minSidebarSize: 250">
-        <!-- ko if: model.ajaxMessage -->
+        <!-- ko if: ajaxMessage -->
             <al-layout-sidebar-title params="text: 'Cargando'">
             </al-layout-sidebar-title>
         <!-- /ko -->
 
-        <!-- ko if: model.module -->
-            <al-layout-sidebar-link params="text: model.module().name,
+        <!-- ko with: module -->
+            <al-layout-sidebar-link params="text: name,
                                             pageName: 'main/library/modules/module',
-                                            pageParams: { id: model.module().bowerId },
+                                            pageParams: { id: name },
                                             iconFont: 'fa fa-cog'">
             </al-layout-sidebar-link>
         <!-- /ko -->
@@ -20,7 +20,7 @@
                 <!-- ko foreach: componentNames -->
                     <al-layout-sidebar-link params="text: $data,
                                                     pageName: 'main/library/modules/component',
-                                                    pageParams: { component: $data, id: $parent.model.module().bowerId },
+                                                    pageParams: { component: $data, id: $parent.module().name },
                                                     iconFont: 'fa fa-cube'">
                     </al-layout-sidebar-link>
                 <!-- /ko -->

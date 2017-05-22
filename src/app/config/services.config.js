@@ -9,8 +9,7 @@ define([
     return {
         urls: {
             api: {
-                modules: server.api + '/modules',
-                components: server.api + '/components'
+                docs: server.api + '/docs'
             }
         }
     }
