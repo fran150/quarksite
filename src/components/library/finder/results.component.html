@@ -10,9 +10,11 @@
                 <h2>
                     <a href="#" data-bind="text: name,
                                            href: $parent.model.pageName,
-                                           params: { id: bowerId } ">
+                                           params: { id: name } ">
                     </a>
-                    <small data-bind="name: author"></small>
+                    <!-- ko foreach: authors -->
+                        <small data-bind="name: $data"></small>
+                    <!-- /ko -->
                 </h2>
                 <p data-bind="text: description"></p>
                 <p>
@@ -23,7 +25,7 @@
                         </em>
                     </small>
                 </p>
-                <p data-bind="foreach: tags">
+                <p data-bind="foreach: keywords">
                     <span class="label label-default" data-bind="text: $data">
                     </span>
                 </p>

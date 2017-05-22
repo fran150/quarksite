@@ -1,46 +1,21 @@
 define([
     'quark',
-    'knockout',
-    'services/modules.service'
-], function($$, ko, ModulesService) {
+    'knockout'
+], function($$, ko) {
 
     function MainLibraryModulesController() {
         var self = this;
 
-        var dataSource = new ModulesService();
-
-        this.ajaxMessage = ko.observable();
-        this.module = ko.observable();
-
-        var subscriptions;
-
-        function read(moduleId) {
-            dataSource.read(moduleId, function(data) {
-                self.module(data);
-            })
-        }
-
-        this.init = function() {
-            read(self.params.id());
-
-            subscriptions = {
-                moduleId: self.params.id.subscribe(read)
-            }
-        }
+        this.context = $$.serviceContext();
 
         this.sendParameters = function(name) {
             switch (name) {
                 case "sidebar":
                     return {
-                        module: self.module,
-                        ajaxMessage: dataSource.ajaxMessage
+                        context: self.context,
+                        name: self.params.id
                     }
-                    break;
             }
-        }
-
-        this.dispose = function() {
-            subscriptions.moduleId.dispose();
         }
     }
 

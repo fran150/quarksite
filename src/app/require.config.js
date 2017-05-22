@@ -3,7 +3,6 @@ require = requireConfigure(QuarkRequireConf('bower_modules', false));
 require = requireConfigure(require, {
     paths: {
         'app/config':                   'app/config',
-        'app/services':                 'services',
         'bootstrap/js':                 'bower_modules/bootstrap/dist/js/bootstrap.min',
         'bootstrap/css':                'bower_modules/bootstrap/dist/css/bootstrap.min',
         'bootstrap-switch/js':          'bower_modules/bootstrap-switch/dist/js/bootstrap-switch.min',
@@ -16,7 +15,15 @@ require = requireConfigure(require, {
         'loading-overlay':              'bower_modules/gasparesganga-jquery-loading-overlay/src/loadingoverlay.min',
         '$switchery-require':           'bower_modules/switchery-require/dist'
     },
+    config: {
+        services: {
+            ModulesService: "services/modules"
+        }
+    },
     shim: {
+        "loading-overlay": {
+            "deps": ['jquery']
+        },
         "bootstrap/js": {
             "deps": ['jquery']
         },
