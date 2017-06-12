@@ -3,14 +3,17 @@ define([
     'knockout'
 ], function($$, ko) {
 
-    function MainLibraryModulesComponentController() {
+    function MainLibraryModulesComponentController($parent) {
         var self = this;
+
+        var context = $parent.context;
 
         this.sendParameters = function(name) {
             switch (name) {
                 case "main":
                     return {
-                        module: self.parent.module,
+                        context: context,
+                        moduleName: self.parent.module,
                         componentName: self.params.component
                     }
                     break;

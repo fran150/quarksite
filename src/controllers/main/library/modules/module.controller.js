@@ -12,7 +12,7 @@ define([
             switch (name) {
                 case "main":
                     return {
-                        context: self.context,
+                        context: context,
                         name: $parent.params.id
                     }
                     break;

@@ -24,7 +24,6 @@ define([
         }
 
         $scope.componentNames = ko.pureComputed(function() {
-            debugger;
             var module = $scope.module();
             var result = new Array();
 

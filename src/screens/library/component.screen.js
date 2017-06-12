@@ -1,109 +1,84 @@
 define([
     'quark', 
     'knockout', 
-    'text!./component.screen.html'
+    'text!./component.screen.html',
+    'service!ModulesService'
 ], function($$, ko, template) {
     
-    function LibraryComponentScreen(params, $scope, $imports) {
+    function LibraryComponentScreen(params, $scope, $imports, $context) {
         var self = this;
 
+        var service = $context.get('ModulesService');
+
         $$.parameters({
-            module: ko.observable(),
+            moduleName: ko.observable(),
             componentName: ko.observable()
         }, params, this);
 
-        this.component = ko.pureComputed(function() {
-            var module = self.module();
-            var components;
-            var component;
+        $scope.ajaxMessage = service.ajaxMessage;
+        $scope.module = service.module;
 
-            if (module) {
-                components = module.components;
+        $scope.component = ko.pureComputed(function() {
+            if ($scope.module()) {
+                var module = $scope.module();
+                var name = self.componentName();
 
-                if (components) {
-                    component = components[self.componentName()];
+                if (module && module.components) {
+                    var components = JSON.parse(module.components);
+
+                    if (components[name]) {
+                        var component = components[name];
+                        return component;
+                    }
                 }
             }
-
-            return component;
         });
 
-        this.properties = ko.pureComputed(function() {
-            var component = self.component();
+        $imports.initComponent = function() {
+            if (!$scope.module() && !$scope.ajaxMessage()) {
+                service.read(self.moduleName());
+            }
+        }
+
+        $scope.properties = ko.pureComputed(function() {
+            var component = $scope.component();
             var result = new Array();
 
             if (component && component.properties) {
                 for (var name in component.properties) {
                     var property = component.properties[name];
 
-                    result.push({
-                        name: name,
-                        type: property.type,
-                        observable: property.observable,
-                        description: property.description
-                    });
+                    result.push(property);
                 }
             }
 
             return result;
         });
 
-        this.parameters = ko.pureComputed(function() {
-            var component = self.component();
+        $scope.parameters = ko.pureComputed(function() {
+            var component = $scope.component();
             var result = new Array();
 
             if (component && component.parameters) {
                 for (var name in component.parameters) {
                     var parameter = component.parameters[name];
 
-                    result.push({
-                        name: name,
-                        type: parameter.type,
-                        observable: parameter.observable,
-                        description: parameter.description
-                    });
+                    result.push(parameter);
                 }
             }
 
             return result;
         });
 
-        this.methods = ko.pureComputed(function() {
-            var component = self.component();
+        $scope.methods = ko.pureComputed(function() {
+            var component = $scope.component();
             var result = new Array();
 
             if (component && component.methods) {
                 for (var name in component.methods) {
                     var method = component.methods[name];
 
-                    var methodData = {
-                        name: name,
-                        signature: method.signature,
-                        description: method.description
-                    };
-
-                    if (method.parameters) {
-                        methodData.parameters = new Array();
-
-                        for (var name in method.parameters) {
-                            var parameter = method.parameters[name];
-
-                            methodData.parameters.push({
-                                name: name,
-                                type: parameter.type,
-                                description: parameter.description
-                            });
-                        }
-                    }
-
-                    if (method.returns) {
-                        methodData.returns = {
-                            type: method.returns.type,
-                            description: method.returns.description
-                        }
-                    }
-
-                    result.push(methodData);
+                    result.push(method);
                 }
             }
 
