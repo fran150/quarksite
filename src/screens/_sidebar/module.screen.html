@@ -13,18 +13,69 @@
             </al-layout-sidebar-link>
         <!-- /ko -->
 
-        <al-layout-sidebar-link params="text: 'Components',
-                                        iconFont: 'fa fa-cubes',
-                                        opened: true">
-            <!-- submenu -->
-                <!-- ko foreach: componentNames -->
-                    <al-layout-sidebar-link params="text: $data,
-                                                    pageName: 'main/library/modules/component',
-                                                    pageParams: { component: $data, id: $parent.module().name },
-                                                    iconFont: 'fa fa-cube'">
-                    </al-layout-sidebar-link>
-                <!-- /ko -->
-            <!-- /submenu -->
-        </al-layout-sidebar-link>
+        <!-- ko if: componentsNames().length > 0 -->
+            <al-layout-sidebar-link params="text: 'Components',
+                                            iconFont: 'fa fa-cubes',
+                                            opened: true">
+                <!-- submenu -->
+                    <!-- ko foreach: componentsNames -->
+                        <al-layout-sidebar-link params="text: $data,
+                                                        pageName: 'main/library/modules/component',
+                                                        pageParams: { component: $data, id: $parent.module().name },
+                                                        iconFont: 'fa fa-cube'">
+                        </al-layout-sidebar-link>
+                    <!-- /ko -->
+                <!-- /submenu -->
+            </al-layout-sidebar-link>
+        <!-- /ko -->
+
+        <!-- ko if: behavioursNames().length > 0 -->
+            <al-layout-sidebar-link params="text: 'Behaviours',
+                                            iconFont: 'fa fa-cubes',
+                                            opened: true">
+                <!-- submenu -->
+                    <!-- ko foreach: behavioursNames -->
+                        <al-layout-sidebar-link params="text: $data,
+                                                        pageName: 'main/library/modules/behaviour',
+                                                        pageParams: { behaviour: $data, id: $parent.module().name },
+                                                        iconFont: 'fa fa-cube'">
+                        </al-layout-sidebar-link>
+                    <!-- /ko -->
+                <!-- /submenu -->
+            </al-layout-sidebar-link>
+        <!-- /ko -->
+
+        <!-- ko if: bindingsNames().length > 0 -->
+            <al-layout-sidebar-link params="text: 'Bindings',
+                                            iconFont: 'fa fa-cubes',
+                                            opened: true">
+                <!-- submenu -->
+                    <!-- ko foreach: bindingsNames -->
+                        <al-layout-sidebar-link params="text: $data,
+                                                        pageName: 'main/library/modules/binding',
+                                                        pageParams: { binding: $data, id: $parent.module().name },
+                                                        iconFont: 'fa fa-cube'">
+                        </al-layout-sidebar-link>
+                    <!-- /ko -->
+                <!-- /submenu -->
+            </al-layout-sidebar-link>
+        <!-- /ko -->
+
+        <!-- ko if: servicesNames().length > 0 -->
+            <al-layout-sidebar-link params="text: 'Services',
+                                            iconFont: 'fa fa-cubes',
+                                            opened: true">
+                <!-- submenu -->
+                    <!-- ko foreach: servicesNames -->
+                        <al-layout-sidebar-link params="text: $data,
+                                                        pageName: 'main/library/modules/service',
+                                                        pageParams: { service: $data, id: $parent.module().name },
+                                                        iconFont: 'fa fa-cube'">
+                        </al-layout-sidebar-link>
+                    <!-- /ko -->
+                <!-- /submenu -->
+            </al-layout-sidebar-link>
+        <!-- /ko -->
+
     </al-layout-sidebar>
 </quark-component>

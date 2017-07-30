@@ -1,34 +1,34 @@
 define([
-    'quark', 
-    'knockout', 
-    'text!./component.screen.html',
+    'quark',
+    'knockout',
+    'text!./behaviour.screen.html',
     'service!ModulesService'
 ], function($$, ko, template) {
-    
-    function LibraryComponentScreen(params, $scope, $imports, $context) {
+
+    function LibraryBehaviourScreen(params, $scope, $imports, $context) {
         var self = this;
 
         var service = $context.get('ModulesService');
 
         $$.parameters({
             moduleName: ko.observable(),
-            componentName: ko.observable()
+            behaviourName: ko.observable()
         }, params, this);
 
         $scope.ajaxMessage = service.ajaxMessage;
         $scope.module = service.module;
 
-        $scope.component = ko.pureComputed(function() {
+        $scope.behaviour = ko.pureComputed(function() {
             if ($scope.module()) {
                 var module = $scope.module();
-                var name = self.componentName();
+                var name = self.behaviourName();
 
-                if (module && module.components) {
-                    var components = JSON.parse(module.components);
+                if (module && module.behaviours) {
+                    var behaviours = JSON.parse(module.behaviours);
 
-                    if (components[name]) {
-                        var component = components[name];
-                        return component;
+                    if (behaviours[name]) {
+                        var behaviour = behaviours[name];
+                        return behaviour;
                     }
                 }
             }
@@ -41,12 +41,12 @@ define([
         }
 
         $scope.properties = ko.pureComputed(function() {
-            var component = $scope.component();
+            var behaviour = $scope.behaviour();
             var result = new Array();
 
-            if (component && component.properties) {
-                for (var name in component.properties) {
-                    var property = component.properties[name];
+            if (behaviour && behaviour.properties) {
+                for (var name in behaviour.properties) {
+                    var property = behaviour.properties[name];
 
                     result.push(property);
                 }
@@ -56,12 +56,12 @@ define([
         });
 
         $scope.parameters = ko.pureComputed(function() {
-            var component = $scope.component();
+            var behaviour = $scope.behaviour();
             var result = new Array();
 
-            if (component && component.parameters) {
-                for (var name in component.parameters) {
-                    var parameter = component.parameters[name];
+            if (behaviour && behaviour.parameters) {
+                for (var name in behaviour.parameters) {
+                    var parameter = behaviour.parameters[name];
 
                     result.push(parameter);
                 }
@@ -71,12 +71,12 @@ define([
         });
 
         $scope.methods = ko.pureComputed(function() {
-            var component = $scope.component();
+            var behaviour = $scope.behaviour();
             var result = new Array();
 
-            if (component && component.methods) {
-                for (var name in component.methods) {
-                    var method = component.methods[name];
+            if (behaviour && behaviour.methods) {
+                for (var name in behaviour.methods) {
+                    var method = behaviour.methods[name];
 
                     if (method.params) {
                         for (var name in method.params) {
@@ -98,5 +98,5 @@ define([
         });
     }
 
-    return $$.component(LibraryComponentScreen, template);
+    return $$.component(LibraryBehaviourScreen, template);
 });

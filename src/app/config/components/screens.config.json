@@ -19,9 +19,12 @@
     "screens": {
         "home": "screens/home.screen",
         "library": {
+            "behaviour": "screens/library/behaviour.screen",
+            "binding": "screens/library/binding.screen",
+            "component": "screens/library/component.screen",
             "finder": "screens/library/finder.screen",
             "module": "screens/library/module.screen",
-            "component": "screens/library/component.screen"
+            "service": "screens/library/service.screen"
         }
     }
 }

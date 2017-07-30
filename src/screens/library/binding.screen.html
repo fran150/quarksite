@@ -13,19 +13,11 @@
             </small>
         <!-- /ko -->
 
-        <h1 data-bind="text: model.componentName"></h1>
+        <h1 data-bind="text: model.bindingName"></h1>
         <hr />
 
-        <!-- ko if: component -->
-            <div class="pull-right">
-                <!-- ko if: component().allowContent -->
-                    <div class="label label-primary pull-right">
-                        Admite Contenido
-                    </div>
-                <!-- /ko -->
-            </div>
-
-            <p data-bind="html: component().description">
+        <!-- ko if: binding -->
+            <p data-bind="html: binding().description">
             </p>
         <!-- /ko -->
 

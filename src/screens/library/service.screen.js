@@ -1,34 +1,34 @@
 define([
-    'quark', 
-    'knockout', 
-    'text!./component.screen.html',
+    'quark',
+    'knockout',
+    'text!./service.screen.html',
     'service!ModulesService'
 ], function($$, ko, template) {
-    
-    function LibraryComponentScreen(params, $scope, $imports, $context) {
+
+    function LibraryServiceScreen(params, $scope, $imports, $context) {
         var self = this;
 
         var service = $context.get('ModulesService');
 
         $$.parameters({
             moduleName: ko.observable(),
-            componentName: ko.observable()
+            serviceName: ko.observable()
         }, params, this);
 
         $scope.ajaxMessage = service.ajaxMessage;
         $scope.module = service.module;
 
-        $scope.component = ko.pureComputed(function() {
+        $scope.service = ko.pureComputed(function() {
             if ($scope.module()) {
                 var module = $scope.module();
-                var name = self.componentName();
+                var name = self.serviceName();
 
-                if (module && module.components) {
-                    var components = JSON.parse(module.components);
+                if (module && module.services) {
+                    var services = JSON.parse(module.services);
 
-                    if (components[name]) {
-                        var component = components[name];
-                        return component;
+                    if (services[name]) {
+                        var service = services[name];
+                        return service;
                     }
                 }
             }
@@ -41,12 +41,12 @@ define([
         }
 
         $scope.properties = ko.pureComputed(function() {
-            var component = $scope.component();
+            var service = $scope.service();
             var result = new Array();
 
-            if (component && component.properties) {
-                for (var name in component.properties) {
-                    var property = component.properties[name];
+            if (service && service.properties) {
+                for (var name in service.properties) {
+                    var property = service.properties[name];
 
                     result.push(property);
                 }
@@ -56,12 +56,12 @@ define([
         });
 
         $scope.parameters = ko.pureComputed(function() {
-            var component = $scope.component();
+            var service = $scope.service();
             var result = new Array();
 
-            if (component && component.parameters) {
-                for (var name in component.parameters) {
-                    var parameter = component.parameters[name];
+            if (service && service.parameters) {
+                for (var name in service.parameters) {
+                    var parameter = service.parameters[name];
 
                     result.push(parameter);
                 }
@@ -71,12 +71,12 @@ define([
         });
 
         $scope.methods = ko.pureComputed(function() {
-            var component = $scope.component();
+            var service = $scope.service();
             var result = new Array();
 
-            if (component && component.methods) {
-                for (var name in component.methods) {
-                    var method = component.methods[name];
+            if (service && service.methods) {
+                for (var name in service.methods) {
+                    var method = service.methods[name];
 
                     if (method.params) {
                         for (var name in method.params) {
@@ -98,5 +98,5 @@ define([
         });
     }
 
-    return $$.component(LibraryComponentScreen, template);
+    return $$.component(LibraryServiceScreen, template);
 });

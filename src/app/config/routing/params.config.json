@@ -1,6 +1,9 @@
 {
     "main/library/modules":                    { "id": "" },
     "main/library/modules/component":          { "component": "" },
+    "main/library/modules/behaviour":          { "behaviour": "" },
+    "main/library/modules/binding":            { "binding": "" },
+    "main/library/modules/service":            { "service": "" },
 
     "main/docs/home":                          { "view": "screens/docs/home" },
     "main/docs/installing":                    { "view": "screens/docs/installing" },

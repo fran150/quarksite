@@ -1,34 +1,34 @@
 define([
-    'quark', 
-    'knockout', 
-    'text!./component.screen.html',
+    'quark',
+    'knockout',
+    'text!./binding.screen.html',
     'service!ModulesService'
 ], function($$, ko, template) {
-    
-    function LibraryComponentScreen(params, $scope, $imports, $context) {
+
+    function LibraryBindingScreen(params, $scope, $imports, $context) {
         var self = this;
 
         var service = $context.get('ModulesService');
 
         $$.parameters({
             moduleName: ko.observable(),
-            componentName: ko.observable()
+            bindingName: ko.observable()
         }, params, this);
 
         $scope.ajaxMessage = service.ajaxMessage;
         $scope.module = service.module;
 
-        $scope.component = ko.pureComputed(function() {
+        $scope.binding = ko.pureComputed(function() {
             if ($scope.module()) {
                 var module = $scope.module();
-                var name = self.componentName();
+                var name = self.bindingName();
 
-                if (module && module.components) {
-                    var components = JSON.parse(module.components);
+                if (module && module.bindings) {
+                    var bindings = JSON.parse(module.bindings);
 
-                    if (components[name]) {
-                        var component = components[name];
-                        return component;
+                    if (bindings[name]) {
+                        var binding = bindings[name];
+                        return binding;
                     }
                 }
             }
@@ -41,12 +41,12 @@ define([
         }
 
         $scope.properties = ko.pureComputed(function() {
-            var component = $scope.component();
+            var binding = $scope.binding();
             var result = new Array();
 
-            if (component && component.properties) {
-                for (var name in component.properties) {
-                    var property = component.properties[name];
+            if (binding && binding.properties) {
+                for (var name in binding.properties) {
+                    var property = binding.properties[name];
 
                     result.push(property);
                 }
@@ -56,12 +56,12 @@ define([
         });
 
         $scope.parameters = ko.pureComputed(function() {
-            var component = $scope.component();
+            var binding = $scope.binding();
             var result = new Array();
 
-            if (component && component.parameters) {
-                for (var name in component.parameters) {
-                    var parameter = component.parameters[name];
+            if (binding && binding.parameters) {
+                for (var name in binding.parameters) {
+                    var parameter = binding.parameters[name];
 
                     result.push(parameter);
                 }
@@ -71,12 +71,12 @@ define([
         });
 
         $scope.methods = ko.pureComputed(function() {
-            var component = $scope.component();
+            var binding = $scope.binding();
             var result = new Array();
 
-            if (component && component.methods) {
-                for (var name in component.methods) {
-                    var method = component.methods[name];
+            if (binding && binding.methods) {
+                for (var name in binding.methods) {
+                    var method = binding.methods[name];
 
                     if (method.params) {
                         for (var name in method.params) {
@@ -98,5 +98,5 @@ define([
         });
     }
 
-    return $$.component(LibraryComponentScreen, template);
+    return $$.component(LibraryBindingScreen, template);
 });

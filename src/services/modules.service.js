@@ -16,7 +16,7 @@ define([
             self.ajaxMessage('Searching...');
 
             var filter = {
-                "name": { "$regex": "[" + search + "]" }
+                "name": { "$regex": "(" + search + "*)" }
             }
 
             $$.ajax(config.urls.api.docs, 'GET', JSON.stringify(filter), {

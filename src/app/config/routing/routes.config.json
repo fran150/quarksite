@@ -157,7 +157,10 @@
     "main/docs/refs-services-context":            "docs/refs/services/context",
     "main/docs/refs-services-servicecontext":     "docs/refs/services/servicecontext",
 
+    "main/library/modules/behaviour":       "lib/module/{id}/behaviour/{behaviour}",
+    "main/library/modules/binding":         "lib/module/{id}/binding/{binding}",
+    "main/library/modules/component":       "lib/module/{id}/component/{component}",
     "main/library/finder":                  "lib/finder",
     "main/library/modules/module":          "lib/module/{id}",
-    "main/library/modules/component":       "lib/module/{id}/{component}"
+    "main/library/modules/service":         "lib/module/{id}/service/{service}"
 }
