@@ -161,6 +161,7 @@
     "main/library/modules/binding":         "lib/module/{id}/binding/{binding}",
     "main/library/modules/component":       "lib/module/{id}/component/{component}",
     "main/library/finder":                  "lib/finder",
+    "main/library/modules/formatter":       "lib/module/{id}/formatter/{formatter}",
     "main/library/modules/module":          "lib/module/{id}",
     "main/library/modules/service":         "lib/module/{id}/service/{service}"
 }

@@ -3,6 +3,7 @@
     "main/library/modules/component":          { "component": "" },
     "main/library/modules/behaviour":          { "behaviour": "" },
     "main/library/modules/binding":            { "binding": "" },
+    "main/library/modules/formatter":          { "formatter": "" },
     "main/library/modules/service":            { "service": "" },
 
     "main/docs/home":                          { "view": "screens/docs/home" },

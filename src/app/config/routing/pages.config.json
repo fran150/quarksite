@@ -24,5 +24,6 @@
     "main/library/modules/behaviour":       { "main": "screens-library-behaviour" },
     "main/library/modules/binding":         { "main": "screens-library-binding" },
     "main/library/modules/component":       { "main": "screens-library-component" },
+    "main/library/modules/formatter":       { "main": "screens-library-formatter" },
     "main/library/modules/service":         { "main": "screens-library-service" }
 }

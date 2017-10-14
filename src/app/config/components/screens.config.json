@@ -23,6 +23,7 @@
             "binding": "screens/library/binding.screen",
             "component": "screens/library/component.screen",
             "finder": "screens/library/finder.screen",
+            "formatter": "screens/library/formatter.screen",
             "module": "screens/library/module.screen",
             "service": "screens/library/service.screen"
         }

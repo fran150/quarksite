@@ -1,0 +1,181 @@
+<quark-component>
+    <div class="docs">
+        <!-- ko if: module -->
+            <small class="pull-right" data-bind="with: module">
+                <strong>Módulo:</strong>
+                <span data-bind="text: name"></span>
+                <br/>
+                <strong>Versión:</strong>
+                <span data-bind="text: version"></span>
+                <br/>
+                <strong>Prefijo:</strong>
+                <span data-bind="text: prefix"></span>
+            </small>
+        <!-- /ko -->
+
+        <h1 data-bind="text: model.formatterName"></h1>
+        <hr />
+
+        <!-- ko if: formatter -->
+            <p data-bind="html: formatter().description">
+            </p>
+        <!-- /ko -->
+
+        <!-- ko if: properties().length > 0 -->
+            <h2>Propiedades</h2>
+            <hr/>
+            <table class="table table-condensed table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Tipo
+                        </th>
+                        <th>
+                            Observable
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: properties">
+                    <tr>
+                        <td>
+                            <code data-bind="text: name"></code>
+                        </td>
+                        <td>
+                            <em data-bind="text: type"></em>
+                        </td>
+                        <td>
+                            <!-- ko if: $data.observable -->
+                            Si
+                            <!-- /ko -->
+                            <!-- ko ifnot: $data.observable -->
+                            No
+                            <!-- /ko -->
+                        </td>
+                        <td data-bind="text: description"></td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- /ko -->
+
+        <!-- ko if: parameters().length > 0 -->
+            <h2>Parámetros</h2>
+            <hr/>
+            <table class="table table-condensed table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Tipo
+                        </th>
+                        <th>
+                            Observable
+                        </th>
+                        <th>
+                            Expuesto
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: parameters">
+                    <tr>
+                        <td>
+                            <code data-bind="text: name"></code>
+                        </td>
+                        <td>
+                            <em data-bind="text: type"></em>
+                        </td>
+                        <td>
+                            <!-- ko if: $data.isObservable -->
+                            Si
+                            <!-- /ko -->
+                            <!-- ko ifnot: $data.isObservable -->
+                            No
+                            <!-- /ko -->
+                        </td>
+                        <td>
+                            <!-- ko if: $data.exposed -->
+                            Si
+                            <!-- /ko -->
+                            <!-- ko ifnot: $data.exposed -->
+                            No
+                            <!-- /ko -->
+                        </td>
+                        <td data-bind="text: description"></td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- /ko -->
+
+        <!-- ko if: methods().length > 0 -->
+            <h2>Métodos</h2>
+            <hr/>
+
+            <div data-bind="foreach: methods">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead" data-bind="text: name"></p>
+
+                        <!-- ko if: $data.signature -->
+                            <code class="lead" data-bind="text: signature"></code>
+                        <!-- /ko -->
+
+                        <h3>Descripción</h3>
+                        <p data-bind="text: description">
+                        </p>
+
+                        <!-- ko if: $data.parameters -->
+                            <!-- ko if: parameters.length > 0 -->
+                                <h3>Parámetros</h3>
+                                <table class="table table-condensed table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Nombre
+                                            </th>
+                                            <th>
+                                                Tipo
+                                            </th>
+                                            <th>
+                                                Descripción
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: parameters">
+                                        <tr>
+                                            <td>
+                                                <code data-bind="text: name"></code>
+                                            </td>
+                                            <td>
+                                                <em data-bind="text: type"></em>
+                                            </td>
+                                            <td data-bind="text: description"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            <!-- /ko -->
+                        <!-- /ko -->
+
+                        <!-- ko if: $data.returns -->
+                            <h3>Devuelve</h3>
+                            <small>
+                                <strong>Tipo</strong>: <code data-bind="text: returns.type"></code>
+                            </small>
+                            <br/>
+                            <p data-bind="text: returns.description"></p>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+    </div>
+</quark-component>

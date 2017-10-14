@@ -46,7 +46,9 @@ define([
                 var behaviours = JSON.parse(module.behaviours);
 
                 for (var name in behaviours) {
-                    result.push(name);
+                    if (name != "dependencies") {
+                        result.push(name);
+                    }
                 }
             }
 
@@ -61,7 +63,9 @@ define([
                 var bindings = JSON.parse(module.bindings);
 
                 for (var name in bindings) {
-                    result.push(name);
+                    if (name != "dependencies") {
+                        result.push(name);
+                    }
                 }
             }
 
@@ -77,6 +81,23 @@ define([
 
                 for (var name in services) {
                     result.push(name);
+                }
+            }
+
+            return result;
+        });
+
+        $scope.formattersNames = ko.pureComputed(function() {
+            var module = $scope.module();
+            var result = new Array();
+
+            if (module && module.formatters) {
+                var formatters = JSON.parse(module.formatters);
+
+                for (var name in formatters) {
+                    if (name != "dependencies") {
+                        result.push(name);
+                    }
                 }
             }
 

@@ -61,6 +61,22 @@
             </al-layout-sidebar-link>
         <!-- /ko -->
 
+        <!-- ko if: formattersNames().length > 0 -->
+            <al-layout-sidebar-link params="text: 'Formatters',
+                                            iconFont: 'fa fa-cubes',
+                                            opened: true">
+                <!-- submenu -->
+                    <!-- ko foreach: formattersNames -->
+                        <al-layout-sidebar-link params="text: $data,
+                                                        pageName: 'main/library/modules/formatter',
+                                                        pageParams: { formatter: $data, id: $parent.module().name },
+                                                        iconFont: 'fa fa-cube'">
+                        </al-layout-sidebar-link>
+                    <!-- /ko -->
+                <!-- /submenu -->
+            </al-layout-sidebar-link>
+        <!-- /ko -->
+
         <!-- ko if: servicesNames().length > 0 -->
             <al-layout-sidebar-link params="text: 'Services',
                                             iconFont: 'fa fa-cubes',
